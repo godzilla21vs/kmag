@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block content %}
+{% if query %}
+    <div>
+        <div>
+        <!-- loop through search query -->
+        {% for post in posts %}
+            <div>
+                <!-- return search query -->
+                <p>{{post.title}}</p>
+            </div>
+        {% endfor %}
+        </div>
+    </div>
+{% else %}
+    <!-- return a message if the user does not enter a search query -->
+    <h1>Entrez une requête de recherche </h1>
+{% endif %}
+
+
+{% endblock content%}

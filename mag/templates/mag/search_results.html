@@ -1,0 +1,42 @@
+{% extends 'mag/base.html' %}
+{% block content %}
+{% comment %} {% if query %}
+    <div>
+        <div>
+        <!-- loop through search query -->
+        {% for post in posts %}
+            <div>
+                <!-- return search query -->
+                <p>{{post.title}}</p>
+            </div>
+        {% endfor %}
+        </div>
+    </div>
+{% else %}
+    <!-- return a message if the user does not enter a search query -->
+    <h1>Entrez un nom d'article </h1>
+{% endif %} {% endcomment %}
+
+<div class="search-results">
+{% if search_results %}
+{% for result in search_results %}
+<!-- Simple card -->
+<div class="card">
+    <img class="card-img-top img-fluid" src="{{ post.thumbnail }}" alt="Card image cap">
+    <div class="card-body">
+        <h3 class="card-title mb-2">{{ result.title }}</h3>
+        <p class="card-text">{{ result.body|truncatechars(40) }}.</p>
+        <div class="text-end">
+            <a href="javascript:void(0);" class="btn btn-primary">Lire</a>
+        </div>
+    </div>
+</div><!-- end card -->
+{% endfor %}
+{% else %}
+<div class="search-results">
+    <div class="card">
+        <p>Aucun résultat correspondant.</p>
+      </div>
+    {% endif %}
+
+{% endblock content%}

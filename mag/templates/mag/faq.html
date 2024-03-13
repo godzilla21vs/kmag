@@ -1,0 +1,151 @@
+{% extends 'mag/base.html' %}
+{% block content %}
+        <!-- *** END OF /. PAGE HEADER SECTION *** -->
+        <!-- *** START PAGE MAIN CONTENT *** -->
+        <main class="page_main_wrapper">
+            <!-- START PAGE HEADER --> 
+            <section class="inner-head bg-img" data-image-src="assets/images/faq-bg.jpg">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <h1 class="entry-title">les questions les plus fréquement posées </h1>
+                            <p class="description">
+                                Une FAQ, ou Foire Aux Questions, est une liste de questions fremment posées par les clients, accompagnées de réponses cl et concises fournies par l'entreprise Elle vise à offrir aux clients une source d'information et autonome répondre à des questions courantes et résoudre des proèmes fréquents sans nécessiter d'interaction directe avec le service client.
+                            </p>
+                            <div class="breadcrumb">
+                                <ul class="clearfix">
+                                    <li class="ib"><a href={% url 'index' %}>Accueil</a></li>
+                                    <li class="ib current-page">FAQ</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- END OF /. PAGE HEADER --> 
+            <section class="faq-inner">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12">
+                            <div class="panel-group" id="accordion" role="tablist">
+                                <div class="panel">
+                                    <div class="panel-heading" role="tab" id="headingOne">
+                                        <h4 class="panel-title">
+                                            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne"  aria-controls="collapseOne">
+                                                Quel est le thème de ce magazine ?
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                                        <div class="panel-body">
+                                            <h4>Quel est le thème de ce magazine ?</h4>
+                                            <p>Ce magazine couvre un large éventail de sujets, notamment l'actualité, la culture, la technologie et le style de vie. Notre objectif est de fournir un contenu informatif et attrayant qui s'adresse à un large public..</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- end of panel -->
+                                <div class="panel">
+                                    <div class="panel-heading" role="tab" id="headingTwo">
+                                        <h4 class="panel-title">
+                                            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-controls="collapseTwo">
+                                                Quelle est la fréquence de publication du magazine ?
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                                        <div class="panel-body">
+                                            <h4>Quelle est la fréquence de publication du magazine ?</h4>
+                                            <p>Le magazine est publié tous les semaines.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- end of panel -->
+                                <div class="panel">
+                                    <div class="panel-heading" role="tab" id="headingThree">
+                                        <h4 class="panel-title">
+                                            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-controls="collapseThree">
+                                                Comment puis-je m'abonner au magazine ?
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                                        <div class="panel-body">
+                                            <h4>Comment puis-je m'abonner au magazine ?</h4>
+                                            <p> Vous pouvez vous abonner au magazine en visitant notre page d'abonnement et en sélectionnant l'option d'abonnement qui vous convient le mieux.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- end of panel -->
+                                <div class="panel">
+                                    <div class="panel-heading" role="tab" id="headingFour">
+                                        <h4 class="panel-title">
+                                            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-controls="collapseFour">
+                                                Je n'arrive pas à accéder au magazine en ligne. Que dois-je faire ?
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour">
+                                        <div class="panel-body">
+                                            <h4>Je n'arrive pas à accéder au magazine en ligne. Que dois-je faire ?</h4>
+                                            <p> Si vous rencontrez des difficultés pour accéder au magazine en ligne, assurez-vous que vous disposez d'une connexion internet stable et que vous utilisez un navigateur web compatible. Si le problème persiste, veuillez nous contacter pour obtenir de l'aide..</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- end of panel -->
+                                <div class="panel">
+                                    <div class="panel-heading" role="tab" id="headingFive">
+                                        <h4 class="panel-title">
+                                            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFive" aria-controls="collapseFive">
+                                                Comment puis-je résilier mon abonnement ?
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapseFive" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFive">
+                                        <div class="panel-body">
+                                            <h4>Comment puis-je résilier mon abonnement ?</h4>
+                                            <p> Vous pouvez annuler votre abonnement en nous contactant à l'aide du formulaire de contact sur notre site web ou en envoyant un courriel à kimi@magazine.com .</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- end of panel -->
+                                <div class="panel">
+                                    <div class="panel-heading" role="tab" id="headingSix">
+                                        <h4 class="panel-title">
+                                            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseSix" aria-controls="collapseSix">
+                                                Comment puis-je soumettre un article au magazine ?
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapseSix" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingSix">
+                                        <div class="panel-body">
+                                            <h4>Comment puis-je soumettre un article au magazine ?</h4>
+                                            <p> Vous pouvez soumettre un article au magazine en visitant notre page de soumission et en suivant les instructions fournies.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- end of panel -->
+                                <div class="panel">
+                                    <div class="panel-heading" role="tab" id="headingSeven">
+                                        <h4 class="panel-title">
+                                            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseSeven" aria-controls="collapseFive">
+                                                Puis-je republier un article du magazine sur mon propre site web ou blog ?
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapseFive" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingSeven">
+                                        <div class="panel-body">
+                                            <h4>Puis-je republier un article du magazine sur mon propre site web ou blog ?</h4>
+                                            <p> Non, vous ne pouvez pas republier un article du magazine sur votre propre site web ou blog sans autorisation. Veuillez nous contacter en utilisant le formulaire de contact sur notre site web ou en envoyant un courriel à kimi@magazine.com pour demander l'autorisation de republier un article.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+        {%endblock content%}
+        <!-- *** END OF /. PAGE MAIN CONTENT *** -->
+        <!-- START FOOTER -->
+        

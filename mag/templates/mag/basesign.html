@@ -1,0 +1,316 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    
+<head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+        <title>Kimi Mag</title>
+        <meta name="author" content="Kimi Sarl">
+        <meta name="description" content="Kimi Magazine ">
+        <!-- Favicon and touch icons -->
+        <link rel="shortcut icon" href="{% static 'images/ico/favicon.png' %}" type="image/x-icon">
+        <link rel="apple-touch-icon" type="image/x-icon" href="{% static 'images/ico/apple-touch-icon-57-precomposed.png'%}">
+        <link rel="apple-touch-icon" type="image/x-icon" sizes="72x72" href="{% static 'images/ico/apple-touch-icon-72-precomposed.png'%}">
+        <link rel="apple-touch-icon" type="image/x-icon" sizes="114x114" href="{% static 'images/ico/apple-touch-icon-114-precomposed.png'%}">
+        <link rel="apple-touch-icon" type="image/x-icon" sizes="144x144" href="{% static 'images/ico/apple-touch-icon-144-precomposed.png'%}">
+
+        <!--Google fonts-->
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&amp;display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700;1,900&amp;display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&amp;display=swap" rel="stylesheet">
+        <!-- jquery ui css -->
+        <link href="{% static 'plugins/jqueryui/jquery-ui.min.css' %}"  rel="stylesheet">
+        <!-- Bootstrap -->
+        <link href="{% static 'plugins/bootstrap/css/bootstrap.min.css'%}"  rel="stylesheet">
+        <!--Animate css-->
+        <link href="{% static 'plugins/animate.css/animate.min.css'%}"  rel="stylesheet">
+        <!-- Navigation css-->
+        <link href="{% static 'plugins/bootsnav/css/bootsnav.min.css'%}"  rel="stylesheet">
+        <!-- youtube css -->
+        <link href="{% static 'css/RYPP.css'%}"  rel="stylesheet">
+        <!-- font awesome -->
+        <link href="{% static 'plugins/fontawesome/css/all.min.css'%}" rel="stylesheet">
+        <!-- themify-icons -->
+        <link href="{% static 'plugins/themify-icons/themify-icons.css'%}" rel="stylesheet">
+        <!-- weather-icons -->
+        <link href="{% static 'plugins/weather-icons/css/weather-icons.min.css'%}" rel="stylesheet">
+        <!-- Important Owl stylesheet -->
+        <link href="{% static 'plugins/OwlCarousel2/css/owl.carousel.min.css'%}" rel="stylesheet">
+        <!-- Default Theme -->
+        <link href="{% static 'plugins/OwlCarousel2/css/owl.theme.default.min.css'%}" rel="stylesheet">
+        <!-- owl transitions -->
+        <!-- style css -->
+        <link href="{% static 'css/style.css'%}" rel="stylesheet">
+        <!--Style selector-->
+        <link href="{% static 'plugins/style-selector/style_selector.css'%}" rel="stylesheet">
+    </head>
+    <body class="home_seven boxed-layout bg-img" data-image-src="{% static 'images/boxed-bg.jpg'%}">
+        <!-- PAGE LOADER -->
+        <div class="se-pre-con"></div>
+        <!-- *** START PAGE HEADER SECTION *** -->
+        <header>
+            <!-- START HEADER TOP SECTION -->
+            <div class="header-top">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xs-12 col-md-6 col-sm-6 col-lg-6">
+                            <!-- Start header social -->
+                            <div class="header-social">
+                                <ul>
+                                    <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                                    <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                                    <li><a href="#"><i class="fab fa-vk"></i></a></li>
+                                    <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+                                    <li class="hidden-xs"><a href="#"><i class="fab fa-youtube"></i></a></li>
+                                    <li class="hidden-xs"><a href="#"><i class="fab fa-vimeo-v"></i></a></li>
+                                </ul>
+                            </div>
+                            <!-- End of /. header social -->
+                            <!-- Start top left menu -->
+                            <!-- End of /. top left menu -->
+                        </div>
+                        <!-- Start header top right menu -->
+                        {% comment %} <div class="hidden-xs col-md-6 col-sm-6 col-lg-6">
+                            <div class="header-right-menu">
+                                <div class="header-top-links">
+                                    <ul>
+                                        {% if request.user.is_authenticated %}
+                                        <li><a href="/signout/">Deconnexion</a> </li>
+                                        {% else %}
+                                        <li><a href="/signin/">Connexion / Enregistrement</a></li>
+                                        {% endif %}
+                                    </ul>
+                                </div>
+                            </div>
+                            </div>
+                        </div> <!-- end of /. header top right menu --> {% endcomment %}
+                    </div> <!-- end of /. row -->
+                </div> <!-- end of /. container -->
+            </div>
+            <!-- END OF /. HEADER TOP SECTION -->
+            <!-- START MIDDLE SECTION -->
+            <div class="header-mid hidden-xs">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="logo">
+                                <a href="index.html"><img src="{% static 'images/logo.png' %}" class="img-responsive" alt=""></a>
+
+                            </div>
+                        </div>
+                        <div class="col-sm-8">
+                            <a href="#"><img src="{% static 'images/add728x90-1.jpg' %}" class="img-responsive" alt=""></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- END OF /. MIDDLE SECTION -->
+            <!-- START NAVIGATION -->
+            <nav class="navbar navbar-default navbar-sticky navbar-mobile bootsnav">
+                <!-- Start Top Search -->
+                <div class="top-search">
+                    <div class="container">
+                        <formclass="d-flex" role="search" method="POST">
+                            {% csrf_token %}
+                            <input
+                                class="form-control me-2"
+                                type="search"
+                                placeholder="Search"
+                                name="search_query"
+                                required aria-label="Search"
+                            >
+                            <buttonclass="btn btn-outline-success"type="submit">Recherchez</button>
+</form>
+                    </div>
+                </div>
+                <!-- End Top Search -->
+                <div class="container">            
+                    <!-- Start Atribute Navigation -->
+                    <div class="attr-nav">
+                        <ul>
+                            <li class="search"><a href="#"><i class="fa fa-search"></i></a></li>
+                        </ul>
+                    </div>
+                    <!-- End Atribute Navigation -->
+                    <!-- Start Header Navigation -->
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <a class="navbar-brand hidden-sm hidden-md hidden-lg" href="#brand"><img src="{% static 'images/logo.png' %}" class="logo" alt=""></a>
+                    </div>
+                    <!-- End Header Navigation -->
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse" id="navbar-menu">
+                        <ul class="nav navbar-nav navbar-left" data-in="" data-out="">
+                            <li class="dropdown active">
+                                <a href="{% url 'index' %}" class="dropdown-toggle" data-toggle="dropdown" >Accueil</a>
+                            </li>
+                            <li class="dropdown megamenu-fw">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Something</a>
+                                <ul class="dropdown-menu megamenu-content" role="menu">
+                                    
+                            </li>
+                            <li class="dropdown">
+                                <a href="" class="dropdown-toggle" data-toggle="dropdown" >Catégories</a>
+                                <ul class="dropdown-menu">
+                                    <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" >Category layout</a>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="{% url 'category_post' %}.">Category Post</a></li>
+                                            <li><a href="{% url 'category_news' %}">Category News</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li><a href="/about/">À propos</a></li>
+                            <li><a href="/contact/"> Nous contacter</a></li>
+                            <li><a href="/FAQ/">F.A.Q</a></li>
+                        </ul>
+                    </div><!-- /.navbar-collapse -->
+                </div>
+            </nav>
+            <!-- END OF/. NAVIGATION -->
+        </header>
+        {%block content %}
+
+        {%endblock content%}
+    <footer>
+        <div class="container">
+            <div class="row">
+                <!-- START FOOTER BOX (About) -->
+                <div class="col-sm-3 footer-box">
+                    <div class="about-inner">
+                        <img src="{% static 'images/logo-white.png'%}" class="img-responsive" alt=""/>
+                        <p>KIMI Sarl, une entreprise fondée en 2022,
+                            aspire à être un leader dans le
+                            domaine des services informatiques. </p>
+                        <ul>
+                            <li><i class="ti-location-arrow"></i>Petit Marché Odza, Yaoundé, Cameroun .</li>
+                            <li><i class="ti-mobile"></i>+237 694 199 971 , 691 709 344, 696 401 175 </li>
+                            <li><i class="ti-email"></i>kimisarlcontact@gmail.com</li>
+                        </ul>
+                    </div>
+                </div>
+                <!--  END OF /. FOOTER BOX (About) -->
+                <!-- START FOOTER BOX (Twitter feeds) -->
+                <div class="col-xl-4 col-lg-3 col-md-6 col-sm-6">
+                    <div class="footer-item clearfix">
+                        <div class="submitNewsletter">
+                            <h4>Newsletter</h4>
+                            <div class="Subscribe-box">
+                                <p> Souscrire Maintenant. Nous nous assurerons que vous ne manquez rien </p>
+                                <form action="#" method="GET">
+                                    <input type="text" class="form-contact" name="email" placeholder="Entrez votre Addresse">
+                                    <button type="submit" name="submitNewsletter" class="btn btn-color">
+                                        <i class="fa fa-paper-plane"></i>
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- END OF /. FOOTER BOX (Twitter feeds) -->
+                <!-- START FOOTER BOX (Category) -->
+                <div class="col-sm-2 footer-box">
+                    <h3 class="wiget-title">Nous offres et services</h3>
+                    <ul class="menu-services">
+                        <li><a href="#">Services Informatiques</a></li>
+                        <li><a href="#">Services de Conception Graphique</a></li>
+                        <li><a href="#">Services de Communication</a></li>
+                        <li><a href="#">Service de Construction</a></li>
+                        <li><a href="#">Service Électrique</a></li>
+                        <li><a href="#">Service Sécuritaire</a></li>
+                        <li><a href="#">Solutions Informatiques</a></li>
+
+                    </ul>
+                </div>
+                <!-- END OF /. FOOTER BOX (Category) -->
+                <!-- START FOOTER BOX (Recent Post) -->
+                {% comment %} <div class="col-sm-4 footer-box">
+                    <h3 class="wiget-title">Recent Post</h3>
+                    <div class="footer-news-grid">
+                        <div class="news-list-item">
+                            <div class="img-wrapper">
+                                <a href="#" class="thumb">
+                                    <img src="{% static 'images/115x85-1.jpg'%}" alt="" class="img-responsive">
+                                    <div class="link-icon">
+                                        <i class="fa fa-camera"></i>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="post-info-2">
+                                <h5><a href="#" class="title">Cooking Recipes Anytime And Anywhere</a></h5>
+                                <ul class="authar-info">
+                                    <li><i class="ti-timer"></i> May 15, 2016</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="news-list-item">
+                            <div class="img-wrapper">
+                                <a href="#" class="thumb">
+                                    <img src="{% static 'images/115x85-2.jpg'%}" alt="" class="img-responsive">
+                                    <div class="link-icon">
+                                        <i class="fa fa-camera"></i>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="post-info-2">
+                                <h5><a href="#" class="title">Cooking Recipes Anytime And Anywhere</a></h5>
+                                <ul class="authar-info">
+                                    <li><i class="ti-timer"></i> May 15, 2016</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div> {% endcomment %}
+                <!-- END OF /. FOOTER BOX (Recent Post) -->
+            </div>
+        </div>
+    </footer>
+    <!-- *** END OF /. FOOTER *** -->
+    <!-- *** START SUB FOOTER *** -->
+    <div class="sub-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-sm-5 col-md-5">
+                    <div class="copy">Copyright@2024 KIMI sarl.</div>
+                </div>
+                <div class="col-xs-12 col-sm-7 col-md-7">
+                    <ul class="footer-nav">
+                        <li><a href="#">Contact US</a></li>
+                        <li><a href="#">About US</a></li>
+                        <li><a href="#">F.A.Q</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+       <!-- *** END OF /. PAGE HEADER SECTION *** -->
+
+
+    <!-- *** END OF /. SUB FOOTER *** -->
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="{% static 'plugins/jquery/jquery.js'%}"></script>
+    <!-- jquery ui js -->
+    <script src="{% static 'plugins/jqueryui/jquery-ui.min.js'%}"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="{% static 'plugins/bootstrap/js/bootstrap.min.js'%}"></script>
+    <!-- Bootsnav js -->
+    <script src="{% static 'plugins/bootsnav/js/bootsnav.min.js'%}"></script>
+    <!-- theia sticky sidebar -->
+    <script src="{% static 'plugins/theia-sticky-sidebar/ResizeSensor.min.js'%}"></script>
+    <script src="{% static 'plugins/theia-sticky-sidebar/theia-sticky-sidebar.min.js'%}"></script>
+    <!-- youtube js -->
+    <script src="{% static 'plugins/youtube-player/js/RYPP.js'%}"></script>
+    <!-- owl include js plugin -->
+    <script src="{% static 'plugins/OwlCarousel2/owl.carousel.min.js'%}"></script>
+    <!-- skycons plugin -->
+    <script src="{% static 'plugins/skycons/skycons.js'%}"></script>
+    <!-- custom js -->
+    <script src="{% static 'js/custom.js'%}"></script>
+    <!--Style selector-->
+    <script src="{% static 'plugins/style-selector/style_selector.js'%}"></script>
