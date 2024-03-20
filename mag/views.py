@@ -31,7 +31,10 @@ class indexView(View):
             'popular_posts': popular_posts,
             'featured_posts': featured_posts,
         }
-        return render(request, 'mag/index.html', context)
+        if not context:
+            return render(request, 'mag/post_template.html', context)
+        else:
+            return render(request, 'mag/index.html', context)
 
 #         Finally, you can display the most liked posts in your index.html template using the following code:
 
@@ -156,6 +159,9 @@ def post_detail(request, pk):
 def news_detail(request, pk):
     post = get_object_or_404(News, pk=pk)
     return render(request, 'mag/news_details.html')
+
+def terms_of_use(request):
+        return render(request, 'mag/terms_of_use.html',)
 
 @login_required
 def search_feature(request):

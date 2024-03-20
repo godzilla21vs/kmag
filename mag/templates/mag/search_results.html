@@ -22,7 +22,7 @@
 {% for result in search_results %}
 <!-- Simple card -->
 <div class="card">
-    <img class="card-img-top img-fluid" src="{{ post.thumbnail }}" alt="Card image cap">
+    <img class="card-img-top img-fluid" src="{{ result.thumbnail }}" alt="Card image cap">
     <div class="card-body">
         <h3 class="card-title mb-2">{{ result.title }}</h3>
         <p class="card-text">{{ result.body|truncatechars(40) }}.</p>
@@ -35,7 +35,7 @@
 {% else %}
 <div class="search-results">
     <div class="card">
-        <p>Aucun résultat correspondant.</p>
+        <p>Désolé, Aucun résultat correspondant.</p>
       </div>
     {% endif %}
 

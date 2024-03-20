@@ -23,6 +23,7 @@
             <!-- START POST BLOCK SECTION -->
             <section class="slider-inner">
                 <div class="container">
+                {% if featured_posts: %}
                     <div class="row thm-margin">
                         <div class="col-xs-12 col-sm-6 col-md-6 thm-padding">
                             <div class="slider-wrapper">
@@ -45,86 +46,6 @@
                                             </div>
                                             
                                         </div>
-                                    <!-- Slider item one -->
-                                    {% comment %} <div class="item">
-                                        <div class="slider-post post-height-1">
-                                            <a href="#" class="news-image"><img src="{% static '="{% static '/images/slider-520x460-1.jpg' %}" alt="" class="img-responsive"></a>
-                                            <div class="post-text">
-                                                <span class="post-category">Business</span>
-                                                <h2><a href="#">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has </a></h2>
-                                                <ul class="authar-info">
-                                                    <li class="authar"><a href="#">by david hall</a></li>
-                                                    <li class="date">May 29,2016</li>
-                                                    <li class="view"><a href="#">25 views</a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- /.Slider item one -->
-                                    <!-- Slider item two -->
-                                    <div class="item">
-                                        <div class="slider-post post-height-1">
-                                            <a href="#" class="news-image"><img src="{% static 'images/slider-520x460-2.jpg' %}" alt="" class="img-responsive"></a>
-                                            <div class="post-text">
-                                                <span class="post-category">Politics</span>
-                                                <h2><a href="#">It is a long established fact that a reader will be distracted by the readable content of a page.</a></h2>
-                                                <ul class="authar-info">
-                                                    <li class="authar"><a href="#">by david hall</a></li>
-                                                    <li class="date">May 29,2016</li>
-                                                    <li class="view"><a href="#">25 views</a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- /.Slider item two -->
-                                    <!-- Slider item three -->
-                                    <div class="item">
-                                        <div class="slider-post post-height-1">
-                                            <a href="#" class="news-image"><img src="{% static 'images/slider-520x460-3.jpg' %}" alt="" class="img-responsive"></a>
-                                            <div class="post-text">
-                                                <span class="post-category">Photography</span>
-                                                <h2><a href="#">Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece</a></h2>
-                                                <ul class="authar-info">
-                                                    <li class="authar"><a href="#">by david hall</a></li>
-                                                    <li class="date">May 29,2016</li>
-                                                    <li class="view"><a href="#">25 views</a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- /.Slider item three -->
-                                    <!-- Slider item four -->
-                                    <div class="item">
-                                        <div class="slider-post post-height-1">
-                                            <a href="#" class="news-image"><img src="{% static 'images/slider-520x460-4.jpg' %}" alt="" class="img-responsive"></a>
-                                            <div class="post-text">
-                                                <span class="post-category">Travel</span>
-                                                <h2><a href="#">There are many variations of passages of Lorem Ipsum available, but the majority.</a></h2>
-                                                <ul class="authar-info">
-                                                    <li class="authar"><a href="#">by david hall</a></li>
-                                                    <li class="date">May 29,2016</li>
-                                                    <li class="view"><a href="#">25 views</a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- /.Slider item four -->
-                                    <!-- Slider item five -->
-                                    <div class="item">
-                                        <div class="slider-post post-height-1">
-                                            <a href="#" class="news-image"><img src="{% static 'images/slider-520x460-5.jpg' %}" alt="" class="img-responsive"></a>
-                                            <div class="post-text">
-                                                <span class="post-category">Business</span>
-                                                <h2><a href="#">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard </a></h2>
-                                                <ul class="authar-info">
-                                                    <li class="authar"><a href="#">by david hall</a></li>
-                                                    <li class="date">May 29,2016</li>
-                                                    <li class="view"><a href="#">25 views</a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div> {% endcomment %}
-                                    <!-- /.Slider item five -->
                                 </div>
                             </div>
                         </div>
@@ -145,7 +66,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                {% with featured_posts[1] as post %}
+                                {% with featured_posts[2] as post %}
                                 <div class="col-xs-6 col-sm-6 col-md-6 thm-padding">
                                     <div class="slider-post post-height-2">
                                         <a href="{% url 'post_details' pk=post.pk %}" class="news-image"><img src="{{ post.main_image }}" alt="" class="img-responsive"></a>
@@ -160,7 +81,7 @@
                                     </div>
                                 </div>
                                 {% endwith%}
-                                {% with featured_posts[2] as post %}
+                                {% with featured_posts[3] as post %}
                                 <div class="col-xs-6 col-sm-6 col-md-6 thm-padding">
                                     <div class="slider-post post-height-3">
                                         <a href="{% url 'post_details' pk=post.pk %}" class="news-image"><img src="{{ post.thumbnail }}" alt="" class="img-responsive"></a>
@@ -178,6 +99,62 @@
                             </div>
                         </div>
                     </div>
+                {% else: %}
+                    <div class="row thm-margin">
+                        <div class="col-xs-12 col-sm-6 col-md-6 thm-padding">
+                            <div class="slider-wrapper">
+                                <div id="owl-slider" class="owl-carousel owl-theme">
+                                    <!-- Slider item one -->
+                                    <div class="item">
+                                        <div class="slider-post post-height-1">
+                                            <a href="#" class="news-image"><img src="assets/images/slider-520x460-7.jpg" alt="" class="img-responsive"></a>
+                                            <div class="post-text">
+                                                <span class="post-category">Business</span>
+                                                <h2><a href="#">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has </a></h2>
+                                                <ul class="authar-info">
+                                                    <li class="authar"><a href="#">by david hall</a></li>
+                                                    <li class="date">May 29,2016</li>
+                                                    <li class="view"><a href="#">25 views</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- /.Slider item one -->
+                                    <div class="col-xs-12 col-sm-6 col-md-6 thm-padding">
+                                        <div class="row slider-right-post thm-margin">
+                                            <div class="col-xs-6 col-sm-6 col-md-6 thm-padding">
+                                                <div class="slider-post post-height-3">
+                                                    <a href="#" class="news-image"><img src="assets/images/slider-260x460-1.jpg" alt=""></a>
+                                                    <div class="post-text">
+                                                        <span class="post-category">Technology</span>
+                                                        <h4><a href="#">Lorem Ipsum is simply dummy text of the printing</a></h4>
+                                                        <ul class="authar-info">
+                                                            <li class="authar hidden-xs hidden-sm"><a href="#">by david hall</a></li>
+                                                            <li class="hidden-xs">May 29,2017</li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-6 col-sm-6 col-md-6 thm-padding">
+                                                <div class="slider-post post-height-3">
+                                                    <a href="#" class="news-image"><img src="assets/images/slider-260x460-2.jpg" alt=""></a>
+                                                    <div class="post-text">
+                                                        <span class="post-category">Travel</span>
+                                                        <h4><a href="#">Lorem Ipsum is simply dummy text of the printing</a></h4>
+                                                        <ul class="authar-info">
+                                                            <li class="authar hidden-xs hidden-sm"><a href="#">by david hall</a></li>
+                                                            <li class="hidden-xs">May 29,2017</li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
                 </div>
             </section>
             <!-- END OF /. POST BLOCK SECTION -->
@@ -200,6 +177,7 @@
                                         <!-- item one -->
                                         <div class="item">
                                             <div class="row">
+                                                {% if popular_posts :%}
                                                 <div class="col-sm-6 main-post-inner bord-right">
                                                     {% with popular_posts[0] as post %}
                                                     <article>
@@ -450,16 +428,16 @@
                                                     {% with popular_news[0] as news %}
                                                     <article>
                                                         <figure>
-                                                            <a href="{% url 'post_details' pk=post.pk %}"><img src="{{ post.thumbnail }}" height="242" width="345" alt="" class="img-responsive"></a>
-                                                            <span class="post-category">{{ post.Category.name }}</span>
+                                                            <a href="{% url 'news_details' pk=news.pk %}"><img src="{{ news.thumbnail }}" height="242" width="345" alt="" class="img-responsive"></a>
+                                                            <span class="post-category">{{ news.Category.name }}</span>
                                                         </figure>
                                                         <div class="post-info">
-                                                            <h3><a href="{% url 'post_details' pk=post.pk %}">{{post.title}}</a></h3>
+                                                            <h3><a href="{% url 'news_details' pk=news.pk %}">{{news.title}}</a></h3>
                                                             <ul class="authar-info">
-                                                                <li><i class="ti-timer"></i> {{post.pub_date}}</li>
-                                                                <li class="like"><a href="#"><i class="ti-thumb-up"></i>{{ post.likes }} likes</a></li>
+                                                                <li><i class="ti-timer"></i> {{news.pub_date}}</li>
+                                                                <li class="like"><a href="#"><i class="ti-thumb-up"></i>{{ news.likes }} likes</a></li>
                                                             </ul>
-                                                            <p class="p">{{post.body|truncatechars(50)}}</p>
+                                                            <p class="p">{{news.body|truncatechars(50)}}</p>
                                                         </div>
                                                     </article>
                                                     {% endwith%}
@@ -471,15 +449,15 @@
                                                     {% with popular_news[1] as news %}
                                                                 <div class="grid-item">
                                                                     <div class="grid-item-img">
-                                                                        <a href="{% url 'post_details' pk=post.pk %}">
-                                                                            <img src="{{ post.thumbnail }}" class="img-responsive" alt="">
+                                                                        <a href="{% url 'news_details' pk=news.pk %}">
+                                                                            <img src="{{ news.thumbnail }}" class="img-responsive" alt="">
                                                                             <div class="link-icon"><i class="fa fa-play"></i></div>
                                                                         </a>
                                                                     </div>
-                                                                    <h5><a href="{% url 'post_details' pk=post.pk %}" class="title">{{post.title}}</a></h5>
+                                                                    <h5><a href="{% url 'news_details' pk=news.pk %}" class="title">{{news.title}}</a></h5>
                                                                     <ul class="authar-info">
-                                                                        <li>{{post.pub_date}}</li>
-                                                                        <li class="like hidden-sm"><a href="#">{{ post.likes }} likes</a></li>
+                                                                        <li>{{news.pub_date}}</li>
+                                                                        <li class="like hidden-sm"><a href="#">{{ news.likes }} likes</a></li>
                                                                     </ul>
                                                                 </div>
                                                         {% endwith%}
@@ -488,15 +466,15 @@
                                                         {% with popular_news[2] as news %}
                                                         <div class="grid-item">
                                                             <div class="grid-item-img">
-                                                                <a href="{% url 'post_details' pk=post.pk %}">
-                                                                    <img src="{{ post.thumbnail }}" class="img-responsive" alt="">
+                                                                <a href="{% url 'news_details' pk=news.pk %}">
+                                                                    <img src="{{ news.thumbnail }}" class="img-responsive" alt="">
                                                                     <div class="link-icon"><i class="fa fa-camera"></i></div>
                                                                 </a>
                                                             </div>
-                                                            <h5><a href="{% url 'post_details' pk=post.pk %}" class="title">{{post.title}}</a></h5>
+                                                            <h5><a href="{% url 'news_details' pk=news.pk %}" class="title">{{news.title}}</a></h5>
                                                             <ul class="authar-info">
-                                                                <li>{{post.pub_date}}</li>
-                                                                <li class="like hidden-sm"><a href="#">{{ post.likes }} likes</a></li>
+                                                                <li>{{news.pub_date}}</li>
+                                                                <li class="like hidden-sm"><a href="#">{{ news.likes }} likes</a></li>
                                                             </ul>
                                                         </div>
                                                         {% endwith%}
@@ -505,15 +483,15 @@
                                                         {% with popular_news[3] as news %}
                                                         <div class="grid-item">
                                                             <div class="grid-item-img">
-                                                                <a href="{% url 'post_details' pk=post.pk %}">
-                                                                    <img src="{{ post.thumbnail }}" class="img-responsive" alt="">
+                                                                <a href="{% url 'news_details' pk=news.pk %}">
+                                                                    <img src="{{ news.thumbnail }}" class="img-responsive" alt="">
                                                                     <div class="link-icon"><i class="fa fa-play"></i></div>
                                                                 </a>
                                                             </div>
-                                                            <h5><a href="{% url 'post_details' pk=post.pk %}" class="title">{{post.title}}</a></h5>
+                                                            <h5><a href="{% url 'news_details' pk=news.pk %}" class="title">{{news.title}}</a></h5>
                                                             <ul class="authar-info">
-                                                                <li>{{post.pub_date}}</li>
-                                                                <li class="like hidden-sm"><a href="#">{{ post.likes }} likes</a></li>
+                                                                <li>{{news.pub_date}}</li>
+                                                                <li class="like hidden-sm"><a href="#">{{ news.likes }} likes</a></li>
                                                             </ul>
                                                         </div>
                                                         {% endwith%}
@@ -522,15 +500,15 @@
                                                         {% with popular_news[4] as news %}
                                                         <div class="grid-item">
                                                             <div class="grid-item-img">
-                                                                <a href="{% url 'post_details' pk=post.pk %}">
-                                                                    <img src="{{ post.thumbnail }}" class="img-responsive" alt="">
+                                                                <a href="{% url 'news_details' pk=news.pk %}">
+                                                                    <img src="{{ news.thumbnail }}" class="img-responsive" alt="">
                                                                     <div class="link-icon"><i class="fa fa-camera"></i></div>
                                                                 </a>
                                                             </div>
-                                                            <h5><a href="{% url 'post_details' pk=post.pk %}" class="title">{{post.title}}</a></h5>
+                                                            <h5><a href="{% url 'news_details' pk=news.pk %}" class="title">{{news.title}}</a></h5>
                                                             <ul class="authar-info">
-                                                                <li>{{post.pub_date}}</li>
-                                                                <li class="like hidden-sm"><a href="#">{{ post.likes }} likes</a></li>
+                                                                <li>{{news.pub_date}}</li>
+                                                                <li class="like hidden-sm"><a href="#">{{ news.likes }} likes</a></li>
                                                             </ul>
                                                         </div>
                                                                 {% endwith%}
@@ -1307,18 +1285,18 @@
                                     </div>
                                     <div class="panel_body">
                                         <ul class="category-list">
-                                            <li><a href="#">Business <span>0</span></a></li>
-                                            <li><a href="#">Sport <span>0</span></a></li>
-                                            <li><a href="#">LifeStyle <span>0</span></a></li>
-                                            <li><a href="#">Fashion <span>0</span></a></li>
-                                            <li><a href="#">Technologie <span>0</span></a></li>
-                                            <li><a href="#">Musique <span>0</span></a></li>
-                                            <li><a href="#">Culture <span>0</span></a></li>
-                                            <li><a href="#">Design <span>0</span></a></li>
-                                            <li><a href="#">Divertissement <span>0</span></a></li>
-                                            <li><a href="#">video <span>0</span></a></li>
-                                            <li><a href="#">Voyage <span>0</span></a></li>
-                                            <li><a href="#">Food <span>0</span></a></li>
+                                            <li><a href="#">Business <span>count_posts_in_category(Business)</span></a></li>
+                                            <li><a href="#">Sport <span>count_posts_in_category(Sport)</span></a></li>
+                                            <li><a href="#">LifeStyle <span>count_posts_in_category(LifeStyle)</span></a></li>
+                                            <li><a href="#">Fashion <span>count_posts_in_category(Fashion)</span></a></li>
+                                            <li><a href="#">Technologie <span>count_posts_in_category(Technologie)</span></a></li>
+                                            <li><a href="#">Musique <span>count_posts_in_category(Musique)</span></a></li>
+                                            <li><a href="#">Culture <span>count_posts_in_category()</span></a></li>
+                                            <li><a href="#">Design <span>count_posts_in_category(Design)</span></a></li>
+                                            <li><a href="#">Divertissement <span>count_posts_in_category(Divertissement)</span></a></li>
+                                            <li><a href="#">video <span>count_posts_in_category(video)</span></a></li>
+                                            <li><a href="#">Voyage <span>count_posts_in_category(Voyage)</span></a></li>
+                                            <li><a href="#">Food <span>count_posts_in_category(Food)</span></a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -1342,8 +1320,8 @@
                                         <form method="get" id="home_poll">
                                             <h6>Avez vous des suggestions</h6>
                                             <ul>
-                                                <li><input id="poll_5444" value="5444" name="poll" type="radio"><label for="poll_5444">Yes.</label></li>
-                                                <li><input id="poll_5445" value="5445" name="poll" type="radio"><label for="poll_5445">No.</label></li>
+                                                <li><input id="poll_5444" value="5444" name="poll" type="radio"><label for="poll_5444"> Oui.</label></li>
+                                                <li><input id="poll_5445" value="5445" name="poll" type="radio"><label for="poll_5445">Non.</label></li>
                                             </ul>
                                             <a href="#" class="btn btn-news">Envoyer</a>
                                         </form>

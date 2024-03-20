@@ -19,6 +19,10 @@ class PostForm(forms.ModelForm):
     class Meta:
         model = Post
         fields = ['title', 'slug', 'body', 'Category', 'Author', 'main_image', 'thumbnail']
+
+        def __init__(self, *args, **kwargs):
+            super(PostForm, self).__init__(*args, **kwargs)
+            self.fields['Category'].queryset = Category.objects.all()
         # widgets = {
         #     'title': forms.TextInput(attrs={'class': 'form-control'}),
         #     'slug': forms.TextInput(attrs={'class': 'form-control'}),
@@ -35,29 +39,29 @@ class NewsForm(forms.ModelForm):
         fields = ['title', 'slug', 'body', 'Category', 'main_image', 'thumbnail']
 
 
-# class CategoryForm(forms.ModelForm):
-#     class Meta:
-#         model = Category
-#         fields = ['name', 'slug']
+class CategoryForm(forms.ModelForm):
+    class Meta:
+        model = Category
+        fields = ['name', 'slug']
 #         widgets = {
 #             'name': forms.CharField(attrs={'class': 'form-control'}),
 #             'slug': forms.TextInput(attrs={'class': 'form-control'})
 
 #         }
 
-# class AuthorForm(forms.ModelForm):
-#     class Meta:
-#         model = Author
-#         fields = ['name', 'email']
+class AuthorForm(forms.ModelForm):
+    class Meta:
+        model = Author
+        fields = ['name', 'email']
 #         widgets = {
 #             'name': forms.TextInput(attrs={'class': 'form-control'}),
 #             'email': forms.EmailField(attrs={'class': 'form-control'})
 #         }
 
-# class SubscriberForm(forms.ModelForm):
-#     class Meta:
-#         model = Subscriber
-#         fields = ('email',)
+class SubscriberForm(forms.ModelForm):
+    class Meta:
+        model = Subscriber
+        fields = ('email',)
 #         widgets = {
 #             'email': forms.EmailField(attrs={'class': 'form-control'}),
 #         }

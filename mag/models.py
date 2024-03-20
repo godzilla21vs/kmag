@@ -30,6 +30,9 @@ class Category(models.Model):
 
     def __str__(self):
         return self.name
+
+    def count_posts_in_category(category):
+        return category.post_set.count()
     
 class Tags(models.Model):
     id = models.AutoField(primary_key=True)
