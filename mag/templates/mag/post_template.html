@@ -1,3 +1,5 @@
+{% extends 'mag/base.html' %}
+{% block content %}
 <main class="page_main_wrapper">
             <!-- START NEWSTRICKER -->
             <div class="container">
@@ -57,52 +59,13 @@
                                     </div>
                                     <!-- /.Slider item two -->
                                     <!-- Slider item three -->
-                                    <div class="item">
-                                        <div class="slider-post post-height-1">
-                                            <a href="#" class="news-image"><img src="assets/images/slider-520x460-3.jpg" alt="" class="img-responsive"></a>
-                                            <div class="post-text">
-                                                <span class="post-category">Photography</span>
-                                                <h2><a href="#">Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece</a></h2>
-                                                <ul class="authar-info">
-                                                    <li class="authar"><a href="#">by david hall</a></li>
-                                                    <li class="date">May 29,2016</li>
-                                                    <li class="view"><a href="#">25 views</a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    
                                     <!-- /.Slider item three -->
                                     <!-- Slider item four -->
-                                    <div class="item">
-                                        <div class="slider-post post-height-1">
-                                            <a href="#" class="news-image"><img src="assets/images/slider-520x460-4.jpg" alt="" class="img-responsive"></a>
-                                            <div class="post-text">
-                                                <span class="post-category">Travel</span>
-                                                <h2><a href="#">There are many variations of passages of Lorem Ipsum available, but the majority.</a></h2>
-                                                <ul class="authar-info">
-                                                    <li class="authar"><a href="#">by david hall</a></li>
-                                                    <li class="date">May 29,2016</li>
-                                                    <li class="view"><a href="#">25 views</a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    
                                     <!-- /.Slider item four -->
                                     <!-- Slider item five -->
-                                    <div class="item">
-                                        <div class="slider-post post-height-1">
-                                            <a href="#" class="news-image"><img src="assets/images/slider-520x460-5.jpg" alt="" class="img-responsive"></a>
-                                            <div class="post-text">
-                                                <span class="post-category">Business</span>
-                                                <h2><a href="#">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard </a></h2>
-                                                <ul class="authar-info">
-                                                    <li class="authar"><a href="#">by david hall</a></li>
-                                                    <li class="date">May 29,2016</li>
-                                                    <li class="view"><a href="#">25 views</a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    
                                     <!-- /.Slider item five -->
                                 </div>
                             </div>
@@ -622,20 +585,7 @@
                                         <span class="weather-unit">C</span>
                                     </div>
                                     <div class="weather-icon-2">
-                                        <!-- *** Start All animated skycons canvas *** -->
-                                        <!--<canvas id="clear-day" width="70" height="70"></canvas>-->
-                                        <!--<canvas id="clear-night" width="70" height="70"></canvas>-->
-                                        <!--<canvas id="partly-cloudy-day" width="70" height="70"></canvas>-->
-                                        <!--<canvas id="partly-cloudy-night" width="70" height="70"></canvas>-->
-                                        <!--<canvas id="cloudy" width="70" height="70"></canvas>-->
-                                        <!--<canvas id="rain" width="70" height="70"></canvas>-->
                                         <canvas id="sleet" width="70" height="70"></canvas>
-                                        <!--<canvas id="snow" width="70" height="70"></canvas>-->
-                                        <!--<canvas id="wind" width="64" height="70"></canvas>-->
-                                        <!--<canvas id="fog" width="70" height="70"></canvas>-->
-                                        <!-- *** End All animated skycons canvas *** -->
-                                        <!-- Normal weather icon -->
-                                        <!--<i class="wi wi-day-lightning"></i>-->
                                     </div>
                                 </div>
                                 <div class="weather-info">
@@ -1362,7 +1312,6 @@
                                     <div class="post-footer"> 
                                         <div class="row thm-margin">
                                             <div class="col-xs-12 col-sm-8 col-md-9 thm-padding">
-                                                <!-- pagination -->
                                                 <ul class="pagination">
                                                     <li class="disabled"><span class="ti-angle-left"></span></li>
                                                     <li class="active"><span>1</span></li>
@@ -1448,3 +1397,4 @@
                 </div>
             </section>
         </main>
+{% endblock content%}

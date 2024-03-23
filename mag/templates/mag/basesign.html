@@ -62,7 +62,6 @@
                                 <ul>
                                     <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
                                     <li><a href="#"><i class="fab fa-twitter"></i></a></li>
-                                    <li><a href="#"><i class="fab fa-vk"></i></a></li>
                                     <li><a href="#"><i class="fab fa-instagram"></i></a></li>
                                     <li class="hidden-xs"><a href="#"><i class="fab fa-youtube"></i></a></li>
                                     <li class="hidden-xs"><a href="#"><i class="fab fa-vimeo-v"></i></a></li>
@@ -73,20 +72,20 @@
                             <!-- End of /. top left menu -->
                         </div>
                         <!-- Start header top right menu -->
-                        {% comment %} <div class="hidden-xs col-md-6 col-sm-6 col-lg-6">
+                        <div class="hidden-xs col-md-6 col-sm-6 col-lg-6">
                             <div class="header-right-menu">
                                 <div class="header-top-links">
-                                    <ul>
+                                    <ul >
                                         {% if request.user.is_authenticated %}
-                                        <li><a href="/signout/">Deconnexion</a> </li>
+                                        <li><a  href="/signout/" style="color: white">Deconnexion</a> </li>
                                         {% else %}
-                                        <li><a href="/signin/">Connexion / Enregistrement</a></li>
+                                        <li><a href="/signin/" style="color: white">Connexion / Enregistrement</a></li>
                                         {% endif %}
                                     </ul>
                                 </div>
                             </div>
                             </div>
-                        </div> <!-- end of /. header top right menu --> {% endcomment %}
+                        </div> <!-- end of /. header top right menu -->
                     </div> <!-- end of /. row -->
                 </div> <!-- end of /. container -->
             </div>
@@ -113,17 +112,18 @@
                 <!-- Start Top Search -->
                 <div class="top-search">
                     <div class="container">
-                        <formclass="d-flex" role="search" method="POST">
+                        <form class="d-flex" role="search" method="POST">
                             {% csrf_token %}
                             <input
-                                class="form-control me-2"
+                                {% comment %} class="fa fa-search"
+                                class="form-control me-2" {% endcomment %}
                                 type="search"
-                                placeholder="Search"
+                                placeholder="Recherchez un article"
                                 name="search_query"
                                 required aria-label="Search"
                             >
-                            <buttonclass="btn btn-outline-success"type="submit">Recherchez</button>
-</form>
+                            <button class="btn btn-outline-success"type="submit">Recherchez</button>
+                        </form>
                     </div>
                 </div>
                 <!-- End Top Search -->
@@ -147,12 +147,12 @@
                     <div class="collapse navbar-collapse" id="navbar-menu">
                         <ul class="nav navbar-nav navbar-left" data-in="" data-out="">
                             <li class="dropdown active">
-                                <a href="{% url 'index' %}" class="dropdown-toggle" data-toggle="dropdown" >Accueil</a>
+                                <a href="{% url 'index' %}"  >Accueil</a>
                             </li>
                             <li class="dropdown megamenu-fw">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Something</a>
                                 <ul class="dropdown-menu megamenu-content" role="menu">
-                                    
+                                </ul>
                             </li>
                             <li class="dropdown">
                                 <a href="" class="dropdown-toggle" data-toggle="dropdown" >Catégories</a>
@@ -200,7 +200,7 @@
                 <div class="col-xl-4 col-lg-3 col-md-6 col-sm-6">
                     <div class="footer-item clearfix">
                         <div class="submitNewsletter">
-                            <h4>Newsletter</h4>
+                            <h4  style="color: white">Newsletter</h4>
                             <div class="Subscribe-box">
                                 <p> Souscrire Maintenant. Nous nous assurerons que vous ne manquez rien </p>
                                 <form action="#" method="GET">
@@ -215,7 +215,7 @@
                 </div>
                 <!-- END OF /. FOOTER BOX (Twitter feeds) -->
                 <!-- START FOOTER BOX (Category) -->
-                <div class="col-sm-2 footer-box">
+                <div class="col-xl-4 col-lg-3 col-md-6 col-sm-6">
                     <h3 class="wiget-title">Nous offres et services</h3>
                     <ul class="menu-services">
                         <li><a href="#">Services Informatiques</a></li>
@@ -230,43 +230,20 @@
                 </div>
                 <!-- END OF /. FOOTER BOX (Category) -->
                 <!-- START FOOTER BOX (Recent Post) -->
-                {% comment %} <div class="col-sm-4 footer-box">
-                    <h3 class="wiget-title">Recent Post</h3>
-                    <div class="footer-news-grid">
-                        <div class="news-list-item">
-                            <div class="img-wrapper">
-                                <a href="#" class="thumb">
-                                    <img src="{% static 'images/115x85-1.jpg'%}" alt="" class="img-responsive">
-                                    <div class="link-icon">
-                                        <i class="fa fa-camera"></i>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="post-info-2">
-                                <h5><a href="#" class="title">Cooking Recipes Anytime And Anywhere</a></h5>
-                                <ul class="authar-info">
-                                    <li><i class="ti-timer"></i> May 15, 2016</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="news-list-item">
-                            <div class="img-wrapper">
-                                <a href="#" class="thumb">
-                                    <img src="{% static 'images/115x85-2.jpg'%}" alt="" class="img-responsive">
-                                    <div class="link-icon">
-                                        <i class="fa fa-camera"></i>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="post-info-2">
-                                <h5><a href="#" class="title">Cooking Recipes Anytime And Anywhere</a></h5>
-                                <ul class="authar-info">
-                                    <li><i class="ti-timer"></i> May 15, 2016</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div> {% endcomment %}
+                <div class="col-xl-4 col-lg-3 col-md-6 col-sm-6">
+                    <h3 class="wiget-title">Nos Partenaires</h3>
+                    <ul class="menu-services">
+                        <li><a href="#">partenaire 00</a></li>
+                        <li><a href="#">partenaire 01</a></li>
+                        <li><a href="#">partenaire 02</a></li>
+                        <li><a href="#">partenaire 03</a></li>
+                        <li><a href="#">partenaire 04</a></li>
+                        <li><a href="#">partenaire 05</a></li>
+                        <li><a href="#">partenaire 03</a></li>
+
+                    </ul>
+                </div>
+                </div> 
                 <!-- END OF /. FOOTER BOX (Recent Post) -->
             </div>
         </div>
@@ -277,13 +254,13 @@
         <div class="container">
             <div class="row">
                 <div class="col-xs-12 col-sm-5 col-md-5">
-                    <div class="copy">Copyright@2024 KIMI sarl.</div>
+                    <div class="copy">Copyright @ 2024 Kimi Sarl.</div>
                 </div>
                 <div class="col-xs-12 col-sm-7 col-md-7">
                     <ul class="footer-nav">
-                        <li><a href="#">Contact US</a></li>
-                        <li><a href="#">About US</a></li>
-                        <li><a href="#">F.A.Q</a></li>
+                        <li><a href="/contact/">Contact US</a></li>
+                        <li><a href="/about/">About US</a></li>
+                        <li><a href="/FAQ/">F.A.Q</a></li>
                     </ul>
                 </div>
             </div>

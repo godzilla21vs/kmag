@@ -1,53 +1,70 @@
-{% extends 'mag/base.html' %}
+{% extends 'mag/basesign.html' %}
 {% block content %}
-
-<div class="breadcumb-wrapper" data-bg-src="assets/img/breadcumb/bredcumb-1.png">
-    <div class="container z-index-common">
-        <div class="breadcumb-content">
-            <h1 class="breadcumb-title">Login</h1>
-        </div>
-        <div class="breadcumb-menu-wrap">
-            <ul class="breadcumb-menu">
-                <li><a href="/">Accueil</a></li>
-                <li class="active">Login</li>
-            </ul>
+<div class="page-title">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-6">
+                <h1><strong>Inscription</strong></h1>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-6">
+                <ol class="breadcrumb">
+                    <li><a href="{% url 'index' %}">Accueil</a></li>
+                    <li class="active"><a href="{% url 'signup' %}">Connexion</a></li>
+                </ol>
+            </div>
         </div>
     </div>
 </div>
-<section class="space-top space-extra-bottom">
+<!-- END 
+<!-- *** START PAGE MAIN CONTENT *** -->
+<main class="page_main_wrapper">
     <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-lg-8 col-xl-6">
-                <form action="/signin/" class="default-form" method="POST">
-                    {% csrf_token %}
-                     {% if messages %}
-                    <ul class="message">
-                        {% for message in messages %}
-                        <li {% if message.tags %} class="{{ message.tags }}" {% endif %} style="list-style-type: none !important; color: red;">
-                            {{ message }}
-                        </li>
-                        {% endfor %}
-                    </ul>
-                    {% endif %}
-                    <h3 class="form-title">Login</h3>
-                    <p class="form-text">Vous n'avez pas encore de compte ? <a href="/signup/">Inscrivez-vous ici</a></p>
-                    <div class="row justify-content-between align-items-center">
-                        <div class="col-12 form-group">
-                            <input type="email" class="form-control" name="email" placeholder="Votre Email">
-                        </div>
-                        <div class="col-12 form-group">
-                            <input type="password" class="form-control"  name="password" placeholder="Votre mot de passe">
-                        </div>
+        <div class="row row-m">
+            <div class="col-sm-8 main-content col-p">
+                <div class="theiaStickySidebar">
+                    <!-- START CONTACT FORM AREA -->
+                    <div class="contact_form_inner">
+                        <div class="panel_inner">
+                            <div class="panel_header">
+                                <h4><strong>Formulaire de Connexion</strong></h4>
+                            </div>
+                            <div class="panel_body">
+                                <style>
+                                    form {
+                                      margin: 0 auto;
+                                      width: 300px;
+                                    }
+                                </style>
+                                <form action="/signin/" class="default-form" method="POST">
+                                    {% csrf_token %}
+                                    {% if messages %}
+                                    <ul class="message">
+                                        {% for message in messages %}
+                                        <li {% if message.tags %} class="{{ message.tags }}" {% endif %} style="list-style-type: none !important; color: red;">
+                                            {{ message }}
+                                        </li>
+                                        {% endfor %}
+                                    </ul>
+                                    {% endif %}
+                                    <h3 class="form-title">Login</h3>
+                                    <p class="form-text">Vous n'avez pas encore de compte ? <a href="/signup/">Inscrivez-vous ici</a></p>
+                                    <div class="row justify-content-between align-items-center">
+                                        <div class="col-12 form-group">
+                                            <input type="email" class="form-control" name="email" placeholder="Votre Email">
+                                        </div>
+                                        <div class="col-12 form-group">
+                                            <input type="password" class="form-control"  name="password" placeholder="Votre mot de passe">
+                                        </div>
 
 <!--                            <div class="col-sm-auto form-group">-->
 <!--                                <p class="form-link"><a href="#">Forget password?</a></p>-->
 <!--                            </div>-->
-                        <div class="col-12 form-group"><button type="submit" class="vs-btn style4">Log In</button></div>
+                        <div class="col-12 form-group"><button type="submit" class="btn btn-primary">Connexion</button></div>
+                    </form>
                     </div>
-                </form>
             </div>
         </div>
     </div>
-</section>
+</main>
 
 {% endblock content%}
