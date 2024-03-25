@@ -117,7 +117,7 @@ def FAQ(request):
     return render(request, 'mag/faq.html')
 
 def post_detail_template(request):
-    return render(request, 'mag/detail_template.html')
+    return render(request, 'mag/post_detail_template.html')
 
 @login_required
 def category_post(request, name):
