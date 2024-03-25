@@ -116,6 +116,9 @@ def contact_Us(request):
 def FAQ(request):
     return render(request, 'mag/faq.html')
 
+def post_detail_template(request):
+    return render(request, 'mag/detail_template.html')
+
 @login_required
 def category_post(request, name):
     category = get_object_or_404(Category, name=name)

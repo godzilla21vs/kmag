@@ -18,4 +18,5 @@ urlpatterns = [
     path('news_details/<int:id>',  news_detail, name="news_detail"),
     path('search/', search_feature, name="search_feature"),
     path('terms_of_use/', terms_of_use, name="terms_of_use"),
+    path('post_detail_template/', post_detail_template, name="post_detail_template"),
 ]
