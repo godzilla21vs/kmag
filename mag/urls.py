@@ -19,4 +19,5 @@ urlpatterns = [
     path('search/', search_feature, name="search_feature"),
     path('terms_of_use/', terms_of_use, name="terms_of_use"),
     path('post_detail_template/', post_detail_template, name="post_detail_template"),
+    path('index_partenaire', index_partenaire, name="index_partenaire"),
 ]

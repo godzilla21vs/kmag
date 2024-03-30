@@ -1,17 +1,17 @@
-{% extends 'base.html' %}
+{% extends 'baseblank.html' %}
 {% block content %}
         <!-- *** END OF /. PAGE HEADER SECTION *** -->
-        <!-- START PAGE TITLE --> 
+        <!-- START PAGE TITLE -->
         <div class="page-title">
             <div class="container">
                 <div class="row">
                     <div class="col-xs-12 col-sm-6 col-md-6">
-                        <h1><strong>Category Style</strong> Three</h1>
+                        <h1><strong>Catégories postes</strong></h1>
                     </div>
                     <div class="col-xs-12 col-sm-6 col-md-6">
                         <ol class="breadcrumb">
                             <li><a href="{% url 'index.html'%}">Accueil</a></li>
-                            <li class="active"><a href="category_style_3-2.html">Catégories postes</a></li>
+                            <li class="active"><a href="/category_post/">Catégories postes</a></li>
                         </ol>
                     </div>
                 </div>
@@ -175,227 +175,97 @@
                     <!-- START MAIN CONTENT -->
                     <div class="col-sm-8 col-p  main-content">
                         <div class="theiaStickySidebar">
-                            <!-- START CARD POST -->
-                            <div class="row row-m">
-                                <div class="col-sm-6 col-p">
-                                    <div class="posts card-post">
-                                        <div class="post-grid post-grid-item">
-                                            <figure class="posts-thumb">
-                                                <span class="post-category">National</span>
-                                                <a href="#"><img src="assets/images/378x270-1.jpg" alt=""></a>
-                                            </figure>
-                                            <div class="posts-inner">
-                                                <a href="#" class="posts-link"></a>
-                                                <h6 class="posts-title"><a href="#">The Alchemists team is appearing in L.A. Beach for charity</a></h6>
-                                                <ul class="authar-info">
-                                                    <li><i class="ti-timer"></i> May 15, 2016</li>
-                                                    <li><a href="#" class="link"><i class="ti-thumb-up"></i>15 likes</a></li>
-                                                </ul>
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipisi nel elit, sed do eiusmod tempor incididunt ut labore et dolore
-                                                    magna aliqua. Ut enim ad mini veniam, quis nostrud en derum sum laborem.
-                                                </p>
-                                            </div>
-                                            <div class="posts__footer card__footer">
-                                                <div class="post-author">
-                                                    <figure class="post-author-avatar hidden-xs">
-                                                        <img src="assets/images/avatar-1.jpg" alt="Post Author Avatar">
-                                                    </figure>
-                                                    <div class="post-author-info ">
-                                                        <h4 class="post-author-name">Naeem Khan</h4>
-                                                    </div>
-                                                </div>
-                                                <ul class="post-meta">
-                                                    <li class="meta-item "><i class="ti-eye"></i> 2369</li>
-                                                    <li class="meta-item "><a href="#"><i class="ti-heart"></i> 530</a></li>
-                                                    <li class="meta-item "><a href="#"><i class="ti-comments"></i> 18</a></li>
-                                                </ul>
-                                            </div>
+                            <div class="post-inner">
+                                <!--post header-->
+                                <div class="post-head">
+                                    <h2 class="title"><strong>Latest</strong> articles</h2>
+                                </div>
+                                <!-- post body -->
+                                <div class="post-body">
+                                    <div class="news-list-item articles-list">
+                                        <div class="img-wrapper">
+                                            <a href="#" class="thumb"><img src="assets/images/218x150-1.jpg" alt="" class="img-responsive"></a>
+                                        </div>
+                                        <div class="post-info-2">
+                                            <h4><a href="#" class="title">There are many variations of passages of Lorem Ipsum available, but the majority have</a></h4>
+                                            <ul class="authar-info">
+                                                <li><i class="ti-timer"></i> May 15, 2016</li>
+                                                <li><a href="#" class="link"><i class="ti-thumb-up"></i>15 likes</a></li>
+                                            </ul>
+                                            <p class="hidden-sm">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley...</p>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-sm-6 col-p">
-                                    <div class="posts card-post">
-                                        <div class="post-grid post-grid-item">
-                                            <figure class="posts-thumb">
-                                                <span class="post-category">Tavel</span>
-                                                <a href="#"><img src="assets/images/378x270-2.jpg" alt=""></a>
-                                            </figure>
-                                            <div class="posts-inner">
-                                                <a href="#" class="posts-link"></a>
-                                                <h6 class="posts-title"><a href="#">The Alchemists team is appearing in L.A. Beach for charity</a></h6>
-                                                <ul class="authar-info">
-                                                    <li><i class="ti-timer"></i> May 15, 2016</li>
-                                                    <li><a href="#" class="link"><i class="ti-thumb-up"></i>15 likes</a></li>
-                                                </ul>
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipisi nel elit, sed do eiusmod tempor incididunt ut labore et dolore
-                                                    magna aliqua. Ut enim ad mini veniam, quis nostrud en derum sum laborem.
-                                                </p>
-                                            </div>
-                                            <div class="posts__footer card__footer">
-                                                <div class="post-author">
-                                                    <figure class="post-author-avatar hidden-xs">
-                                                        <img src="assets/images/avatar-1.jpg" alt="Post Author Avatar">
-                                                    </figure>
-                                                    <div class="post-author-info ">
-                                                        <h4 class="post-author-name">Naeem Khan</h4>
-                                                    </div>
-                                                </div>
-                                                <ul class="post-meta">
-                                                    <li class="meta-item "><i class="ti-eye"></i> 2369</li>
-                                                    <li class="meta-item "><a href="#"><i class="ti-heart"></i> 530</a></li>
-                                                    <li class="meta-item "><a href="#"><i class="ti-comments"></i> 18</a></li>
-                                                </ul>
-                                            </div>
+                                    <div class="news-list-item articles-list">
+                                        <div class="img-wrapper">
+                                            <a href="#" class="thumb"><img src="assets/images/218x150-2.jpg" alt="" class="img-responsive"></a>
+                                        </div>
+                                        <div class="post-info-2">
+                                            <h4><a href="#" class="title">Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical</a></h4>
+                                            <ul class="authar-info">
+                                                <li><i class="ti-timer"></i> May 15, 2016</li>
+                                                <li><a href="#" class="link"><i class="ti-thumb-up"></i>15 likes</a></li>
+                                            </ul>
+                                            <p class="hidden-sm">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley...</p>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-sm-6 col-p">
-                                    <div class="posts card-post">
-                                        <div class="post-grid post-grid-item">
-                                            <figure class="posts-thumb">
-                                                <span class="post-category">Fashion</span>
-                                                <a href="#"><img src="assets/images/378x270-3.jpg" alt=""></a>
-                                            </figure>
-                                            <div class="posts-inner">
-                                                <a href="#" class="posts-link"></a>
-                                                <h6 class="posts-title"><a href="#">The Alchemists team is appearing in L.A. Beach for charity</a></h6>
-                                                <ul class="authar-info">
-                                                    <li><i class="ti-timer"></i> May 15, 2016</li>
-                                                    <li><a href="#" class="link"><i class="ti-thumb-up"></i>15 likes</a></li>
-                                                </ul>
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipisi nel elit, sed do eiusmod tempor incididunt ut labore et dolore
-                                                    magna aliqua. Ut enim ad mini veniam, quis nostrud en derum sum laborem.
-                                                </p>
-                                            </div>
-                                            <div class="posts__footer card__footer">
-                                                <div class="post-author">
-                                                    <figure class="post-author-avatar hidden-xs">
-                                                        <img src="assets/images/avatar-1.jpg" alt="Post Author Avatar">
-                                                    </figure>
-                                                    <div class="post-author-info ">
-                                                        <h4 class="post-author-name">Naeem Khan</h4>
-                                                    </div>
-                                                </div>
-                                                <ul class="post-meta">
-                                                    <li class="meta-item "><i class="ti-eye"></i> 2369</li>
-                                                    <li class="meta-item "><a href="#"><i class="ti-heart"></i> 530</a></li>
-                                                    <li class="meta-item "><a href="#"><i class="ti-comments"></i> 18</a></li>
-                                                </ul>
-                                            </div>
+                                    <div class="news-list-item articles-list">
+                                        <div class="img-wrapper">
+                                            <a href="#" class="thumb"><img src="assets/images/218x150-3.jpg" alt="" class="img-responsive"></a>
+                                        </div>
+                                        <div class="post-info-2">
+                                            <h4><a href="#" class="title">The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested.</a></h4>
+                                            <ul class="authar-info">
+                                                <li><i class="ti-timer"></i> May 15, 2016</li>
+                                                <li><a href="#" class="link"><i class="ti-thumb-up"></i>15 likes</a></li>
+                                            </ul>
+                                            <p class="hidden-sm">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley...</p>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-sm-6 col-p">
-                                    <div class="posts card-post">
-                                        <div class="post-grid post-grid-item">
-                                            <figure class="posts-thumb">
-                                                <span class="post-category">Technology</span>
-                                                <a href="#"><img src="assets/images/378x270-4.jpg" alt=""></a>
-                                            </figure>
-                                            <div class="posts-inner">
-                                                <a href="#" class="posts-link"></a>
-                                                <h6 class="posts-title"><a href="#">The Alchemists team is appearing in L.A. Beach for charity</a></h6>
-                                                <ul class="authar-info">
-                                                    <li><i class="ti-timer"></i> May 15, 2016</li>
-                                                    <li><a href="#" class="link"><i class="ti-thumb-up"></i>15 likes</a></li>
-                                                </ul>
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipisi nel elit, sed do eiusmod tempor incididunt ut labore et dolore
-                                                    magna aliqua. Ut enim ad mini veniam, quis nostrud en derum sum laborem.
-                                                </p>
-                                            </div>
-                                            <div class="posts__footer card__footer">
-                                                <div class="post-author">
-                                                    <figure class="post-author-avatar hidden-xs">
-                                                        <img src="assets/images/avatar-1.jpg" alt="Post Author Avatar">
-                                                    </figure>
-                                                    <div class="post-author-info ">
-                                                        <h4 class="post-author-name">Naeem Khan</h4>
-                                                    </div>
-                                                </div>
-                                                <ul class="post-meta">
-                                                    <li class="meta-item "><i class="ti-eye"></i> 2369</li>
-                                                    <li class="meta-item "><a href="#"><i class="ti-heart"></i> 530</a></li>
-                                                    <li class="meta-item "><a href="#"><i class="ti-comments"></i> 18</a></li>
-                                                </ul>
-                                            </div>
+                                    <div class="news-list-item articles-list">
+                                        <div class="img-wrapper">
+                                            <a href="#" class="thumb"><img src="assets/images/218x150-4.jpg" alt="" class="img-responsive"></a>
+                                        </div>
+                                        <div class="post-info-2">
+                                            <h4><a href="#" class="title">It is a long established fact that a reader will be distracted by the readable </a></h4>
+                                            <ul class="authar-info">
+                                                <li><i class="ti-timer"></i> May 15, 2016</li>
+                                                <li><a href="#" class="link"><i class="ti-thumb-up"></i>15 likes</a></li>
+                                            </ul>
+                                            <p class="hidden-sm">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley...</p>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-sm-6 col-p">
-                                    <div class="posts card-post">
-                                        <div class="post-grid post-grid-item">
-                                            <figure class="posts-thumb">
-                                                <span class="post-category">Photography</span>
-                                                <a href="#"><img src="assets/images/378x270-5.jpg" alt=""></a>
-                                            </figure>
-                                            <div class="posts-inner">
-                                                <a href="#" class="posts-link"></a>
-                                                <h6 class="posts-title"><a href="#">The Alchemists team is appearing in L.A. Beach for charity</a></h6>
-                                                <ul class="authar-info">
-                                                    <li><i class="ti-timer"></i> May 15, 2016</li>
-                                                    <li><a href="#" class="link"><i class="ti-thumb-up"></i>15 likes</a></li>
-                                                </ul>
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipisi nel elit, sed do eiusmod tempor incididunt ut labore et dolore
-                                                    magna aliqua. Ut enim ad mini veniam, quis nostrud en derum sum laborem.
-                                                </p>
-                                            </div>
-                                            <div class="posts__footer card__footer">
-                                                <div class="post-author">
-                                                    <figure class="post-author-avatar hidden-xs">
-                                                        <img src="assets/images/avatar-1.jpg" alt="Post Author Avatar">
-                                                    </figure>
-                                                    <div class="post-author-info ">
-                                                        <h4 class="post-author-name">Naeem Khan</h4>
-                                                    </div>
-                                                </div>
-                                                <ul class="post-meta">
-                                                    <li class="meta-item "><i class="ti-eye"></i> 2369</li>
-                                                    <li class="meta-item "><a href="#"><i class="ti-heart"></i> 530</a></li>
-                                                    <li class="meta-item "><a href="#"><i class="ti-comments"></i> 18</a></li>
-                                                </ul>
-                                            </div>
+                                    <div class="news-list-item articles-list">
+                                        <div class="img-wrapper">
+                                            <a href="#" class="thumb"><img src="assets/images/340x215-1.jpg" alt="" class="img-responsive"></a>
+                                        </div>
+                                        <div class="post-info-2">
+                                            <h4><a href="#" class="title">Replication For Dummies 4 Easy Steps To Professional DVD</a></h4>
+                                            <ul class="authar-info">
+                                                <li><i class="ti-timer"></i> May 15, 2016</li>
+                                                <li><a href="#" class="link"><i class="ti-thumb-up"></i>15 likes</a></li>
+                                            </ul>
+                                            <p class="hidden-sm">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley...</p>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-sm-6 col-p">
-                                    <div class="posts card-post">
-                                        <div class="post-grid post-grid-item">
-                                            <figure class="posts-thumb">
-                                                <span class="post-category">Business</span>
-                                                <a href="#"><img src="assets/images/378x270-6.jpg" alt=""></a>
-                                            </figure>
-                                            <div class="posts-inner">
-                                                <a href="#" class="posts-link"></a>
-                                                <h6 class="posts-title"><a href="#">The Alchemists team is appearing in L.A. Beach for charity</a></h6>
-                                                <ul class="authar-info">
-                                                    <li><i class="ti-timer"></i> May 15, 2016</li>
-                                                    <li><a href="#" class="link"><i class="ti-thumb-up"></i>15 likes</a></li>
-                                                </ul>
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipisi nel elit, sed do eiusmod tempor incididunt ut labore et dolore
-                                                    magna aliqua. Ut enim ad mini veniam, quis nostrud en derum sum laborem.
-                                                </p>
-                                            </div>
-                                            <div class="posts__footer card__footer">
-                                                <div class="post-author">
-                                                    <figure class="post-author-avatar hidden-xs">
-                                                        <img src="assets/images/avatar-1.jpg" alt="Post Author Avatar">
-                                                    </figure>
-                                                    <div class="post-author-info ">
-                                                        <h4 class="post-author-name">Naeem Khan</h4>
-                                                    </div>
-                                                </div>
-                                                <ul class="post-meta">
-                                                    <li class="meta-item "><i class="ti-eye"></i> 2369</li>
-                                                    <li class="meta-item "><a href="#"><i class="ti-heart"></i> 530</a></li>
-                                                    <li class="meta-item "><a href="#"><i class="ti-comments"></i> 18</a></li>
-                                                </ul>
-                                            </div>
+                                </div> <!-- /. post body -->
+                                <!-- Post footer -->
+                                <div class="post-footer"> 
+                                    <div class="row thm-margin">
+                                        <div class="col-xs-12 col-sm-12 col-md-12 thm-padding">
+                                            <!-- pagination -->
+                                            <ul class="pagination">
+                                                <li class="disabled"><span class="ti-angle-left"></span></li>
+                                                <li class="active"><span>1</span></li>
+                                                <li><a href="#">2</a></li>
+                                                <li><a href="#">3</a></li>
+                                                <li class="disabled"><span class="extend">...</span></li><li>
+                                                <li><a href="#">12</a></li>
+                                                <li><a href="#"><i class="ti-angle-right"></i></a></li>
+                                            </ul> <!-- /.pagination -->
                                         </div>
                                     </div>
-                                </div>
-
+                                </div> <!-- /.Post footer-->
                             </div>
-                            <!-- END OF /. CARD POST -->
                         </div>
                     </div>
                     <!-- END OF /. MAIN CONTENT -->
@@ -450,7 +320,7 @@
                             </div>
                             <!-- END OF /. ADVERTISEMENT -->
                             <!-- START NAV TABS -->
-                            {% comment %} <div class="tabs-wrapper">
+                            <div class="tabs-wrapper">
                                 <ul class="nav nav-tabs" role="tablist">
                                     <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Most Viewed</a></li>
                                     <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Popular news</a></li>
@@ -470,54 +340,9 @@
                                         </div>
                                     </div>
                                     <!-- Tab panels two --> 
-                                    <div role="tabpanel" class="tab-pane fade" id="profile">
-                                        <div class="popular-news">
-                                            <div class="p-post">
-                                                <h4><a href="#">It is a long established fact that a reader will be distracted by  </a></h4>
-                                                <ul class="authar-info">
-                                                    <li><a href="#" class="link"><i class="ti-timer"></i> May 15, 2016</a></li>
-                                                    <li><a href="#" class="link"><i class="ti-thumb-up"></i>15 likes</a></li>
-                                                </ul>
-                                                <div class="reatting-2">
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star-half-alt"></i>
-                                                    <i class="far fa-star"></i>
-                                                </div>
-                                            </div>
-                                            <div class="p-post">
-                                                <h4><a href="#">It is a long established fact that a reader will be distracted by  </a></h4>
-                                                <ul class="authar-info">
-                                                    <li><a href="#" class="link"><i class="ti-timer"></i> May 15, 2016</a></li>
-                                                    <li><a href="#" class="link"><i class="ti-thumb-up"></i>15 likes</a></li>
-                                                </ul>
-                                                <div class="reatting-2">
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star-half-alt"></i>
-                                                    <i class="far fa-star"></i>
-                                                </div>
-                                            </div>
-                                            <div class="p-post">
-                                                <h4><a href="#">It is a long established fact that a reader will be distracted by  </a></h4>
-                                                <ul class="authar-info">
-                                                    <li><a href="#" class="link"><i class="ti-timer"></i> May 15, 2016</a></li>
-                                                    <li><a href="#" class="link"><i class="ti-thumb-up"></i>15 likes</a></li>
-                                                </ul>
-                                                <div class="reatting-2">
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star-half-alt"></i>
-                                                    <i class="far fa-star"></i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div> 
+                                    
                                 </div>
-                            </div>{% endcomment %}
+                            </div>
                             <!-- END OF /. NAV TABS -->
                         </div>
                     </div>
@@ -527,4 +352,5 @@
         </main>
         <!-- *** END OF /. PAGE MAIN CONTENT *** -->
         <!-- START FOOTER -->
+        
         {%endblock content%}

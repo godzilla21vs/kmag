@@ -12,6 +12,7 @@ from django.views import generic, View
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
+from django.contrib.auth import logout as auth_logout  # Renommer la fonction de déconnexion
 
 
 # Création des différentes vues
@@ -110,6 +111,9 @@ def signoutview(request):
 def about_us(request):
     return render(request, 'mag/about_us.html')
 
+def index_partenaire(request):
+    return render(request, 'mag/index_partenaire.html')
+
 def contact_Us(request):
     return render(request, 'mag/contact_us.html')
  
@@ -146,19 +150,25 @@ def category_news(request, name):
 #je dois finir avec la fonction related_posts dans post_detail et dans news_detail
 @login_required
 def post_detail(request, pk):
+    # Récupérer le post actuel
     post = get_object_or_404(Post, pk=pk)
-    related_posts = Post.objects.filter(featured=True)
-    context = {
-        'post': post,
-        'related_posts': related_posts,
-    }
-    return render(request, 'mag/posts_details.html', context)
 
+    # Récupérer les articles ayant la même catégorie que le post actuel
+    related_posts = Post.objects.filter(category=post.category).exclude(pk=post.pk)
+    # Récupérer les commentaires associés à ce post
+    comments = Comment.objects.filter(post=post)
+
+
+    # Passer les données à votre template
+    return render(request, 'mag/post_detail.html', {'post': post, 'related_posts': related_posts, 'comments': comments})
 
 @login_required
 def news_detail(request, pk):
     post = get_object_or_404(News, pk=pk)
-    return render(request, 'mag/news_details.html')
+    related_news = News.objects.filter(category=post.category).exclude(pk=post.pk)
+    comments = Comment.objects.filter(post=post)
+
+    return render(request, 'mag/news_details.html', {'post': post, 'related_posts': related_news, 'comments': comments})
 
 def terms_of_use(request):
         return render(request, 'mag/terms_of_use.html',)
