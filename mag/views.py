@@ -123,6 +123,12 @@ def FAQ(request):
 def post_detail_template(request):
     return render(request, 'mag/post_detail_template.html')
 
+def index_partenaire(request):
+    return render(request, 'mag/indexpartenaire.html')
+
+def post_detail_template2(request):
+    return render(request, 'mag/post_detail_template2.html')
+
 @login_required
 def category_post(request, name):
     category = get_object_or_404(Category, name=name)
