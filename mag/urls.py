@@ -21,5 +21,5 @@ urlpatterns = [
     path('post_detail_template/', post_detail_template, name="post_detail_template"),
     path('index_partenaire', index_partenaire, name="index_partenaire"),
     path('post_detail_template2/', post_detail_template2, name="post_detail_template2"),
-
+    path('category/<slug:category_slug>/', CategoryPostListView.as_view(), name='category_posts'),
 ]

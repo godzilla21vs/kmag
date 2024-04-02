@@ -116,13 +116,28 @@ class PostSeen(models.Model):
 
     class Meta:
         unique_together = ['user', 'post']
+class CommentNews(models.Model):
+    news = models.ForeignKey('News', related_name='commentsNews', on_delete=models.CASCADE)
+    author = models.ForeignKey(Utilisateur, on_delete=models.CASCADE)
+    content = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    # profilepic = models.ForeignKey(Utilisateur, on_delete=models.CASCADE, related_name='comment_profilepic', default=None, null=True)
 
+    def __str__(self):
+        return f"Commenté par {self.author.username} on {self.news.title} at {self.created_at}"
+
+class CategoryNews(models.Model):
+    id = models.AutoField(primary_key=True)
+    name = models.CharField(max_length=255, blank=True)
+    slug = models.SlugField(max_length=255)
+
+    def __str__(self):
+        return self.name
 class News(models.Model):
     id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=255)
     slug = models.SlugField(unique=True) 
     body = models.TextField(max_length=255)
-    birth_date = models.DateField()
     pub_date = models.DateTimeField('date published', auto_now=True, )
     Category = models.ManyToManyField(Category)
     likes = models.IntegerField(default=0)

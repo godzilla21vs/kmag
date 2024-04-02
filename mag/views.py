@@ -1,15 +1,13 @@
 # Importation des fonctions Django raccourcies
-
 from django.contrib.auth import logout as auth_logout
 from django.views.generic.edit import FormView
-from django.views.generic import FormView
+from django.views.generic import FormView, ListView
 
 from django.utils import timezone
 from django.conf import settings
 from django.core.mail import send_mail
 
 # Regrouper les importations par catégorie
-
 # Importations Django
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, redirect
@@ -38,10 +36,11 @@ from django.views import generic, View
 from django.contrib import messages
 from django.db import transaction
 from django.urls import reverse_lazy
-# Création des différentes vues
+
 
 class indexView(View):
     def get(self, request, *args, **kwargs):
+        categories = Category.objects.all()
         latest_post = Post.objects.order_by('-pub_date')[:5]
         latest_news = News.objects.order_by('-pub_date')[:3]
         popular_news = News.objects.order_by('-likes')[:5]
@@ -49,6 +48,7 @@ class indexView(View):
         featured_posts = Post.objects.filter(featured=True).order_by('-pub_date')[:3]
 
         context = {
+            'categories' : categories,
             'latest_post': latest_post,
             'latest_news': latest_news,
             'popular_news': popular_news,
@@ -201,6 +201,24 @@ def category_post(request, name):
         'posts': posts,
     }
     return render(request, 'mag/category_post.html', context)
+
+class CategoryPostListView(ListView):
+    model = Post
+    template_name = 'category_post.html'
+    context_object_name = 'posts'
+    paginate_by = 10
+
+    def get_queryset(self):
+        category_slug = self.kwargs.get('category_slug')
+        category = get_object_or_404(Category, slug=category_slug)
+        return Post.objects.filter(Category=category)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        category_slug = self.kwargs.get('category_slug')
+        category = get_object_or_404(Category, slug=category_slug)
+        context['category'] = category
+        return context
 
 @login_required
 def category_news(request, name):
