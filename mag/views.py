@@ -41,6 +41,7 @@ from django.urls import reverse_lazy
 class indexView(View):
     def get(self, request, *args, **kwargs):
         categories = Category.objects.all()
+        categoriesNews = CategoryNews.objects.all()
         latest_post = Post.objects.order_by('-pub_date')[:5]
         latest_news = News.objects.order_by('-pub_date')[:3]
         popular_news = News.objects.order_by('-likes')[:5]
@@ -49,6 +50,7 @@ class indexView(View):
 
         context = {
             'categories' : categories,
+            'categoriesNews' : categoriesNews,
             'latest_post': latest_post,
             'latest_news': latest_news,
             'popular_news': popular_news,

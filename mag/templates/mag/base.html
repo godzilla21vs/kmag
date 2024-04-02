@@ -75,17 +75,17 @@
                         <div class="hidden-xs col-md-6 col-sm-6 col-lg-6">
                             <div class="header-right-menu">
                                 <div class="header-top-links">
-                                    <ul >
+                                    <ul>
                                         {% if request.user.is_authenticated %}
-                                        <li><a  href="/signout/" style="color: white">Deconnexion</a> </li>
+                                        <li><a href="{% url 'mag:signout' %}" class="logout-link">Déconnexion</a></li>
                                         {% else %}
-                                        <li><a href="/signin/" style="color: white">Connexion / Enregistrement</a></li>
+                                        <li><a href="{% url 'mag:signin' %}" class="login-link">Connexion / Enregistrement</a></li>
                                         {% endif %}
                                     </ul>
                                 </div>
                             </div>
-                            </div>
-                        </div> <!-- end of /. header top right menu -->
+                        </div>
+                         <!-- end of /. header top right menu -->
                     </div> <!-- end of /. row -->
                 </div> <!-- end of /. container -->
             </div>
@@ -147,7 +147,7 @@
                     <div class="collapse navbar-collapse" id="navbar-menu">
                         <ul class="nav navbar-nav navbar-left" data-in="" data-out="">
                             <li class="dropdown active">
-                                <a href="{% url 'index' %}"  >Accueil</a>
+                                <a href="{% url 'mag:index' %}"  >Accueil</a>
                             </li>
                             <li class="dropdown megamenu-fw">
                                 <a href="" class="dropdown-toggle" data-toggle="dropdown">Nos Partenaires</a>
@@ -178,15 +178,16 @@
                                 <ul class="dropdown-menu">
                                     <li class="dropdown">
                                         <ul class="dropdown-menu megamenu-content">
-                                            <li><a href="{% url 'category_post' %}.">Categorie Post</a></li>
-                                            <li><a href="{% url 'category_news' %}">Categorie News</a></li>
+                                            {% for category in categoriesNews %}
+                                            <li><a href="{% url 'category_news' category.slug %}">{{ category.name }}</a></li>
+                                            {% endfor %}
                                         </ul>
                                     </li>
                                 </ul>
                             </li>
-                            <li><a href="/about/">À propos</a></li>
-                            <li><a href="/contact/"> Nous contacter</a></li>
-                            <li><a href="/FAQ/">F.A.Q</a></li>
+                            <li><a href="{% url 'mag:about' %}">À propos</a></li>
+                            <li><a href="{% url 'mag:contact' %}"> Nous contacter</a></li>
+                            <li><a href="{% url 'mag:FAQ' %}">F.A.Q</a></li>
                         </ul>
                     </div><!-- /.navbar-collapse -->
                 </div>

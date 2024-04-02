@@ -8,8 +8,8 @@
             </div>
             <div class="col-xs-12 col-sm-6 col-md-6">
                 <ol class="breadcrumb">
-                    <li><a href="{% url 'index' %}">Accueil</a></li>
-                    <li class="active"><a href="{% url 'signup' %}">S'inscrire</a></li>
+                    <li><a href="{% url 'mag:index' %}">Accueil</a></li>
+                    <li class="active"><a href="{% url 'mag:signup' %}">S'inscrire</a></li>
                 </ol>
             </div>
         </div>
@@ -83,11 +83,11 @@
                                                     {{ utilisateurform.ville.errors }}
                                                 </div>
                                                 <div class="col-sm-auto form-group">
-                                                    <div class="custom-checkbox"><input type="checkbox" id="remembermylogin"> <label for="remembermylogin"><a href="/terms_of_use/">Acceptez les conditions et la politique de confidentialité</a></label></div>
+                                                    <div class="custom-checkbox"><input type="checkbox" id="remembermylogin"> <label for="remembermylogin"><a href="{% url 'mag:terms_of_use'%}">Acceptez les conditions et la politique de confidentialité</a></label></div>
                                                 </div>
                                                 <div class="col-12 form-group"><button type="submit" class="btn btn-primary">Connexion</button></div>
                                                 <div class="mt-5 text-center">
-                                                    <p class="mb-0">Vous avez déjà un compte ? <a href="/signin/" class="fw-semibold text-primary text-decoration-underline"> Connexion</a> </p>
+                                                    <p class="mb-0">Vous avez déjà un compte ? <a href="{% url 'mag:signin' %}" class="fw-semibold text-primary text-decoration-underline"> Connexion</a> </p>
                                                 </div>
                                         </div>
                                     </form>

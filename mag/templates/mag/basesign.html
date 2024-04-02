@@ -147,28 +147,47 @@
                     <div class="collapse navbar-collapse" id="navbar-menu">
                         <ul class="nav navbar-nav navbar-left" data-in="" data-out="">
                             <li class="dropdown active">
-                                <a href="{% url 'index' %}"  >Accueil</a>
+                                <a href="{% url 'mag:index' %}"  >Accueil</a>
                             </li>
                             <li class="dropdown megamenu-fw">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Nos Partenaires</a>
-                                <ul class="dropdown-menu megamenu-content" role="menu">
+                                <a href="" class="dropdown-toggle" data-toggle="dropdown">Nos Partenaires</a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="/index_partenaire/">Partenaire 00</a></li>
+                                    <li><a href="/index_partenaire01/">Partenaire 01</a></li>
+                                    <li><a href="/index_partenaire02/">Partenaire 02</a></li>
+                                    <li><a href="/index_partenaire03/">Partenaire 03</a></li>
+                                    <li><a href="/index_partenaire04/">Partenaire 04</a></li>
+                                    <li><a href="/index_partenaire05/">Partenaire 05</a></li>
+                                    <li><a href="/index_partenaire06/">Partenaire 06</a></li>
                                 </ul>
                             </li>
-                            <li class="dropdown">
-                                <a href="" class="dropdown-toggle" data-toggle="dropdown" >Catégories</a>
+                            <li class="dropdownmegamenu-fw">
+                                <a href="" class="dropdown-toggle" data-toggle="dropdown" >Catégories articles</a>
                                 <ul class="dropdown-menu">
                                     <li class="dropdown">
-                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" >Category layout</a>
-                                        <ul class="dropdown-menu">
-                                            <li><a href="{% url 'category_post' %}.">Category Post</a></li>
-                                            <li><a href="{% url 'category_news' %}">Category News</a></li>
+                                        <ul class="dropdown-menu megamenu-content">
+                                            {% for category in categories %}
+                                            <li><a href="{% url 'category_posts' category.slug %}">{{ category.name }}</a></li>
+                                            {% endfor %}
                                         </ul>
                                     </li>
                                 </ul>
                             </li>
-                            <li><a href="/about/">À propos</a></li>
-                            <li><a href="/contact/"> Nous contacter</a></li>
-                            <li><a href="/FAQ/">F.A.Q</a></li>
+                            <li class="dropdownmegamenu-fw">
+                                <a href="" class="dropdown-toggle" data-toggle="dropdown" >Catégories actualitès</a>
+                                <ul class="dropdown-menu">
+                                    <li class="dropdown">
+                                        <ul class="dropdown-menu megamenu-content">
+                                            {% for category in categoriesNews %}
+                                            <li><a href="{% url 'category_news' category.slug %}">{{ category.name }}</a></li>
+                                            {% endfor %}
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li><a href="{% url 'mag:about' %}">À propos</a></li>
+                            <li><a href="{% url 'mag:contact' %}"> Nous contacter</a></li>
+                            <li><a href="{% url 'mag:FAQ' %}">F.A.Q</a></li>
                         </ul>
                     </div><!-- /.navbar-collapse -->
                 </div>
