@@ -19,6 +19,7 @@ class Utilisateur(models.Model):
     mobile = models.PositiveIntegerField(null=True, blank=True)
     adresse = models.CharField(max_length=500, null=True, blank=True)
     ville = models.CharField(max_length=250, null=True, blank=True)
+    # profilepic = models.ImageField(upload_to='Media/profile_pictures/')
 
     def __str__(self):
         return self.user.username
@@ -28,9 +29,10 @@ class Comment(models.Model):
     author = models.ForeignKey(Utilisateur, on_delete=models.CASCADE)
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
+    # profilepic = models.ForeignKey(Utilisateur, on_delete=models.CASCADE, related_name='comment_profilepic', default=None, null=True)
 
     def __str__(self):
-        return f"Comment by {self.author.username} on {self.post.title} at {self.created_at}"
+        return f"Commenté par {self.author.username} on {self.post.title} at {self.created_at}"
 
 class Category(models.Model):
     id = models.AutoField(primary_key=True)

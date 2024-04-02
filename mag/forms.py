@@ -1,19 +1,34 @@
 from django import forms
 from .models import *
 from django.contrib.auth.models import User
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 
-
-class CreateUserForm(UserCreationForm):
+class CreateUserForm(forms.ModelForm):
     class Meta:
         model = User
-        fields = ('last_name','first_name', 'email', 'password1', 'password2')
+        fields = ['first_name', 'last_name', 'email', 'password']
+        widgets = {'password': forms.PasswordInput()}
 
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+        if User.objects.filter(email=email).exists():
+            raise forms.ValidationError('Cette adresse e-mail est déjà associée à un compte. Veuillez utiliser une autre adresse e-mail.')
+        return email
+
+
+class CustomAuthenticationForm(AuthenticationForm):
+    pass
 
 class UtilisateurForm(forms.ModelForm):
     class Meta:
         model = Utilisateur
         fields = ('genre', 'adresse', 'mobile', 'ville',)
+
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ('content',)
 
 class PostForm(forms.ModelForm):
     class Meta:
@@ -23,15 +38,6 @@ class PostForm(forms.ModelForm):
         def __init__(self, *args, **kwargs):
             super(PostForm, self).__init__(*args, **kwargs)
             self.fields['Category'].queryset = Category.objects.all()
-        # widgets = {
-        #     'title': forms.TextInput(attrs={'class': 'form-control'}),
-        #     'slug': forms.TextInput(attrs={'class': 'form-control'}),
-        #     'body': forms.Textarea(attrs={'class': 'form-control'}),
-        #     'Category': forms.CheckboxSelectMultiple(attrs={'class': 'form-check'}),
-        #     'Author': forms.Select(attrs={'class': 'form-control'}),
-        #     'main_image': forms.ClearableFileInput(attrs={'class': 'form-control-file'}),
-        #     'thumbnail': forms.FileInput(attrs={'class': 'form-control'}),
-        # }
 
 class NewsForm(forms.ModelForm):
     class Meta:

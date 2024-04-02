@@ -1,20 +1,43 @@
+# Importation des fonctions Django raccourcies
+
+from django.contrib.auth import logout as auth_logout
+from django.views.generic.edit import FormView
+from django.views.generic import FormView
+
+from django.utils import timezone
+from django.conf import settings
+from django.core.mail import send_mail
+
+# Regrouper les importations par catégorie
+
+# Importations Django
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
 from django.conf import settings
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
-from .forms import *
-from .models import *
+
+# Importations Django auth
+from django.contrib.auth import login, authenticate, logout as auth_logout
+from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
-from django.db.models import Q
-from django.views import generic, View
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth import login, authenticate, logout
+
+# Importations Django Forms
+from django.views.generic.edit import FormView
+from .forms import *
+
+# Importations Django Models
+from .models import *
+
+# Importations Django Views
+from django.views import generic, View
+
+# Importations supplémentaires de Django
 from django.contrib import messages
-from django.contrib.auth import logout as auth_logout  # Renommer la fonction de déconnexion
-
-
+from django.db import transaction
+from django.urls import reverse_lazy
 # Création des différentes vues
 
 class indexView(View):
@@ -33,16 +56,8 @@ class indexView(View):
             'featured_posts': featured_posts,
         }
         return render(request, 'mag/post_template.html', context)
-
-#         Finally, you can display the most liked posts in your index.html template using the following code:
-
-# html
-# Copy code
-# {% for post in most_liked_posts %}
-#     <!-- Display the post here -->
-# {% endfor %}
-
-class SignupView(generic.View):
+        
+# class SignupView(generic.View):
     def get(self, *args, **kwargs):
         context = {
             'user_creation_form': CreateUserForm(),
@@ -79,10 +94,9 @@ class SignupView(generic.View):
                 return redirect('mag:signin')
         else:
             messages.error(self.request, 'Un problème est survenue. Réessayez')
-            return render(self.request, 'signup.html',
-                          {'user_creation_form': userForm, 'utilisateurform': utilisateur_form})
+            return render(self.request, 'signup.html', {'user_creation_form': userForm, 'utilisateurform': utilisateur_form})
 
-class Signinview(generic.View):
+# class Signinview(generic.View):
     def get(self, *args, **kwargs):
         return render(self.request, 'mag/login.html')
 
@@ -103,9 +117,58 @@ class Signinview(generic.View):
             messages.error(self.request, "S'il vous plait utilisez un mot de passe ou une adresse email correcte")
             return redirect('mag:signin')
 
-@login_required()
+class SignupView(FormView):
+    template_name = 'mag/signup.html'
+    form_class = CreateUserForm
+    success_url = reverse_lazy('mag:signin')
+
+    @transaction.atomic
+    def form_valid(self, form):
+        user = form.save(commit=False)
+        user.username = user.email
+        user.first_name = user.first_name.split(' ')[0]
+        user.last_name = user.first_name.split(' ')[-1]
+        user.save()
+        utilisateur_form = UtilisateurForm(data=self.request.POST)
+        if utilisateur_form.is_valid():
+            utilisateur = utilisateur_form.save(commit=False)
+            utilisateur.user = user
+            utilisateur.save()
+            messages.success(self.request, 'Votre compte a bien été créé. Connectez-vous et parcourez nos différents articles')
+            return super().form_valid(form)
+        else:
+            messages.error(self.request, 'Un problème est survenu lors de la création de votre compte. Veuillez réessayer.')
+            return super().form_invalid(form)
+
+
+class SigninView(FormView):
+    template_name = 'mag/login.html'
+    form_class = AuthenticationForm
+    success_url = reverse_lazy('mag:index')
+
+    def form_valid(self, form):
+        user = form.get_user()
+        login(self.request, user)
+        messages.success(self.request, 'Vous êtes maintenant connecté.')
+        return HttpResponseRedirect(self.get_success_url())
+
+    def form_invalid(self, form):
+        messages.error(self.request, "Veuillez vérifier vos informations de connexion.")
+        return super().form_invalid(form)
+
+    def get(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            return HttpResponseRedirect(self.success_url)
+        return super().get(request, *args, **kwargs)
+
+
+@login_required
 def signoutview(request):
-    logout(request)
+    """
+    Déconnecte l'utilisateur et le redirige vers la page de connexion.
+    """
+    auth_logout(request)
+    messages.success(request, 'Vous avez été déconnecté avec succès.')
     return redirect('mag:signin')
 
 def about_us(request):
@@ -131,18 +194,13 @@ def post_detail_template2(request):
 
 @login_required
 def category_post(request, name):
-    category = get_object_or_404(Category, name=name)
+    # category = get_object_or_404(Category, name=name)
     posts = Post.objects.filter(Category=Category)
     context = {
         'Category': Category,
         'posts': posts,
     }
     return render(request, 'mag/category_post.html', context)
-
-@login_required
-def logout(request):
-        logout(request)
-        return HttpResponseRedirect(settings.LOGOUT_REDIRECT_URL )
 
 @login_required
 def category_news(request, name):
@@ -154,30 +212,54 @@ def category_news(request, name):
     }
     return render(request, 'mag/category_news.html', context)
 #je dois finir avec la fonction related_posts dans post_detail et dans news_detail
-@login_required
+
 def post_detail(request, pk):
-    # Récupérer le post actuel
     post = get_object_or_404(Post, pk=pk)
-
-    # Récupérer les articles ayant la même catégorie que le post actuel
     related_posts = Post.objects.filter(category=post.category).exclude(pk=post.pk)
-    # Récupérer les commentaires associés à ce post
-    comments = Comment.objects.filter(post=post)
+    comments = Comment.objects.filter(post=post).order_by('-created_at')
+
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            # Créez une instance de commentaire mais ne l'enregistrez pas encore dans la base de données
+            new_comment = form.save(commit=False)
+            new_comment.post = post  # Associez le commentaire à l'article actuel
+            new_comment.save()  # Enregistrez le commentaire dans la base de données
+            return redirect('post_detail', pk=pk)  # Redirigez vers la même page après avoir ajouté le commentaire
+    else:
+        form = CommentForm()
+
+    return render(request, 'post_detail.html', {'post': post, 'comments': comments, 'form': form})
 
 
-    # Passer les données à votre template
-    return render(request, 'mag/post_detail.html', {'post': post, 'related_posts': related_posts, 'comments': comments})
+# @login_required
+# def news_detail(request, pk):
+#     post = get_object_or_404(News, pk=pk)
+#     related_news = News.objects.filter(category=post.category).exclude(pk=post.pk)
+#     comments = Comment.objects.filter(post=post)
 
-@login_required
-def news_detail(request, pk):
-    post = get_object_or_404(News, pk=pk)
-    related_news = News.objects.filter(category=post.category).exclude(pk=post.pk)
-    comments = Comment.objects.filter(post=post)
-
-    return render(request, 'mag/news_details.html', {'post': post, 'related_posts': related_news, 'comments': comments})
+#     return render(request, 'mag/news_details.html', {'post': post, 'related_posts': related_news, 'comments': comments})
 
 def terms_of_use(request):
-        return render(request, 'mag/terms_of_use.html',)
+    return render(request, 'mag/terms_of_use.html',)
+
+def news_detail(request, pk):
+    news = get_object_or_404(News, pk=pk)
+    related_news = News.objects.filter(category=news.category).exclude(pk=news.pk)
+    comments = Comment.objects.filter(news=news).order_by('-created_at')
+
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            new_comment = form.save(commit=False)
+            new_comment.news = news
+            new_comment.save()
+            return redirect('mag/news_details.html', pk=pk)
+    else:
+        form = CommentForm()
+
+    return render(request, 'mag/news_details.html', {'news': news, 'related_news': related_news, 'comments': comments, 'form': form})
+
 
 @login_required
 def search_feature(request):

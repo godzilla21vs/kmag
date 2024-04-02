@@ -18,8 +18,8 @@
 {% endif %} {% endcomment %}
 
 <div class="search-results">
-{% if search_results %}
-{% for result in search_results %}
+{% if posts %}
+{% for post in posts %}
 <!-- Simple card -->
 <div class="card">
     <img class="card-img-top img-fluid" src="{{ result.thumbnail }}" alt="Card image cap">
@@ -35,7 +35,7 @@
 {% else %}
 <div class="search-results">
     <div class="card">
-        <p>Désolé, Aucun résultat correspondant.</p>
+        <p>Désolé, Aucun résultat correspondant pour "{{ query }}".</p>
       </div>
     {% endif %}
 

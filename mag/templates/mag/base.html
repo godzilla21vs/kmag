@@ -112,12 +112,12 @@
                 <!-- Start Top Search -->
                 <div class="top-search">
                     <div class="container">
-                        <form class="d-flex" role="search" method="POST">
+                        <form class="d-flex" role="search" method="POST" action="{% url 'search_feature' %}">
                             {% csrf_token %}
                             <input
                                 {% comment %} class="fa fa-search"
                                 class="form-control me-2" {% endcomment %}
-                                type="search"
+                                type="text"
                                 placeholder="Recherchez un article"
                                 name="search_query"
                                 required aria-label="Search"
@@ -150,18 +150,25 @@
                                 <a href="{% url 'index' %}"  >Accueil</a>
                             </li>
                             <li class="dropdown megamenu-fw">
-                                <a href="{% url 'index_partenaire' %}" class="dropdown-toggle" data-toggle="dropdown">Nos Partenaires</a>
+                                <a href="" class="dropdown-toggle" data-toggle="dropdown">Nos Partenaires</a>
                                 <ul class="dropdown-menu megamenu-content" role="menu">
+                                    <li><a href="/index_partenaire/">Partenaires 00</a></li>
+                                    <li><a href="index_partenaire01/">Partenaires 01</a></li>
+                                    <li><a href="index_partenaire02/">Partenaires 02</a></li>
+                                    <li><a href="index_partenaire03/">Partenaires 03</a></li>
+                                    <li><a href="index_partenaire04/">Partenaires 04</a></li>
+                                    <li><a href="index_partenaire05/">Partenaires 05</a></li>
+                                    <li><a href="index_partenaire06/">Partenaires 06</a></li>
                                 </ul>
                             </li>
                             <li class="dropdown">
                                 <a href="" class="dropdown-toggle" data-toggle="dropdown" >Catégories</a>
                                 <ul class="dropdown-menu">
                                     <li class="dropdown">
-                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" >Category layout</a>
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" >Categorie layout</a>
                                         <ul class="dropdown-menu">
-                                            <li><a href="{% url 'category_post' %}.">Category Post</a></li>
-                                            <li><a href="{% url 'category_news' %}">Category News</a></li>
+                                            <li><a href="{% url 'category_post' %}.">Categorie Post</a></li>
+                                            <li><a href="{% url 'category_news' %}">Categorie News</a></li>
                                         </ul>
                                     </li>
                                 </ul>

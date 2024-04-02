@@ -2,11 +2,11 @@ from django.urls import path, include
 from django.contrib.auth.decorators import login_required
 from .views import * 
 
-#app_name = 'mag'
+app_name = 'mag'
 
 urlpatterns = [
     path('', indexView.as_view(), name="index"),
-    path('signin/', Signinview.as_view(), name="signin"),
+    path('signin/', SigninView.as_view(), name="signin"),
     path('signup/', SignupView.as_view(), name='signup'),
     path('signout/', signoutview, name='signout'),
     path('contact/', contact_Us , name='contact'),

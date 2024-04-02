@@ -35,7 +35,21 @@
                                       width: 300px;
                                     }
                                 </style>
-                                <form action="/signin/" class="default-form" method="POST">
+                                <form method="post" action="{% url 'mag:signin' %}">
+                                    {% csrf_token %}
+                                    {% if messages %}
+                                    <ul class="message">
+                                        {% for message in messages %}
+                                        <li {% if message.tags %} class="{{ message.tags }}" {% endif %} style="list-style-type: none !important; color: red;">
+                                            {{ message }}
+                                        </li>
+                                        {% endfor %}
+                                    </ul>
+                                    {% endif %}
+                                    {{ form.as_p }}
+                                    <button type="submit">Connexion</button>
+                                </form>
+                                {% comment %} <form action="/signin/" class="default-form" method="POST"> {% endcomment %}
                                     {% csrf_token %}
                                     {% if messages %}
                                     <ul class="message">
