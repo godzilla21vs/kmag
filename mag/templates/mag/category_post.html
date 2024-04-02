@@ -6,7 +6,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-xs-12 col-sm-6 col-md-6">
-                        <h1><strong>Catégories postes</strong></h1>
+                        <h1>tout les articles ayant pour catégorie :<strong>{{ category.name }}</strong></h1>
                     </div>
                     <div class="col-xs-12 col-sm-6 col-md-6">
                         <ol class="breadcrumb">
@@ -28,246 +28,30 @@
                             <div class="slider-wrapper">
                                 <div id="owl-slider" class="owl-carousel owl-theme">
                                     <!-- Slider item one -->
+                                    {% for post in posts %}
                                     <div class="item">
                                         <div class="slider-post post-height-1">
-                                            <a href="#" class="news-image"><img src="assets/images/slider-520x460-1.jpg" alt="" class="img-responsive"></a>
+                                            <a href=""{% url 'post_detail' pk=post.pk %}"" class="news-image"><img src=src="{{ post.thumbnail.url }}" alt="{{ post.title }} thumbnail" class="img-responsive"></a>
                                             <div class="post-text">
-                                                <span class="post-category">Business</span>
-                                                <h2><a href="#">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has </a></h2>
+                                                <span class="post-category">{{ post.Category.name }}</span>
+                                                <h2><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }} </a></h2>
                                                 <ul class="authar-info">
-                                                    <li class="authar"><a href="#">by david hall</a></li>
-                                                    <li class="date">May 29,2016</li>
-                                                    <li class="view"><a href="#">25 views</a></li>
+                                                    <li class="authar"><a href="#">par {{ post.author.name }}</a></li>
+                                                    <li class="date">{{ post.pub_date }}</li>
+                                                    <li class="view"><a href="#">{{ post.number}} vue(s)</a></li>
                                                 </ul>
                                             </div>
                                         </div>
                                     </div>
+                                    {% else%}
+                                    <p> Aucun poste n'a été trouvé pour cette catégorie.</p>
+                                    {% endfor %}
                                     <!-- /.Slider item one -->
                                     <!-- Slider item two -->
-                                    <div class="item">
-                                        <div class="slider-post post-height-1">
-                                            <a href="#" class="news-image"><img src="assets/images/slider-520x460-2.jpg" alt="" class="img-responsive"></a>
-                                            <div class="post-text">
-                                                <span class="post-category">Politics</span>
-                                                <h2><a href="#">It is a long established fact that a reader will be distracted by the readable content of a page.</a></h2>
-                                                <ul class="authar-info">
-                                                    <li class="authar"><a href="#">by david hall</a></li>
-                                                    <li class="date">May 29,2016</li>
-                                                    <li class="view"><a href="#">25 views</a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- /.Slider item two -->
-                                    <!-- Slider item three -->
-                                    <div class="item">
-                                        <div class="slider-post post-height-1">
-                                            <a href="#" class="news-image"><img src="assets/images/slider-520x460-3.jpg" alt="" class="img-responsive"></a>
-                                            <div class="post-text">
-                                                <span class="post-category">Photography</span>
-                                                <h2><a href="#">Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece</a></h2>
-                                                <ul class="authar-info">
-                                                    <li class="authar"><a href="#">by david hall</a></li>
-                                                    <li class="date">May 29,2016</li>
-                                                    <li class="view"><a href="#">25 views</a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- /.Slider item three -->
-                                    <!-- Slider item four -->
-                                    <div class="item">
-                                        <div class="slider-post post-height-1">
-                                            <a href="#" class="news-image"><img src="assets/images/slider-520x460-4.jpg" alt="" class="img-responsive"></a>
-                                            <div class="post-text">
-                                                <span class="post-category">Travel</span>
-                                                <h2><a href="#">There are many variations of passages of Lorem Ipsum available, but the majority.</a></h2>
-                                                <ul class="authar-info">
-                                                    <li class="authar"><a href="#">by david hall</a></li>
-                                                    <li class="date">May 29,2016</li>
-                                                    <li class="view"><a href="#">25 views</a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- /.Slider item four -->
-                                    <!-- Slider item five -->
-                                    <div class="item">
-                                        <div class="slider-post post-height-1">
-                                            <a href="#" class="news-image"><img src="assets/images/slider-520x460-5.jpg" alt="" class="img-responsive"></a>
-                                            <div class="post-text">
-                                                <span class="post-category">Business</span>
-                                                <h2><a href="#">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard </a></h2>
-                                                <ul class="authar-info">
-                                                    <li class="authar"><a href="#">by david hall</a></li>
-                                                    <li class="date">May 29,2016</li>
-                                                    <li class="view"><a href="#">25 views</a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- /.Slider item five -->
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xs-12 col-sm-6 col-md-6 thm-padding">
-                            <div class="row slider-right-post thm-margin">
-                                <div class="col-xs-6 col-sm-6 col-md-6 thm-padding">
-                                    <div class="slider-post post-height-2">
-                                        <a href="#" class="news-image"><img src="assets/images/slider-260x230-7.jpg" alt="" class="img-responsive"></a>
-                                        <div class="post-text">
-                                            <span class="post-category">Photography</span>
-                                            <h4><a href="#">It is a long established fact that a reader will.</a></h4>
-                                            <ul class="authar-info">
-                                                <li class="authar hidden-xs hidden-sm"><a href="#">by david hall</a></li>
-                                                <li class="hidden-xs">May 29,2017</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xs-6 col-sm-6 col-md-6 thm-padding">
-                                    <div class="slider-post post-height-2">
-                                        <a href="#" class="news-image"><img src="assets/images/slider-260x230-8.jpg" alt="" class="img-responsive"></a>
-                                        <div class="post-text">
-                                            <span class="post-category">Technology</span>
-                                            <h4><a href="#">There are many variations of passages of Lorem.</a></h4>
-                                            <ul class="authar-info">
-                                                <li class="authar hidden-xs hidden-sm"><a href="#">by david hall</a></li>
-                                                <li class="hidden-xs">May 29,2017</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xs-6 col-sm-6 col-md-6 thm-padding">
-                                    <div class="slider-post post-height-2">
-                                        <a href="#" class="news-image"><img src="assets/images/slider-260x230-9.jpg" alt="" class="img-responsive"></a>
-                                        <div class="post-text">
-                                            <span class="post-category">Fashion</span>
-                                            <h4><a href="#">Contrary to popular belief, Lorem Ipsum is not simply.</a></h4>
-                                            <ul class="authar-info">
-                                                <li class="authar hidden-xs hidden-sm"><a href="#">by david hall</a></li>
-                                                <li class="hidden-xs">May 29,2017</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xs-6 col-sm-6 col-md-6 thm-padding">
-                                    <div class="slider-post post-height-2">
-                                        <a href="#" class="news-image"><img src="assets/images/slider-260x230-10.jpg" alt="" class="img-responsive"></a>
-                                        <div class="post-text">
-                                            <span class="post-category">Travel</span>
-                                            <h4><a href="#">Lorem Ipsum is simply dummy text of the printing</a></h4>
-                                            <ul class="authar-info">
-                                                <li class="authar hidden-xs hidden-sm"><a href="#">by david hall</a></li>
-                                                <li class="hidden-xs">May 29,2017</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            <!-- END OF /. POST BLOCK SECTION -->
-            <div class="container">
-                <div class="row row-m">
-                    <!-- START MAIN CONTENT -->
-                    <div class="col-sm-8 col-p  main-content">
-                        <div class="theiaStickySidebar">
-                            <div class="post-inner">
-                                <!--post header-->
-                                <div class="post-head">
-                                    <h2 class="title"><strong>Latest</strong> articles</h2>
-                                </div>
-                                <!-- post body -->
-                                <div class="post-body">
-                                    <div class="news-list-item articles-list">
-                                        <div class="img-wrapper">
-                                            <a href="#" class="thumb"><img src="assets/images/218x150-1.jpg" alt="" class="img-responsive"></a>
-                                        </div>
-                                        <div class="post-info-2">
-                                            <h4><a href="#" class="title">There are many variations of passages of Lorem Ipsum available, but the majority have</a></h4>
-                                            <ul class="authar-info">
-                                                <li><i class="ti-timer"></i> May 15, 2016</li>
-                                                <li><a href="#" class="link"><i class="ti-thumb-up"></i>15 likes</a></li>
-                                            </ul>
-                                            <p class="hidden-sm">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley...</p>
-                                        </div>
-                                    </div>
-                                    <div class="news-list-item articles-list">
-                                        <div class="img-wrapper">
-                                            <a href="#" class="thumb"><img src="assets/images/218x150-2.jpg" alt="" class="img-responsive"></a>
-                                        </div>
-                                        <div class="post-info-2">
-                                            <h4><a href="#" class="title">Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical</a></h4>
-                                            <ul class="authar-info">
-                                                <li><i class="ti-timer"></i> May 15, 2016</li>
-                                                <li><a href="#" class="link"><i class="ti-thumb-up"></i>15 likes</a></li>
-                                            </ul>
-                                            <p class="hidden-sm">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley...</p>
-                                        </div>
-                                    </div>
-                                    <div class="news-list-item articles-list">
-                                        <div class="img-wrapper">
-                                            <a href="#" class="thumb"><img src="assets/images/218x150-3.jpg" alt="" class="img-responsive"></a>
-                                        </div>
-                                        <div class="post-info-2">
-                                            <h4><a href="#" class="title">The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested.</a></h4>
-                                            <ul class="authar-info">
-                                                <li><i class="ti-timer"></i> May 15, 2016</li>
-                                                <li><a href="#" class="link"><i class="ti-thumb-up"></i>15 likes</a></li>
-                                            </ul>
-                                            <p class="hidden-sm">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley...</p>
-                                        </div>
-                                    </div>
-                                    <div class="news-list-item articles-list">
-                                        <div class="img-wrapper">
-                                            <a href="#" class="thumb"><img src="assets/images/218x150-4.jpg" alt="" class="img-responsive"></a>
-                                        </div>
-                                        <div class="post-info-2">
-                                            <h4><a href="#" class="title">It is a long established fact that a reader will be distracted by the readable </a></h4>
-                                            <ul class="authar-info">
-                                                <li><i class="ti-timer"></i> May 15, 2016</li>
-                                                <li><a href="#" class="link"><i class="ti-thumb-up"></i>15 likes</a></li>
-                                            </ul>
-                                            <p class="hidden-sm">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley...</p>
-                                        </div>
-                                    </div>
-                                    <div class="news-list-item articles-list">
-                                        <div class="img-wrapper">
-                                            <a href="#" class="thumb"><img src="assets/images/340x215-1.jpg" alt="" class="img-responsive"></a>
-                                        </div>
-                                        <div class="post-info-2">
-                                            <h4><a href="#" class="title">Replication For Dummies 4 Easy Steps To Professional DVD</a></h4>
-                                            <ul class="authar-info">
-                                                <li><i class="ti-timer"></i> May 15, 2016</li>
-                                                <li><a href="#" class="link"><i class="ti-thumb-up"></i>15 likes</a></li>
-                                            </ul>
-                                            <p class="hidden-sm">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley...</p>
-                                        </div>
-                                    </div>
-                                </div> <!-- /. post body -->
-                                <!-- Post footer -->
-                                <div class="post-footer"> 
-                                    <div class="row thm-margin">
-                                        <div class="col-xs-12 col-sm-12 col-md-12 thm-padding">
-                                            <!-- pagination -->
-                                            <ul class="pagination">
-                                                <li class="disabled"><span class="ti-angle-left"></span></li>
-                                                <li class="active"><span>1</span></li>
-                                                <li><a href="#">2</a></li>
-                                                <li><a href="#">3</a></li>
-                                                <li class="disabled"><span class="extend">...</span></li><li>
-                                                <li><a href="#">12</a></li>
-                                                <li><a href="#"><i class="ti-angle-right"></i></a></li>
-                                            </ul> <!-- /.pagination -->
-                                        </div>
-                                    </div>
-                                </div> <!-- /.Post footer-->
-                            </div>
-                        </div>
-                    </div>
+                    </div>    
                     <!-- END OF /. MAIN CONTENT -->
                     <!-- START SIDE CONTENT -->
                     <div class="col-sm-4 col-p rightSidebar">

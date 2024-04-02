@@ -193,12 +193,12 @@ def post_detail_template2(request):
     return render(request, 'mag/post_detail_template2.html')
 
 @login_required
-def category_post(request, name):
-    # category = get_object_or_404(Category, name=name)
-    posts = Post.objects.filter(Category=Category)
+def category_post(request, category_slug):
+    category = Category.objects.get(slug=category_slug)
+    posts = Post.objects.filter(Category=category)
     context = {
-        'Category': Category,
-        'posts': posts,
+        'category': category,
+        'posts': posts
     }
     return render(request, 'mag/category_post.html', context)
 
