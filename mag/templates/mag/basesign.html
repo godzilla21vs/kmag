@@ -72,20 +72,37 @@
                             <!-- End of /. top left menu -->
                         </div>
                         <!-- Start header top right menu -->
+                        <style>
+                            .header-right-menu a:hover {
+                                color: #eb0254;
+                            }
+                        </style>
+                        
                         <div class="hidden-xs col-md-6 col-sm-6 col-lg-6">
                             <div class="header-right-menu">
                                 <div class="header-top-links">
-                                    <ul >
-                                        {% if request.user.is_authenticated %}
-                                        <li><a  href="/signout/" style="color: white">Deconnexion</a> </li>
-                                        {% else %}
-                                        <li><a href="/signin/" style="color: white">Connexion / Enregistrement</a></li>
-                                        {% endif %}
+                                    <ul class="menu">
+                                        <li class="dropdown">
+                                            <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="color: white;"><i class="fa fa-user-circle"></i>  Compte</a>
+                                            <ul class="dropdown-menu">
+                                                {% if request.user.is_authenticated %}
+                                                <li><a href="{% url 'mag:signout'%}">Déconnexion</a></li>
+                                                {% else %}
+                                                <li><a href="{% url 'mag:signin'%}">Connexion / Enregistrement</a></li>
+                                                {% endif %}</a>
+                                                <li><a href="#">Langue</a></li>
+                                                {% if request.user.is_authenticated %}
+                                                <a href="{% url 'profile' %}">Mon Profil</a>
+                                                {% else %}
+                                                {% endif %}
+                                            </ul>
+                                        </li>
                                     </ul>
                                 </div>
                             </div>
-                            </div>
-                        </div> <!-- end of /. header top right menu -->
+                        </div>
+                        
+                         <!-- end of /. header top right menu -->
                     </div> <!-- end of /. row -->
                 </div> <!-- end of /. container -->
             </div>
@@ -122,7 +139,20 @@
                                 name="search_query"
                                 required aria-label="Search"
                             >
-                            <button class="btn btn-outline-success"type="submit">Recherchez</button>
+                            <style>
+                                .btn.btn-outline-success {
+                                    color: #eb0254;
+                                    border-color: #eb0254;
+                                }
+                            
+                                .btn.btn-outline-success:hover {
+                                    background-color: #eb0254;
+                                    color: white;
+                                }
+                            </style>
+                            
+                            <button class="btn btn-outline-success" type="submit">Recherchez</button>
+                            
                         </form>
                     </div>
                 </div>
@@ -165,7 +195,7 @@
                                 <a href="" class="dropdown-toggle" data-toggle="dropdown" >Catégories articles</a>
                                 <ul class="dropdown-menu">
                                     <li class="dropdown">
-                                        <ul class="dropdown-menu megamenu-content">
+                                        <ul class="dropdown-menu">
                                             {% for category in categories %}
                                             <li><a href="{% url 'category_posts' category.slug %}">{{ category.name }}</a></li>
                                             {% endfor %}
@@ -177,7 +207,7 @@
                                 <a href="" class="dropdown-toggle" data-toggle="dropdown" >Catégories actualitès</a>
                                 <ul class="dropdown-menu">
                                     <li class="dropdown">
-                                        <ul class="dropdown-menu megamenu-content">
+                                        <ul class="dropdown-menu">
                                             {% for category in categoriesNews %}
                                             <li><a href="{% url 'category_news' category.slug %}">{{ category.name }}</a></li>
                                             {% endfor %}

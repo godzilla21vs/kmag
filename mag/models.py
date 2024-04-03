@@ -70,7 +70,7 @@ class Author(models.Model):
 class Post(models.Model): 
     title = models.CharField(max_length=100, unique=True) 
     slug = models.SlugField(unique=True) 
-    body = models.TextField(max_length=2555) 
+    body = models.TextField(max_length=2755) 
     pub_date = models.DateTimeField('date published', auto_now=True, )
     Category = models.ForeignKey(Category, on_delete=models.CASCADE) 
     Author = models.ForeignKey(Author, on_delete=models.CASCADE)
@@ -126,20 +126,13 @@ class CommentNews(models.Model):
     def __str__(self):
         return f"Commenté par {self.author.username} on {self.news.title} at {self.created_at}"
 
-class CategoryNews(models.Model):
-    id = models.AutoField(primary_key=True)
-    name = models.CharField(max_length=255, blank=True)
-    slug = models.SlugField(max_length=255)
-
-    def __str__(self):
-        return self.name
 class News(models.Model):
     id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=255)
     slug = models.SlugField(unique=True) 
-    body = models.TextField(max_length=255)
-    pub_date = models.DateTimeField('date published', auto_now=True, )
-    Category = models.ManyToManyField(Category)
+    body = models.TextField(max_length=2755)
+    pub_date = models.DateTimeField('date published', auto_now=True,)
+    Category = models.ForeignKey(Category, on_delete=models.CASCADE)
     likes = models.IntegerField(default=0)
     main_image = models.ImageField(upload_to='Media/main_images_news/')
     thumbnail = models.ImageField(upload_to='Media/thumbnails_news/', null=True, blank=True)

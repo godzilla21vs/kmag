@@ -212,33 +212,11 @@
                         </div>
                         <!-- END OF /. COMMENT -->
                         <!-- START COMMENTS FORMS -->
-                        <form class="comment-form" action="#" method="post">
-                            <h3><strong>Laissez un commentaire </strong></h3>
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label for="name">Nom complet*</label>
-                                        <input type="text" class="form-control" id="name" name="name" placeholder="Your name*">
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <label for="email">Email*</label>
-                                    <div class="form-group">
-                                        <input type="text" class="form-control" id="email" name="email" placeholder="Your email address here">
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <label for="email">Sujet</label>
-                                    <div class="form-group">
-                                        <input type="text" class="form-control" id="subject" name="subject" placeholder="Write subject here">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="email">message</label>
-                                <textarea class="form-control" id="message" name="message" placeholder="Your Comment*" rows="5"></textarea>
-                            </div>
-                            <a href="#"  class="btn btn-news"> Postez</a>
+                        <h2>Ajouter un commentaire :</h2>
+                        <form method="post" action="{% url 'add_comment' post.pk %}">
+                        {% csrf_token %}
+                        <textarea name="content" rows="4" cols="50"></textarea><br>
+                        <input type="submit" value="Ajouter le commentaire">
                         </form>
                         <!-- END OF /. COMMENTS FORMS -->
                     </div>

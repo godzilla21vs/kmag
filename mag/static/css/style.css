@@ -194,13 +194,14 @@ a {
     transition: all 0.3s;
 }
 
-logout-link {
+
+/* logout-link {
     color: white;
 }
 
 login-link {
     color: white;
-}
+} */
 
 a:hover {
     color: #eb0254;

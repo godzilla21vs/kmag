@@ -1,11 +1,12 @@
 from django.urls import path, include
 from django.contrib.auth.decorators import login_required
 from .views import * 
+from . import views
 
 app_name = 'mag'
 
 urlpatterns = [
-    path('', indexView.as_view(), name="index"),
+    path('', indexView.as_view(), name='index'),
     path('signin/', SigninView.as_view(), name="signin"),
     path('signup/', SignupView.as_view(), name='signup'),
     path('signout/', signoutview, name='signout'),
@@ -22,4 +23,5 @@ urlpatterns = [
     path('index_partenaire', index_partenaire, name="index_partenaire"),
     path('post_detail_template2/', post_detail_template2, name="post_detail_template2"),
     path('category/<slug:category_slug>/', CategoryPostListView.as_view(), name='category_posts'),
+    path('profile/', views.profile, name='profile'),
 ]

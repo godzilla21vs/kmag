@@ -1,0 +1,57 @@
+{% extends 'mag/basesign.html' %}
+{% block content %}
+<div class="page-title">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-6">
+                <h1><strong>Inscription</strong></h1>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-6">
+                <ol class="breadcrumb">
+                    <li><a href="{% url 'mag:index' %}">Accueil</a></li>
+                    <li class="active"><a href="{% url 'mag:signup' %}">Connexion</a></li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END 
+<!-- *** START PAGE MAIN CONTENT *** -->
+<main class="page_main_wrapper">
+    <div class="container">
+        <div class="row row-m">
+            <div class="col-sm-8 main-content col-p">
+                <div class="theiaStickySidebar">
+                    <!-- START CONTACT FORM AREA -->
+                    <div class="contact_form_inner">
+                        <div class="panel_inner">
+                            <div class="panel_header">
+                                <h1><strong>Mon Profil</strong></h1>
+                            </div>
+                            <div class="panel_body">
+                                <style>
+                                    form {
+                                        margin: 0 auto;
+                                        width: 300px;
+                                    }
+                                </style>
+                                        <form method="post">
+                                            {% csrf_token %}
+                                            {{ utilisateur_form.as_p }}
+                                            <button type="submit">Mettre à jour</button>
+                                        </form>
+                                        <form method="post">
+                                            {% csrf_token %}
+                                            {{ password_form.as_p }}
+                                            <button type="submit">Changer de mot de passe</button>
+                                        </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+{% endblock content%}

@@ -23,7 +23,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 # Importations Django Forms
-from django.views.generic.edit import FormView
+from django.views.generic import FormView
 from .forms import *
 
 # Importations Django Models
@@ -41,7 +41,7 @@ from django.urls import reverse_lazy
 class indexView(View):
     def get(self, request, *args, **kwargs):
         categories = Category.objects.all()
-        categoriesNews = CategoryNews.objects.all()
+        # categoriesNews = CategoryNews.objects.all()
         latest_post = Post.objects.order_by('-pub_date')[:5]
         latest_news = News.objects.order_by('-pub_date')[:3]
         popular_news = News.objects.order_by('-likes')[:5]
@@ -50,7 +50,7 @@ class indexView(View):
 
         context = {
             'categories' : categories,
-            'categoriesNews' : categoriesNews,
+            #'categoriesNews' : categoriesNews,
             'latest_post': latest_post,
             'latest_news': latest_news,
             'popular_news': popular_news,
@@ -152,15 +152,16 @@ class SigninView(FormView):
         user = form.get_user()
         login(self.request, user)
         messages.success(self.request, 'Vous êtes maintenant connecté.')
-        return HttpResponseRedirect(self.get_success_url())
-
+        print("Redirection vers :", self.get_success_url())
+        return HttpResponseRedirect('mag:index')
     def form_invalid(self, form):
         messages.error(self.request, "Veuillez vérifier vos informations de connexion.")
         return super().form_invalid(form)
 
     def get(self, request, *args, **kwargs):
         if request.user.is_authenticated:
-            return HttpResponseRedirect(self.success_url)
+            print("Vous êtes déjà authentifié. Redirection...")
+            return HttpResponseRedirect('mag:index')
         return super().get(request, *args, **kwargs)
 
 
@@ -172,6 +173,29 @@ def signoutview(request):
     auth_logout(request)
     messages.success(request, 'Vous avez été déconnecté avec succès.')
     return redirect('mag:signin')
+
+@login_required
+def profile(request):
+    utilisateur_form = UtilisateurForm(instance=request.user.utilisateur)
+    password_form = PasswordChangeForm()
+
+    if request.method == 'POST':
+        utilisateur_form = UtilisateurForm(request.POST, instance=request.user.utilisateur)
+        password_form = PasswordChangeForm(request.POST)
+
+        if utilisateur_form.is_valid():
+            utilisateur_form.save()
+
+        if password_form.is_valid():
+            password = password_form.cleaned_data['password']
+            confirm_password = password_form.cleaned_data['confirm_password']
+            if password == confirm_password:
+                user = request.user
+                user.set_password(password)
+                user.save()
+                return redirect('profile')
+
+    return render(request, 'profile.html', {'utilisateur_form': utilisateur_form, 'password_form': password_form})
 
 def about_us(request):
     return render(request, 'mag/about_us.html')

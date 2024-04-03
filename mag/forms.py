@@ -24,7 +24,10 @@ class UtilisateurForm(forms.ModelForm):
         model = Utilisateur
         fields = ('genre', 'adresse', 'mobile', 'ville',)
 
-
+class PasswordChangeForm(forms.Form):
+    password = forms.CharField(label='Mot de passe', widget=forms.PasswordInput)
+    confirm_password = forms.CharField(label='Confirmer mot de passe', widget=forms.PasswordInput)
+    
 class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
