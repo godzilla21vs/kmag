@@ -261,6 +261,7 @@ def post_detail(request, pk):
     post = get_object_or_404(Post, pk=pk)
     related_posts = Post.objects.filter(category=post.category).exclude(pk=post.pk)
     comments = Comment.objects.filter(post=post).order_by('-created_at')
+    num_comments = post.comments.count()
 
     if request.method == 'POST':
         form = CommentForm(request.POST)
@@ -273,7 +274,7 @@ def post_detail(request, pk):
     else:
         form = CommentForm()
 
-    return render(request, 'post_detail.html', {'post': post, 'comments': comments, 'form': form})
+    return render(request, 'post_detail.html', {'post': post, 'comments': comments, 'form': form, 'num_comments': num_comments})
 
 
 # @login_required
@@ -313,24 +314,3 @@ def search_feature(request):
         query = request.POST['search_query']
         queryset = queryset.filter(title__contains=query)
     return render(request, 'mag/search_posts.html', {'query': query, 'posts': queryset})
-
-# def search_feature(request):
-#     # Check if the request is a post request.
-#     if request.method == 'POST':
-#         # Retrieve the search query entered by the user
-#         search_query = request.POST['search_query']
-#         # Filter your model by the search query
-#         posts = Post.objects.filter(title__contains=search_query)
-#         return render(request, 'mag/search_posts.html', {'query':search_query, 'posts':posts})
-#     else:
-#         return render(request, 'mag/search_posts.html',{})
-    
-# @login_required
-# def search(request): 
-#     queryset = Post.objects.all()
-#     query = request.GET.get('q')
-#     if query:
-#         queryset = queryset.filter(
-#             Q(title__icontains=query)  | 
-#             Q(title__icontains)
-#         )

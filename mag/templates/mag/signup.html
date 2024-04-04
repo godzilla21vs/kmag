@@ -30,12 +30,14 @@
                             </div>
                             <div class="panel_body">
                                 <style>
+                                    /* Move styles to a separate CSS file for better organization */
                                     form {
-                                      margin: 0 auto;
-                                      width: 300px;
+                                        margin: 0 auto;
+                                        width: 300px;
                                     }
                                 </style>
                                 <form action="/signup/" class="default-form" method="POST">
+                                    {% csrf_token %}
                                     {% if messages %}
                                     <ul class="message">
                                         {% for message in messages %}
@@ -45,72 +47,60 @@
                                         {% endfor %}
                                     </ul>
                                     {% endif %}
-                                    {% csrf_token %}
-                                        <div class="content">
-                                            <p class="form-text">Vous avez déjà un compte ? <a href={% url 'mag:signin' %}>Connectez-vous</a></p>
-                                            <div class="row justify-content-between align-items-center">
-                                                <div class="row justify-content-between align-items-center">
-                                                    <div class="col-12 form-group">
-                                                        <input type="text" class="form-control" name="username" placeholder="Votre nom d'utilisateur">
-                                                    </div>
-                                                    <div class="col-12 form-group">
-                                                        <input type="password" class="form-control" name="password" placeholder="Votre mot de passe">
-                                                    </div>
-                                                    <div class="col-sm-auto form-group">
-                                                        <p class="form-link"><a href="#">Mot de passe oublié ?</a></p>
-                                                    </div>
-                                                    <div class="col-12 form-group">
-                                                        <button type="submit" class="btn btn-primary">Connexion</button>
-                                                    </div>
-                                                <div class="col-12 form-group">
+                                    <div class="content">
+                                        <p class="form-text">Vous avez déjà un compte ? <a href={% url 'mag:signin' %}>Connectez-vous</a></p>
+                                        <div class="row">
+                                            <div class="col-12">
                                                 Nom : {{ user_creation_form.last_name }}
-                                                    {{ user_creation_form.last_name_errors }}
-                                                </div>
-                                                <div class="col-12 form-group">
+                                                {{ user_creation_form.last_name_errors }}
+                                            </div>
+                                            <div class="col-12">
                                                 Prénom : {{ user_creation_form.first_name }}
-                                                    {{ user_creation_form.first_name_errors }}
-                                                    </div>
-                                                
-                                                <div class="col-12 form-group">
+                                                {{ user_creation_form.first_name_errors }}
+                                            </div>
+                                            <div class="col-12">
                                                 Genre : {{ utilisateurform.genre }}
-                                                    {{ utilisateurform.genre.errors }}
-                                                </div>
-                                                <div class="col-12 form-group">
+                                                {{ utilisateurform.genre.errors }}
+                                            </div>
+                                            <div class="col-12">
                                                 Email : {{ user_creation_form.email }}
-                                                    {{ user_creation_form.email.errors }}
-                                                </div>
-                                                <div class="col-12 form-group">
-                                                    Telephone :{{utilisateurform.mobile}}
-                                                    {{utilisateurform.mobile.errors}}
-                                                </div>
-                                                <div class="col-12 form-group">
-                                                Mot de passse : {{ user_creation_form.password1 }}
-                                                    {{ user_creation_form.password1.errors }}
-                                                </div>
-                                                <div class="col-12 form-group">
+                                                {{ user_creation_form.email.errors }}
+                                            </div>
+                                            <div class="col-12">
+                                                Telephone :{{utilisateurform.mobile}}
+                                                {{utilisateurform.mobile.errors}}
+                                            </div>
+                                            <div class="col-12">
+                                                Mot de passe : {{ user_creation_form.password1 }}
+                                                {{ user_creation_form.password1.errors }}
+                                            </div>
+                                            <div class="col-12">
                                                 Confirmer Mot de passe : {{ user_creation_form.password2 }}
-                                                    {{ user_creation_form.password2.errors }}
-                                                </div>
-                                                <div class="col-12 form-group">
+                                                {{ user_creation_form.password2.errors }}
+                                            </div>
+                                            <div class="col-12">
                                                 Ville : {{ utilisateurform.ville }}
-                                                    {{ utilisateurform.ville.errors }}
+                                                {{ utilisateurform.ville.errors }}
+                                            </div>
+                                            <div class="col-12">
+                                                <div class="custom-checkbox">
+                                                    <input type="checkbox" id="remembermylogin">
+                                                    <label for="remembermylogin"><a href="{% url 'mag:terms_of_use'%}">Acceptez les conditions et la politique de confidentialité</a></label>
                                                 </div>
-                                                <div class="col-sm-auto form-group">
-                                                    <div class="custom-checkbox"><input type="checkbox" id="remembermylogin"> <label for="remembermylogin"><a href="{% url 'mag:terms_of_use'%}">Acceptez les conditions et la politique de confidentialité</a></label></div>
-                                                </div>
-                                                <div class="col-12 form-group"><button type="submit" class="btn btn-primary">Connexion</button></div>
-                                                <div class="mt-5 text-center">
-                                                    <p class="mb-0">Vous avez déjà un compte ? <a href="{% url 'mag:signin' %}" class="fw-semibold text-primary text-decoration-underline"> Connexion</a> </p>
-                                                </div>
+                                            </div>
+                                            <div class="col-12">
+                                                <button type="submit" class="btn btn-primary">Inscription</button>
+                                            </div>
                                         </div>
-                                    </form>
-                                </div>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>
                     <!-- END OF CONTACT FORM AREA -->
                 </div>
             </div>
+        </div>
     </div>
 </main>
 <!-- *** END OF /. PAGE MAIN CONTENT *** -->
