@@ -22,140 +22,28 @@
             <!--  END OF /. NEWSTRICKER -->
             <!-- START POST BLOCK SECTION -->
             <section class="slider-inner">
-                <div class="container">
                 {% if featured_posts %}
-                    <div class="row thm-margin">
-                        <div class="col-xs-12 col-sm-6 col-md-6 thm-padding">
-                            <div class="slider-wrapper">
-                                <div id="owl-slider" class="owl-carousel owl-theme">
-                                    <div class="row slider-right-post thm-margin">
-                                        <div class="col-xs-6 col-sm-12 col-md-12 thm-padding hidden-xs">
-                                            {% with featured_posts[0] as post %}
-                                            <div class="slider-post post-height-2">
-                                                <a href="{% url 'post_details' pk=post.pk %}" class="news-image"><img src="{{ post.main_image }}" alt="" class="img-responsive"></a>
-                                                <div class="post-text">
-                                                    <span class="post-category">{{ post.Category.name }}</span>
-                                                    <h4><a href="{% url 'post_details' pk=post.pk %}">{{ post.title }}</a></h4>
-                                                    <ul class="authar-info">
-                                                        <li class="authar hidden-xs hidden-sm"><a href="#">Posté par {{ post.Author.name }} </a></li>
-                                                        <li class="hidden-xs">{{post.pub_date}}</li>
-                                                        <li class="view hidden-xs hidden-sm"><a href="#"> {{ post.numberView }}vues</a></li>
-                                                    </ul>
-                                                </div>
-                                            {% endwith %}
-                                            </div>
-                                            
-                                        </div>
+                <div class="container">
+                    <div class="row slider-right-post thm-margin">
+                        {% for post in posts %}
+                        <div class="col-xs-6 col-sm-3 col-md-3 thm-padding">
+                            <div class="slider-post post-height-3">
+                                <a href="{% url 'post_details' pk=post.pk %}" class="news-image"><img src="assets/images/slider-260x460-3.jpg" alt=""></a>
+                                <div class="post-text">
+                                    <span class="post-category">{{ post.Category.name }}</span>
+                                    <h4><a href="{% url 'post_details' pk=post.pk %}">{{ post.title }}</a></h4>
+                                    <ul class="authar-info">
+                                        <li class="authar hidden-xs hidden-sm"><a href="#">Posté par {{ post.Author.name }}</a></li>
+                                        <li class="hidden-xs">{{post.pub_date}}</li>
+                                        <li class="view hidden-xs hidden-sm"><a href="#"> {{ post.numberView }}vues</a></li>
+                                    </ul>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xs-12 col-sm-6 col-md-6 thm-padding">
-                            <div class="row slider-right-post thm-margin">
-                                <div class="col-xs-6 col-sm-12 col-md-12 thm-padding hidden-xs">
-                                    <div class="slider-post post-height-2">
-                                        {% with featured_posts[1] as post %}
-                                        <a href="{% url 'post_details' pk=post.pk %}" class="news-image"><img src="{{ post.main_image }}" alt="" class="img-responsive"></a>
-                                        <div class="post-text">
-                                            <span class="post-category">{{ post.Category.name }}</span>
-                                            <h4>{{post.body|truncatechars(50)}}</h4>
-                                            <ul class="authar-info">
-                                                <li class="authar hidden-xs hidden-sm"><a href="#">Posté par {{ post.Author.name }}</a></li>
-                                                <li class="hidden-xs">{{post.pub_date}}</li>
-                                                <li class="view hidden-xs hidden-sm"><a href="#">{{ post.numberView }}vues</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                {% with featured_posts[2] as post %}
-                                <div class="col-xs-6 col-sm-6 col-md-6 thm-padding">
-                                    <div class="slider-post post-height-2">
-                                        <a href="{% url 'post_details' pk=post.pk %}" class="news-image"><img src="{{ post.main_image }}" alt="" class="img-responsive"></a>
-                                        <div class="post-text">
-                                            <span class="post-category">{{ post.Category.name }}</span>
-                                            <h4>{{post.body|truncatechars(50)}}</a></h4>
-                                            <ul class="authar-info">
-                                                <li class="authar hidden-xs hidden-sm"><a href="#">Posté par {{ post.Author.name }}</a></li>
-                                                <li class="hidden-xs">{{post.pub_date}}</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                {% endwith%}
-                                {% comment %} {% with featured_posts[3] as post %}
-                                <div class="col-xs-6 col-sm-6 col-md-6 thm-padding">
-                                    <div class="slider-post post-height-3">
-                                        <a href="{% url 'post_details' pk=post.pk %}" class="news-image"><img src="{{ post.thumbnail }}" alt="" class="img-responsive"></a>
-                                        <div class="post-text">
-                                            <span class="post-category">{{ post.Category.name }}</span>
-                                            <h4>{{post.body|truncatechars(50)}}</h4>
-                                            <ul class="authar-info">
-                                                <li class="authar hidden-xs hidden-sm"><a href="#">Posté par {{ post.Author.name }}</a></li>
-                                                <li class="hidden-xs">{{post.pub_date}}</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                {% endwith%} {% endcomment %}
-                            </div>
-                        </div>
+                        {% endfor %}
                     </div>
-                {% else %}
-                    <div class="row thm-margin">
-                        <div class="col-xs-12 col-sm-6 col-md-6 thm-padding">
-                            <div class="slider-wrapper">
-                                <div id="owl-slider" class="owl-carousel owl-theme">
-                                    <!-- Slider item one -->
-                                    <div class="item">
-                                        <div class="slider-post post-height-1">
-                                            <a href="#" class="news-image"><img src="assets/images/slider-520x460-7.jpg" alt="" class="img-responsive"></a>
-                                            <div class="post-text">
-                                                <span class="post-category">Business</span>
-                                                <h2><a href="#">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has </a></h2>
-                                                <ul class="authar-info">
-                                                    <li class="authar"><a href="#">by david hall</a></li>
-                                                    <li class="date">May 29,2016</li>
-                                                    <li class="view"><a href="#">25 views</a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- /.Slider item one -->
-                                    <div class="col-xs-12 col-sm-6 col-md-6 thm-padding">
-                                        <div class="row slider-right-post thm-margin">
-                                            <div class="col-xs-6 col-sm-6 col-md-6 thm-padding">
-                                                <div class="slider-post post-height-3">
-                                                    <a href="#" class="news-image"><img src="assets/images/slider-260x460-1.jpg" alt=""></a>
-                                                    <div class="post-text">
-                                                        <span class="post-category">Technology</span>
-                                                        <h4><a href="#">Lorem Ipsum is simply dummy text of the printing</a></h4>
-                                                        <ul class="authar-info">
-                                                            <li class="authar hidden-xs hidden-sm"><a href="#">by david hall</a></li>
-                                                            <li class="hidden-xs">May 29,2017</li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-xs-6 col-sm-6 col-md-6 thm-padding">
-                                                <div class="slider-post post-height-3">
-                                                    <a href="#" class="news-image"><img src="assets/images/slider-260x460-2.jpg" alt=""></a>
-                                                    <div class="post-text">
-                                                        <span class="post-category">Travel</span>
-                                                        <h4><a href="#">Lorem Ipsum is simply dummy text of the printing</a></h4>
-                                                        <ul class="authar-info">
-                                                            <li class="authar hidden-xs hidden-sm"><a href="#">by david hall</a></li>
-                                                            <li class="hidden-xs">May 29,2017</li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                {% endif %}
                 </div>
+                {% endif %}
             </section>
             <!-- END OF /. POST BLOCK SECTION -->
             <div class="container">
@@ -198,7 +86,10 @@
                                                 </div>
                                                 <div class="col-sm-6">
                                                     <div class="news-list">
-                                                        {% with popular_posts[1] as post %}
+                                                        {% for post in popular_posts %}
+                                                            {% if forloop.first %}
+                                                                {% continue %}
+                                                            {% endif %}
                                                         <div class="news-list-item" <a href="{% url 'post_details' pk=post.pk %}"></a>>
                                                             <div class="img-wrapper">
                                                                 <a href="#" class="thumb">
@@ -215,255 +106,20 @@
                                                                     <li class="like hidden-xs hidden-sm"><a href="#"><i class="ti-thumb-up"></i>{{ post.likes }} likes</a></li>
                                                                 </ul>
                                                             </div>
-                                                       {% endwith%}
                                                         </div>
-                                                        {% with popular_posts[2] as post %}
-                                                        <div class="img-wrapper">
-                                                            <a href=""{% url 'post_details' pk=post.pk %}"" class="thumb">
-                                                                <img src="{{ post.thumbnail }}" alt="" class="img-responsive">
-                                                                <div class="link-icon">
-                                                                    <i class="fa fa-camera"></i>
-                                                                </div>
-                                                            </a>
-                                                        </div>
-                                                        <div class="post-info-2">
-                                                            <h5><a href=""{% url 'post_details' pk=post.pk %}"" class="title">{{post.title}}</a></h5>
-                                                            <ul class="authar-info">
-                                                                <li><i class="ti-timer"></i> {{post.pub_date}}</li>
-                                                                <li class="like hidden-xs hidden-sm"><a href="#"><i class="ti-thumb-up"></i>{{ post.likes }} likes</a></li>
-                                                            </ul>
-                                                        </div>
-                                                        <div class="news-list-item">
-                                                        {% with popular_posts[3] as post %}
-                                                        <div class="img-wrapper">
-                                                            <a href=""{% url 'post_details' pk=post.pk %}"" class="thumb">
-                                                                <img src="{{ post.thumbnail }}" alt="" class="img-responsive">
-                                                                <div class="link-icon">
-                                                                    <i class="fa fa-camera"></i>
-                                                                </div>
-                                                            </a>
-                                                        </div>
-                                                        <div class="post-info-2">
-                                                            <h5><a href=""{% url 'post_details' pk=post.pk %}"" class="title">{{post.title}}</a></h5>
-                                                            <ul class="authar-info">
-                                                                <li><i class="ti-timer"></i> {{post.pub_date}}</li>
-                                                                <li class="like hidden-xs hidden-sm"><a href="#"><i class="ti-thumb-up"></i>{{ post.likes }} likes</a></li>
-                                                            </ul>
-                                                        </div>
-                                                        {% endwith%}
-                                                        </div>
-                                                        <div class="news-list-item">
-                                                        {% with popular_posts[4] as post %}
-                                                        <div class="img-wrapper">
-                                                            <a href="#" class="thumb">
-                                                                <img src="{{ post.thumbnail }}" alt="" class="img-responsive">
-                                                                <div class="link-icon">
-                                                                    <i class="fa fa-camera"></i>
-                                                                </div>
-                                                            </a>
-                                                        </div>
-                                                        <div class="post-info-2">
-                                                            <h5><a href=""{% url 'post_details' pk=post.pk %}"" class="title">{{post.title}}</a></h5>
-                                                            <ul class="authar-info">
-                                                                <li><i class="ti-timer"></i> {{post.pub_date}}</li>
-                                                                <li class="like hidden-xs hidden-sm"><a href="#"><i class="ti-thumb-up"></i>{{ post.likes }} likes</a></li>
-                                                            </ul>
-                                                        </div>
-                                                        {% endwith%}
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                {% else %}
-                                                <div class="col-sm-6 main-post-inner bord-right">
-                                                    <article>
-                                                        <figure>
-                                                            <a href="#"><img src="assets/images/340x215-1.jpg" height="242" width="345" alt="" class="img-responsive"></a>
-                                                            <span class="post-category">Business</span>
-                                                        </figure>
-                                                        <div class="post-info">
-                                                            <h3><a href="#">Fusce ac orci sagittis mattis magna ultrices libero</a></h3>
-                                                            <ul class="authar-info">
-                                                                <li><i class="ti-timer"></i> May 15, 2016</li>
-                                                                <li class="like"><a href="#"><i class="ti-thumb-up"></i>15 likes</a></li>
-                                                            </ul>
-                                                            <p>Sed ut perspiciatis unde omnis iste natus sit voluptatem accusantium doloremque laudantium, totamrem aperiam, eaque ipsa quae ab illo inventore</p>
-                                                        </div>
-                                                    </article>
-                                                </div>
-                                                <div class="col-sm-6">
-                                                    <div class="news-list">
-                                                        <div class="news-list-item">
-                                                            <div class="img-wrapper">
-                                                                <a href="#" class="thumb">
-                                                                    <img src="assets/images/115x85-1.jpg" alt="" class="img-responsive">
-                                                                    <div class="link-icon">
-                                                                        <i class="fa fa-camera"></i>
-                                                                    </div>
-                                                                </a>
-                                                            </div>
-                                                            <div class="post-info-2">
-                                                                <h5><a href="#" class="title">Cooking Recipes Anytime And Anywhere</a></h5>
-                                                                <ul class="authar-info">
-                                                                    <li><i class="ti-timer"></i> May 15, 2016</li>
-                                                                    <li class="like hidden-xs hidden-sm"><a href="#"><i class="ti-thumb-up"></i>15 likes</a></li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                        <div class="news-list-item">
-                                                            <div class="img-wrapper">
-                                                                <a href="#" class="thumb">
-                                                                    <img src="assets/images/115x85-2.jpg" alt="" class="img-responsive">
-                                                                    <div class="link-icon">
-                                                                        <i class="fa fa-play"></i>
-                                                                    </div>
-                                                                </a>
-                                                            </div>
-                                                            <div class="post-info-2">
-                                                                <h5><a href="#" class="title">Cooking Recipes Anytime And Anywhere</a></h5>
-                                                                <ul class="authar-info">
-                                                                    <li><i class="ti-timer"></i> May 15, 2016</li>
-                                                                    <li class="like hidden-xs hidden-sm"><a href="#"><i class="ti-thumb-up"></i>15 likes</a></li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                        <div class="news-list-item">
-                                                            <div class="img-wrapper">
-                                                                <a href="#" class="thumb">
-                                                                    <img src="assets/images/115x85-3.jpg" alt="" class="img-responsive">
-                                                                    <div class="link-icon">
-                                                                        <i class="fa fa-camera"></i>
-                                                                    </div>
-                                                                </a>
-                                                            </div>
-                                                            <div class="post-info-2">
-                                                                <h5><a href="#" class="title">Cooking Recipes Anytime And Anywhere</a></h5>
-                                                                <ul class="authar-info">
-                                                                    <li><i class="ti-timer"></i> May 15, 2016</li>
-                                                                    <li class="like hidden-xs hidden-sm"><a href="#"><i class="ti-thumb-up"></i>15 likes</a></li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                        <div class="news-list-item">
-                                                            <div class="img-wrapper">
-                                                                <a href="#" class="thumb">
-                                                                    <img src="assets/images/115x85-4.jpg" alt="" class="img-responsive">
-                                                                    <div class="link-icon">
-                                                                        <i class="fa fa-play"></i>
-                                                                    </div>
-                                                                </a>
-                                                            </div>
-                                                            <div class="post-info-2">
-                                                                <h5><a href="#" class="title">Cooking Recipes Anytime And Anywhere</a></h5>
-                                                                <ul class="authar-info">
-                                                                    <li><i class="ti-timer"></i> May 15, 2016</li>
-                                                                    <li class="like hidden-xs hidden-sm"><a href="#"><i class="ti-thumb-up"></i>15 likes</a></li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
+                                                        {% endfor %}
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <!-- item two -->
-                                        <div class="item">
-                                            <div class="row">
-                                                <div class="col-sm-6 main-post-inner bord-right">
-                                                    <article>
-                                                        <figure>
-                                                            <a href="#"><img src="assets/images/340x215-2.jpg" height="242" width="345" alt="" class="img-responsive"></a>
-                                                            <span class="post-category">Business</span>
-                                                        </figure>
-                                                        <div class="post-info">
-                                                            <h3><a href="#">Fusce ac orci sagittis mattis magna ultrices libero</a></h3>
-                                                            <ul class="authar-info">
-                                                                <li><i class="ti-timer"></i> May 15, 2016</li>
-                                                                <li class="like"><a href="#"><i class="ti-thumb-up"></i>15 likes</a></li>
-                                                            </ul>
-                                                            <p> Sed ut perspiciatis unde omnis iste natus sit voluptatem accusantium doloremque laudantium, totamrem aperiam, eaque ipsa quae ab illo inventore</p>
-                                                        </div>
-                                                    </article>
-                                                </div>
-                                                <div class="col-sm-6">
-                                                    <div class="news-list">
-                                                        <div class="news-list-item">
-                                                            <div class="img-wrapper">
-                                                                <a href="#" class="thumb">
-                                                                    <img src="assets/images/115x85-4.jpg" alt="" class="img-responsive">
-                                                                    <div class="link-icon">
-                                                                        <i class="fa fa-camera"></i>
-                                                                    </div>
-                                                                </a>
-                                                            </div>
-                                                            <div class="post-info-2">
-                                                                <h5><a href="#" class="title">Cooking Recipes Anytime And Anywhere</a></h5>
-                                                                <ul class="authar-info">
-                                                                    <li><i class="ti-timer"></i> May 15, 2016</li>
-                                                                    <li class="like hidden-xs hidden-sm"><a href="#"><i class="ti-thumb-up"></i>15 likes</a></li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                        <div class="news-list-item">
-                                                            <div class="img-wrapper">
-                                                                <a href="#" class="thumb">
-                                                                    <img src="assets/images/115x85-3.jpg" alt="" class="img-responsive">
-                                                                    <div class="link-icon">
-                                                                        <i class="fa fa-camera"></i>
-                                                                    </div>
-                                                                </a>
-                                                            </div>
-                                                            <div class="post-info-2">
-                                                                <h5><a href="#" class="title">Cooking Recipes Anytime And Anywhere</a></h5>
-                                                                <ul class="authar-info">
-                                                                    <li><i class="ti-timer"></i> May 15, 2016</li>
-                                                                    <li class="like hidden-xs hidden-sm"><a href="#"><i class="ti-thumb-up"></i>15 likes</a></li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                        <div class="news-list-item">
-                                                            <div class="img-wrapper">
-                                                                <a href="#" class="thumb">
-                                                                    <img src="assets/images/115x85-2.jpg" alt="" class="img-responsive">
-                                                                    <div class="link-icon">
-                                                                        <i class="fa fa-camera"></i>
-                                                                    </div>
-                                                                </a>
-                                                            </div>
-                                                            <div class="post-info-2">
-                                                                <h5><a href="#" class="title">Cooking Recipes Anytime And Anywhere</a></h5>
-                                                                <ul class="authar-info">
-                                                                    <li><i class="ti-timer"></i> May 15, 2016</li>
-                                                                    <li class="like hidden-xs hidden-sm"><a href="#"><i class="ti-thumb-up"></i>15 likes</a></li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                        <div class="news-list-item">
-                                                            <div class="img-wrapper">
-                                                                <a href="#" class="thumb">
-                                                                    <img src="assets/images/115x85-1.jpg" alt="" class="img-responsive">
-                                                                    <div class="link-icon">
-                                                                        <i class="fa fa-camera"></i>
-                                                                    </div>
-                                                                </a>
-                                                            </div>
-                                                            <div class="post-info-2">
-                                                                <h5><a href="#" class="title">Cooking Recipes Anytime And Anywhere</a></h5>
-                                                                <ul class="authar-info">
-                                                                    <li><i class="ti-timer"></i> May 15, 2016</li>
-                                                                    <li class="like hidden-xs hidden-sm"><a href="#"><i class="ti-thumb-up"></i>15 likes</a></li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
                                     </div>
                                 </div>
                                 <!-- Post footer -->
                                 <div class="post-footer">
                                     <div class="row thm-margin">
                                         <div class="col-xs-12 col-sm-8 col-md-9 thm-padding">
-                                            <a href="#" class="more-btn">More popular posts</a>
+                                            <a href="#" class="more-btn">plus de postes</a>
                                         </div>
                                         <div class="hidden-xs col-sm-4 col-md-3 thm-padding">
                                             <div class="social">
@@ -537,8 +193,11 @@
                                                 <div class="col-sm-6">
                                                     <div class="news-grid-2">
                                                         <div class="row row-margin">
+                                                            {% for post in popular_news %}
+                                                                {% if forloop.first %}
+                                                                    {% continue %}
+                                                                {% endif %}
                                                             <div class="col-xs-6 col-sm-6 col-md-6 col-padding">
-                                                    {% with popular_news[1] as news %}
                                                                 <div class="grid-item">
                                                                     <div class="grid-item-img">
                                                                         <a href="{% url 'news_details' pk=news.pk %}">
@@ -552,151 +211,13 @@
                                                                         <li class="like hidden-sm"><a href="#">{{ news.likes }} likes</a></li>
                                                                     </ul>
                                                                 </div>
-                                                        {% endwith%}
                                                             </div>
-                                                            <div class="col-xs-6 col-sm-6 col-md-6 col-padding">
-                                                        {% with popular_news[2] as news %}
-                                                        <div class="grid-item">
-                                                            <div class="grid-item-img">
-                                                                <a href="{% url 'news_details' pk=news.pk %}">
-                                                                    <img src="{{ news.thumbnail }}" class="img-responsive" alt="">
-                                                                    <div class="link-icon"><i class="fa fa-camera"></i></div>
-                                                                </a>
-                                                            </div>
-                                                            <h5><a href="{% url 'news_details' pk=news.pk %}" class="title">{{news.title}}</a></h5>
-                                                            <ul class="authar-info">
-                                                                <li>{{news.pub_date}}</li>
-                                                                <li class="like hidden-sm"><a href="#">{{ news.likes }} likes</a></li>
-                                                            </ul>
-                                                        </div>
-                                                        {% endwith%}
-                                                            </div>
-                                                            <div class="col-xs-6 col-sm-6 col-md-6 col-padding">
-                                                        {% with popular_news[3] as news %}
-                                                        <div class="grid-item">
-                                                            <div class="grid-item-img">
-                                                                <a href="{% url 'news_details' pk=news.pk %}">
-                                                                    <img src="{{ news.thumbnail }}" class="img-responsive" alt="">
-                                                                    <div class="link-icon"><i class="fa fa-play"></i></div>
-                                                                </a>
-                                                            </div>
-                                                            <h5><a href="{% url 'news_details' pk=news.pk %}" class="title">{{news.title}}</a></h5>
-                                                            <ul class="authar-info">
-                                                                <li>{{news.pub_date}}</li>
-                                                                <li class="like hidden-sm"><a href="#">{{ news.likes }} likes</a></li>
-                                                            </ul>
-                                                        </div>
-                                                        {% endwith%}
-                                                            </div>
-                                                            <div class="col-xs-6 col-sm-6 col-md-6 col-padding">
-                                                        {% with popular_news[4] as news %}
-                                                        <div class="grid-item">
-                                                            <div class="grid-item-img">
-                                                                <a href="{% url 'news_details' pk=news.pk %}">
-                                                                    <img src="{{ news.thumbnail }}" class="img-responsive" alt="">
-                                                                    <div class="link-icon"><i class="fa fa-camera"></i></div>
-                                                                </a>
-                                                            </div>
-                                                            <h5><a href="{% url 'news_details' pk=news.pk %}" class="title">{{news.title}}</a></h5>
-                                                            <ul class="authar-info">
-                                                                <li>{{news.pub_date}}</li>
-                                                                <li class="like hidden-sm"><a href="#">{{ news.likes }} likes</a></li>
-                                                            </ul>
-                                                        </div>
-                                                                {% endwith%}
-                                                            </div>
-                                                        </div>
+                                                            {% endfor %}
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <!-- item two -->
-                                        {% comment %} <div class="item">
-                                            <div class="row">
-                                                <div class="col-sm-6 main-post-inner bord-right">
-                                                    <article>
-                                                        <figure>
-                                                            <a href="#"><img src="{% static 'images/340x215-4.jpg' %}" height="242" width="345" alt="" class="img-responsive"></a>
-                                                            <span class="post-category">Travel</span>
-                                                        </figure>
-                                                        <div class="post-info">
-                                                            <h3><a href="#">Kimi sarl</a></h3>
-                                                            <ul class="authar-info">
-                                                                <li><i class="ti-timer"></i> 01/02/2024</li>
-                                                                <li class="like"><a href="#"><i class="ti-thumb-up"></i>0 likes</a></li>
-                                                            </ul>
-                                                            <p class="p">Kimi sarl content</p>
-                                                        </div>
-                                                    </article>
-                                                </div>
-                                                <div class="col-sm-6">
-                                                    <div class="news-grid-2">
-                                                        <div class="row row-margin">
-                                                            <div class="col-xs-6 col-sm-6 col-md-6 col-padding">
-                                                                <div class="grid-item">
-                                                                    <div class="grid-item-img">
-                                                                        <a href="#">
-                                                                            <img src="{% static 'images/165x110-5.jpg' %}" class="img-responsive" alt="">
-                                                                            <div class="link-icon"><i class="fa fa-camera"></i></div>
-                                                                        </a>
-                                                                    </div>
-                                                                    <h5><a href="#" class="title">Kimi title 2</a></h5>
-                                                                    <ul class="authar-info">
-                                                                        <li>01/02/2024</li>
-                                                                        <li class="like hidden-sm"><a href="#">0 likes</a></li>
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-xs-6 col-sm-6 col-md-6 col-padding">
-                                                                <div class="grid-item">
-                                                                    <div class="grid-item-img">
-                                                                        <a href="#">
-                                                                            <img src="{% static 'images/165x110-6.jpg' %}" class="img-responsive" alt="">
-                                                                            <div class="link-icon"><i class="fa fa-camera"></i></div>
-                                                                        </a>
-                                                                    </div>
-                                                                    <h5><a href="#" class="title">Kimi title 5</a></h5>
-                                                                    <ul class="authar-info">
-                                                                        <li>01/02/2024</li>
-                                                                        <li class="like hidden-sm"><a href="#">0 likes</a></li>
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-xs-6 col-sm-6 col-md-6 col-padding">
-                                                                <div class="grid-item">
-                                                                    <div class="grid-item-img">
-                                                                        <a href="#">
-                                                                            <img src="{% static 'images/165x110-7.jpg' %}" class="img-responsive" alt="">
-                                                                            <div class="link-icon"><i class="fa fa-camera"></i></div>
-                                                                        </a>
-                                                                    </div>
-                                                                    <h5><a href="#" class="title">Kimi title 6</a></h5>
-                                                                    <ul class="authar-info">
-                                                                        <li>01/02/2024</li>
-                                                                        <li class="like hidden-sm"><a href="#">0 likes</a></li>
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-xs-6 col-sm-6 col-md-6 col-padding">
-                                                                <div class="grid-item">
-                                                                    <div class="grid-item-img">
-                                                                        <a href="#">
-                                                                            <img src="{% static 'images/165x110-8.jpg' %}" class="img-responsive" alt="">
-                                                                            <div class="link-icon"><i class="fa fa-camera"></i></div>
-                                                                        </a>
-                                                                    </div>
-                                                                    <h5><a href="#" class="title">Kimi title 7</a></h5>
-                                                                    <ul class="authar-info">
-                                                                        <li>01/02/2024</li>
-                                                                        <li class="like hidden-sm"><a href="#">0 likes</a></li>
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div> {% endcomment %}
                                     </div>
                                 </div>
                                 <!-- footer post -->
@@ -725,204 +246,6 @@
                                     </div>
                                 </div>
                             </div>
-                                                {% else %}
-                                                <div class="post-inner post-inner-2">
-                                                    <!--post header-->
-                                                    <div class="post-head">
-                                                        <h2 class="title"><strong>Travel</strong> News</h2>
-                                                        <div class="filter-nav">
-                                                            <ul>
-                                                                <li><a href="#" class="active">all</a></li>
-                                                                <li><a href="#">business</a></li>
-                                                                <li><a href="#">gadgets</a></li>
-                                                                <li><a href="#">design</a></li>
-                                                                <li><a href="#">fashion</a></li>
-                                                                <li><a href="#">video</a></li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                    <!-- post body -->
-                                                    <div class="post-body">
-                                                        <div class="post-slider owl-carousel owl-theme">
-                                                            <!-- item one -->
-                                                            <div class="item">
-                                                                <div class="row">
-                                                                    <div class="col-sm-6 main-post-inner bord-right">
-                                                                        <article>
-                                                                            <figure>
-                                                                                <a href="#"><img src="assets/images/340x215-3.jpg" height="242" width="345" alt="" class="img-responsive"></a>
-                                                                                <span class="post-category">Travel</span>
-                                                                            </figure>
-                                                                            <div class="post-info">
-                                                                                <h3><a href="#">Fusce ac orci sagittis mattis magna ultrices libero</a></h3>
-                                                                                <ul class="authar-info">
-                                                                                    <li><i class="ti-timer"></i> May 15, 2016</li>
-                                                                                    <li class="like"><a href="#"><i class="ti-thumb-up"></i>15 likes</a></li>
-                                                                                </ul>
-                                                                                <p class="p">Sed ut perspiciatis unde omnis iste natus sit voluptatem accusantium doloremque laudantium, totamrem aperiam, eaque ipsa quae ab illo inventore</p>
-                                                                            </div>
-                                                                        </article>
-                                                                    </div>
-                                                                    <div class="col-sm-6">
-                                                                        <div class="news-grid-2">
-                                                                            <div class="row row-margin">
-                                                                                <div class="col-xs-6 col-sm-6 col-md-6 col-padding">
-                                                                                    <div class="grid-item">
-                                                                                        <div class="grid-item-img">
-                                                                                            <a href="#">
-                                                                                                <img src="assets/images/165x110-1.jpg" class="img-responsive" alt="">
-                                                                                                <div class="link-icon"><i class="fa fa-play"></i></div>
-                                                                                            </a>
-                                                                                        </div>
-                                                                                        <h5><a href="#" class="title">Lorem Ipsum is simply dummy text of the printing.</a></h5>
-                                                                                        <ul class="authar-info">
-                                                                                            <li>May 15, 2016</li>
-                                                                                            <li class="like hidden-sm"><a href="#">15 likes</a></li>
-                                                                                        </ul>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="col-xs-6 col-sm-6 col-md-6 col-padding">
-                                                                                    <div class="grid-item">
-                                                                                        <div class="grid-item-img">
-                                                                                            <a href="#">
-                                                                                                <img src="assets/images/165x110-2.jpg" class="img-responsive" alt="">
-                                                                                                <div class="link-icon"><i class="fa fa-camera"></i></div>
-                                                                                            </a>
-                                                                                        </div>
-                                                                                        <h5><a href="#" class="title">It is a long established fact that a reader will be distracted by</a></h5>
-                                                                                        <ul class="authar-info">
-                                                                                            <li>May 15, 2016</li>
-                                                                                            <li class="like hidden-sm"><a href="#">15 likes</a></li>
-                                                                                        </ul>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="col-xs-6 col-sm-6 col-md-6 col-padding">
-                                                                                    <div class="grid-item">
-                                                                                        <div class="grid-item-img">
-                                                                                            <a href="#">
-                                                                                                <img src="assets/images/165x110-3.jpg" class="img-responsive" alt="">
-                                                                                                <div class="link-icon"><i class="fa fa-camera"></i></div>
-                                                                                            </a>
-                                                                                        </div>
-                                                                                        <h5><a href="#" class="title">There are many variations of passages of Lorem Ipsum.</a></h5>
-                                                                                        <ul class="authar-info">
-                                                                                            <li>May 15, 2016</li>
-                                                                                            <li class="like hidden-sm"><a href="#">15 likes</a></li>
-                                                                                        </ul>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="col-xs-6 col-sm-6 col-md-6 col-padding">
-                                                                                    <div class="grid-item">
-                                                                                        <div class="grid-item-img">
-                                                                                            <a href="#">
-                                                                                                <img src="assets/images/165x110-4.jpg" class="img-responsive" alt="">
-                                                                                                <div class="link-icon"><i class="fa fa-play"></i></div>
-                                                                                            </a>
-                                                                                        </div>
-                                                                                        <h5><a href="#" class="title">Contrary to popular belief, Lorem Ipsum is not simply random text.</a></h5>
-                                                                                        <ul class="authar-info">
-                                                                                            <li>May 15, 2016</li>
-                                                                                            <li class="like hidden-sm"><a href="#">15 likes</a></li>
-                                                                                        </ul>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <!-- item two -->
-                                                            <div class="item">
-                                                                <div class="row">
-                                                                    <div class="col-sm-6 main-post-inner bord-right">
-                                                                        <article>
-                                                                            <figure>
-                                                                                <a href="#"><img src="assets/images/340x215-4.jpg" height="242" width="345" alt="" class="img-responsive"></a>
-                                                                                <span class="post-category">Travel</span>
-                                                                            </figure>
-                                                                            <div class="post-info">
-                                                                                <h3><a href="#">Fusce ac orci sagittis mattis magna ultrices libero</a></h3>
-                                                                                <ul class="authar-info">
-                                                                                    <li><i class="ti-timer"></i> May 15, 2016</li>
-                                                                                    <li class="like"><a href="#"><i class="ti-thumb-up"></i>15 likes</a></li>
-                                                                                </ul>
-                                                                                <p class="p">Sed ut perspiciatis unde omnis iste natus sit voluptatem accusantium doloremque laudantium, totamrem aperiam, eaque ipsa quae ab illo inventore</p>
-                                                                            </div>
-                                                                        </article>
-                                                                    </div>
-                                                                    <div class="col-sm-6">
-                                                                        <div class="news-grid-2">
-                                                                            <div class="row row-margin">
-                                                                                <div class="col-xs-6 col-sm-6 col-md-6 col-padding">
-                                                                                    <div class="grid-item">
-                                                                                        <div class="grid-item-img">
-                                                                                            <a href="#">
-                                                                                                <img src="assets/images/165x110-5.jpg" class="img-responsive" alt="">
-                                                                                                <div class="link-icon"><i class="fa fa-camera"></i></div>
-                                                                                            </a>
-                                                                                        </div>
-                                                                                        <h5><a href="#" class="title">Lorem Ipsum is simply dummy text of the printing.</a></h5>
-                                                                                        <ul class="authar-info">
-                                                                                            <li>May 15, 2016</li>
-                                                                                            <li class="like hidden-sm"><a href="#">15 likes</a></li>
-                                                                                        </ul>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="col-xs-6 col-sm-6 col-md-6 col-padding">
-                                                                                    <div class="grid-item">
-                                                                                        <div class="grid-item-img">
-                                                                                            <a href="#">
-                                                                                                <img src="assets/images/165x110-6.jpg" class="img-responsive" alt="">
-                                                                                                <div class="link-icon"><i class="fa fa-camera"></i></div>
-                                                                                            </a>
-                                                                                        </div>
-                                                                                        <h5><a href="#" class="title">It is a long established fact that a reader will be distracted by</a></h5>
-                                                                                        <ul class="authar-info">
-                                                                                            <li>May 15, 2016</li>
-                                                                                            <li class="like hidden-sm"><a href="#">15 likes</a></li>
-                                                                                        </ul>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="col-xs-6 col-sm-6 col-md-6 col-padding">
-                                                                                    <div class="grid-item">
-                                                                                        <div class="grid-item-img">
-                                                                                            <a href="#">
-                                                                                                <img src="assets/images/165x110-7.jpg" class="img-responsive" alt="">
-                                                                                                <div class="link-icon"><i class="fa fa-camera"></i></div>
-                                                                                            </a>
-                                                                                        </div>
-                                                                                        <h5><a href="#" class="title">There are many variations of passages of Lorem Ipsum.</a></h5>
-                                                                                        <ul class="authar-info">
-                                                                                            <li>May 15, 2016</li>
-                                                                                            <li class="like hidden-sm"><a href="#">15 likes</a></li>
-                                                                                        </ul>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="col-xs-6 col-sm-6 col-md-6 col-padding">
-                                                                                    <div class="grid-item">
-                                                                                        <div class="grid-item-img">
-                                                                                            <a href="#">
-                                                                                                <img src="assets/images/165x110-8.jpg" class="img-responsive" alt="">
-                                                                                                <div class="link-icon"><i class="fa fa-camera"></i></div>
-                                                                                            </a>
-                                                                                        </div>
-                                                                                        <h5><a href="#" class="title">Contrary to popular belief, Lorem Ipsum is not simply random text.</a></h5>
-                                                                                        <ul class="authar-info">
-                                                                                            <li>May 15, 2016</li>
-                                                                                            <li class="like hidden-sm"><a href="#">15 likes</a></li>
-                                                                                        </ul>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                
-                                                {% endif %}
-                                            
                             <!--  END OF /. POST CATEGORY STYLE TWO (Travel news) -->
                         </div>
                     </div>
@@ -958,9 +281,12 @@
                                         {%endwith%}
                                     </div>
                                     <div class="news-list">
+                                        {% for post in latest_posts %}
+                                            {% if forloop.first %}
+                                                {% continue %}
+                                            {% endif %}
                                         <div class="news-list-item">
                                             <div class="img-wrapper">
-                                        {% with latest_post[1] as posts %}
                                         <a href="{% url 'post_details' pk=post.pk %}" class="news-image"><img src="{{ post.thumbnail }}" alt="" class="img-responsive"></a>
                                         <div class="reatting">
                                             <i class="fa fa-star"></i>
@@ -977,131 +303,9 @@
                                                 <li class="like"><a href="#"><i class="ti-thumb-up"></i>{{ post.likes }} likes</a></li>
                                             </ul>
                                         </div>
-                                        {%endwith%}
-                                        </div>
-                                        <div class="news-list-item">
-                                            <div class="img-wrapper">
-                                        {% with latest_post[2] as posts %}
-                                        <a href="{% url 'post_details' pk=post.pk %}" class="news-image"><img src="{{ post.thumbnail }}" alt="" class="img-responsive"></a>
-                                        <div class="reatting">
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star-half-o"></i>
-                                            <i class="fa fa-star-o"></i>
-                                        </div>
-                                        <div class="post-text">
-                                            <span class="post-category">{{ post.Category.name }}</span>
-                                            <h4>{{post.title}} </h4>
-                                            <ul class="authar-info">
-                                                <li><i class="ti-timer"></i> {{post.pub_date}}</li>
-                                                <li class="like"><a href="#"><i class="ti-thumb-up"></i>{{ post.likes }} likes</a></li>
-                                            </ul>
-                                        </div>
-                                        {%endwith%}
-                                        </div>
-                                        <div class="news-list-item">
-                                            <div class="img-wrapper">
-                                        {% with latest_post[3] as posts %}
-                                        <a href="{% url 'post_details' pk=post.pk %}" class="news-image"><img src="{{ post.thumbnail }}" alt="" class="img-responsive"></a>
-                                        <div class="reatting">
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star-half-o"></i>
-                                            <i class="fa fa-star-o"></i>
-                                        </div>
-                                        <div class="post-text">
-                                            <span class="post-category">{{ post.Category.name }}</span>
-                                            <h4>{{post.title}} </h4>
-                                            <ul class="authar-info">
-                                                <li><i class="ti-timer"></i> {{post.pub_date}}</li>
-                                                <li class="like"><a href="#"><i class="ti-thumb-up"></i>{{ post.likes }} likes</a></li>
-                                            </ul>
-                                        </div>
-                                        {%endwith%}
-                                        </div>
+                                        {% endfor %}
                                     </div>
                                 </div>
-                                {% else s%}
-                                <div class="col-sm-6 col-p">
-                                    <div class="posts card-post">
-                                        <div class="post-grid post-grid-item">
-                                            <figure class="posts-thumb">
-                                                <span class="post-category">National</span>
-                                                <a href="#"><img src="assets/images/378x270-1.jpg" alt=""></a>
-                                            </figure>
-                                            <div class="posts-inner">
-                                                <a href="#" class="posts-link"></a>
-                                                <h6 class="posts-title"><a href="#">The Alchemists team is appearing in L.A. Beach for charity</a></h6>
-                                                <ul class="authar-info">
-                                                    <li><i class="ti-timer"></i> May 15, 2016</li>
-                                                    <li class="like"><a href="#"><i class="ti-thumb-up"></i>15 likes</a></li>
-                                                </ul>
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipisi nel elit, sed do eiusmod tempor incididunt ut labore et dolore
-                                                    magna aliqua. Ut enim ad mini veniam, quis nostrud en derum sum laborem.
-                                                </p>
-                                            </div>
-                                            <div class="posts__footer card__footer">
-                                                <div class="post-author">
-                                                    <figure class="post-author-avatar hidden-xs">
-                                                        <img src="assets/images/avatar-1.jpg" alt="Post Author Avatar">
-                                                    </figure>
-                                                    <div class="post-author-info ">
-                                                        <h4 class="post-author-name">Naeem Khan</h4>
-                                                    </div>
-                                                </div>
-                                                <ul class="post-meta">
-                                                    <li class="meta-item "><i class="ti-eye"></i> 2369</li>
-                                                    <li class="meta-item "><a href="#"><i class="ti-heart"></i> 530</a></li>
-                                                    <li class="meta-item "><a href="#"><i class="ti-comments"></i> 18</a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6 col-p">
-                                    <div class="posts">
-                                        <ul>
-                                            <li class="post-grid">
-                                                <div class="posts-inner">
-                                                    <span class="post-category">National</span>
-                                                    <h6 class="posts-title"><a href="#">Trainings are getting really hard reaching the final</a></h6>
-                                                    <ul class="authar-info">
-                                                        <li><i class="ti-timer"></i> May 15, 2016</li>
-                                                        <li class="like"><a href="#"><i class="ti-thumb-up"></i>15 likes</a></li>
-                                                    </ul>
-                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisi ng elit, sed do eiusmod tempor incididunt ut labore...</p>
-                                                </div>
-                                            </li>
-                                            <li class="post-grid">
-                                                <div class="posts-inner">
-                                                    <span class="post-category">National</span>
-                                                    <h6 class="posts-title"><a href="#">The victory againts The Sharks brings us closer to the Final</a></h6>
-                                                    <ul class="authar-info">
-                                                        <li><i class="ti-timer"></i> May 15, 2016</li>
-                                                        <li class="like"><a href="#"><i class="ti-thumb-up"></i>15 likes</a></li>
-                                                    </ul>
-                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisi ng elit, sed do eiusmod tempor incididunt ut labore...</p>
-                                                </div>
-                                            </li>
-                                            <li class="post-grid hidden-sm">
-                                                <div class="posts-inner">
-                                                    <span class="post-category">National</span>
-                                                    <h6 class="posts-title"><a href="#">The next match against The Clovers will be this Friday</a></h6>
-                                                    <ul class="authar-info">
-                                                        <li><i class="ti-timer"></i> May 15, 2016</li>
-                                                        <li class="like"><a href="#"><i class="ti-thumb-up"></i>15 likes</a></li>
-                                                    </ul>
-                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisi ng elit, sed do eiusmod tempor incididunt ut labore...</p>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                                {% endif%}
-
                             </div>
                             <!-- END OF /. LATEST REVIEWS -->
                             {% comment %} <!-- START WEATHER -->
@@ -1356,11 +560,16 @@
                                                         <li class="meta-item "><a href="#"><i class="ti-heart"></i> {{ post.likes }}</a></li>
                                                     </ul>
                                                 </div>
+                                                {% endwith %}
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-sm-6 col-p">
                                         <div class="posts">
+                                            {% for post in latest_news %}
+                                                {% if forloop.first %}
+                                                    {% continue %}
+                                                {% endif %}
                                             <ul>
                                                 <li class="post-grid">
                                                     <div class="posts-inner">
@@ -1373,34 +582,11 @@
                                                         <p>{{post.body|truncatechars(50)}}</p>
                                                     </div>
                                                 </li>
-                                                <li class="post-grid">
-                                                    <div class="posts-inner">
-                                                        <span class="post-category">{{post.Category.name}}</span>
-                                                        <h6 class="posts-title"><a href="{% url 'post_details' pk=post.pk %}">{{post.title}}</a></h6>
-                                                        <ul class="authar-info">
-                                                            <li><i class="ti-timer"></i>  {{post.pub_date}}</li>
-                                                            <li class="like"><a href="#"><i class="ti-thumb-up"></i>{{ post.likes }} likes</a></li>
-                                                        </ul>
-                                                        <p>{{post.body|truncatechars(50)}}</p>
-                                                    </div>
-                                                </li>
-                                                <li class="post-grid hidden-sm">
-                                                    <div class="posts-inner">
-                                                        <span class="post-category">{{post.Category.name}}</span>
-                                                        <h6 class="posts-title"><a href=""{% url 'post_details' pk=post.pk %}"">{{post.title}}</a></h6>
-                                                        <ul class="authar-info">
-                                                            <li><i class="ti-timer"></i>  {{post.pub_date}}</li>
-                                                            <li class="like"><a href="#"><i class="ti-thumb-up"></i>{{ post.likes }} likes</a></li>
-                                                        </ul>
-                                                        <p>{{post.body|truncatechars(50)}}</p>
-                                                    </div>
-                                                </li>
+
                                             </ul>
+                                            {% endfor %}
                                         </div>
                                     </div>
-                                    {% else s%}
-
-                                    {% endif%}
                                 </div>
                                 <!-- END OF /. CARD POST -->
                                 <!-- START ADVERTISEMENT -->
@@ -1431,72 +617,6 @@
                                                 <p class="hidden-sm"> {{post.body|truncatechars(250)}}</p>
                                             </div>
                                             {% endfor %}
-                                            {% else s%}
-                                                    <div class="img-wrapper">
-                                                        <a href="#" class="thumb"><img src="assets/images/218x150-1.jpg" alt="" class="img-responsive"></a>
-                                                    </div>
-                                                    <div class="post-info-2">
-                                                        <h4><a href="#" class="title">There are many variations of passages of Lorem Ipsum available, but the majority have</a></h4>
-                                                        <ul class="authar-info">
-                                                            <li><i class="ti-timer"></i> May 15, 2016</li>
-                                                            <li class="like"><a href="#"><i class="ti-thumb-up"></i>15 likes</a></li>
-                                                        </ul>
-                                                        <p class="hidden-sm">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley...</p>
-                                                    </div>
-                                                </div>
-                                                <div class="news-list-item articles-list">
-                                                    <div class="img-wrapper">
-                                                        <a href="#" class="thumb"><img src="assets/images/218x150-2.jpg" alt="" class="img-responsive"></a>
-                                                    </div>
-                                                    <div class="post-info-2">
-                                                        <h4><a href="#" class="title">Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece </a></h4>
-                                                        <ul class="authar-info">
-                                                            <li><i class="ti-timer"></i> May 15, 2016</li>
-                                                            <li class="like"><a href="#"><i class="ti-thumb-up"></i>15 likes</a></li>
-                                                        </ul>
-                                                        <p class="hidden-sm">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley...</p>
-                                                    </div>
-                                                </div>
-                                                <div class="news-list-item articles-list">
-                                                    <div class="img-wrapper">
-                                                        <a href="#" class="thumb"><img src="assets/images/218x150-3.jpg" alt="" class="img-responsive"></a>
-                                                    </div>
-                                                    <div class="post-info-2">
-                                                        <h4><a href="#" class="title">The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested.</a></h4>
-                                                        <ul class="authar-info">
-                                                            <li><i class="ti-timer"></i> May 15, 2016</li>
-                                                            <li class="like"><a href="#"><i class="ti-thumb-up"></i>15 likes</a></li>
-                                                        </ul>
-                                                        <p class="hidden-sm">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley...</p>
-                                                    </div>
-                                                </div>
-                                                <div class="news-list-item articles-list">
-                                                    <div class="img-wrapper">
-                                                        <a href="#" class="thumb"><img src="assets/images/218x150-4.jpg" alt="" class="img-responsive"></a>
-                                                    </div>
-                                                    <div class="post-info-2">
-                                                        <h4><a href="#" class="title">It is a long established fact that a reader will be distracted by the readable </a></h4>
-                                                        <ul class="authar-info">
-                                                            <li><i class="ti-timer"></i> May 15, 2016</li>
-                                                            <li class="like"><a href="#"><i class="ti-thumb-up"></i>15 likes</a></li>
-                                                        </ul>
-                                                        <p class="hidden-sm">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley...</p>
-                                                    </div>
-                                                </div>
-                                                <div class="news-list-item articles-list">
-                                                    <div class="img-wrapper">
-                                                        <a href="#" class="thumb"><img src="assets/images/340x215-1.jpg" alt="" class="img-responsive"></a>
-                                                    </div>
-                                                    <div class="post-info-2">
-                                                        <h4><a href="#" class="title">Replication For Dummies 4 Easy Steps To Professional DVD</a></h4>
-                                                        <ul class="authar-info">
-                                                            <li><i class="ti-timer"></i> May 15, 2016</li>
-                                                            <li class="like"><a href="#"><i class="ti-thumb-up"></i>15 likes</a></li>
-                                                        </ul>
-                                                        <p class="hidden-sm">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley...</p>
-                                                    </div>
-                                                </div>
-                                            </div> <!-- /. post body -->
                                             <!--Post footer-->
                                             <div class="post-footer"> 
                                                 <div class="row thm-margin">
@@ -1832,15 +952,5 @@
                 </div>
             </section>
         </main>
-        <!-- *** END OF /. PAGE MAIN CONTENT *** -->
-        <!-- *** START FOOTER *** -->
-        
     </body>
     {% endblock content%}
-
-
-<!--<form method="post">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit">Subscribe</button>
-</form>-->
