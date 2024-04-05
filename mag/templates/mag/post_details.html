@@ -114,6 +114,7 @@
                                                         </div>
                                                         <h5><a href="{% url 'post_detail' pk=related_post.pk %}" class="title">{{ related_post.title }}.</a></h5>
                                                         <ul class="authar-info">
+                                                            <li>{{ related_post.body|truncatechars(50)}}</li>
                                                             <li>{{ related_post.pub_date }}</li>
                                                             <li class="hidden-sm"><a href="#" class="link">{{ related_post.likes }} likes</a></li>
                                                         </ul>
@@ -129,7 +130,7 @@
                         <!-- START COMMENT -->
                         <div class="comments-container">
                             {% if comments %}
-                            <h3>Comments ({{ num_comments }})</h3>
+                            <h3>Commentaires ({{ num_comments }})</h3>
                             <ul class="comments-list">
                                 {% for comment in comments %}
                                 <li>
@@ -142,7 +143,7 @@
                                                     <time datetime="2012-10-27" class="comment-datetime">{{ comment.created_at }}</time>
                                                 </div>
                                                 <p>{{ comment.content }}</p>
-                                                <a href="#"  class="btn btn-news"> Reply</a>
+                                                <a href="#"  class="btn btn-news"> Commentez</a>
                                             </div>
                                         </div>
                                     </div>

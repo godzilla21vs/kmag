@@ -76,14 +76,25 @@
                             .header-right-menu a:hover {
                                 color: #eb0254;
                             }
+                            .btn.btn-outline-success {
+                                color: #eb0254;
+                                border-color: #eb0254;
+                            }
+                            
+                            .btn.btn-outline-success:hover {
+                                 background-color: #eb0254;
+                                color: white;
+                            }
                         </style>
                         
                         <div class="hidden-xs col-md-6 col-sm-6 col-lg-6">
                             <div class="header-right-menu">
                                 <div class="header-top-links">
                                     <ul class="menu">
-                                        <li class="dropdown">
-                                            <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="color: white;"><i class="fa fa-user-circle"></i>  Compte</a>
+                                        <div class="dropdown">
+                                            <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <i class="fa fa-user-circle"></i>  Compte
+                                            </button>
                                             <ul class="dropdown-menu">
                                                 {% if request.user.is_authenticated %}
                                                 <li><a href="{% url 'mag:signout'%}">Déconnexion</a></li>
@@ -96,7 +107,7 @@
                                                 {% else %}
                                                 {% endif %}
                                             </ul>
-                                        </li>
+                                        </div>
                                     </ul>
                                 </div>
                             </div>

@@ -27,7 +27,7 @@ from django.views.generic import FormView
 from .forms import *
 
 # Importations Django Models
-from .models import *
+from ..models import *
 
 # Importations Django Views
 from django.views import generic, View
