@@ -46,6 +46,10 @@ class NewsForm(forms.ModelForm):
     class Meta:
         model = News
         fields = ['title', 'slug', 'body', 'Category', 'main_image', 'thumbnail']
+        
+        def __init__(self, *args, **kwargs):
+            super(PostForm, self).__init__(*args, **kwargs)
+            self.fields['Category'].queryset = Category.objects.all()
 
 
 class CategoryForm(forms.ModelForm):

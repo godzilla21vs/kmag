@@ -24,7 +24,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 # Importations Django Forms
 from django.views.generic import FormView
-from .forms import *
+from ..forms import *
 
 # Importations Django Models
 from ..models import *

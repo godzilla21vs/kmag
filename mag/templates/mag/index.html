@@ -22,19 +22,18 @@
             <!--  END OF /. NEWSTRICKER -->
             <!-- START POST BLOCK SECTION -->
             <section class="slider-inner">
-                {% if featured_posts %}
                 <div class="container">
                     <div class="row slider-right-post thm-margin">
-                        {% for post in posts %}
+                        {% for post in featured_posts %}
                         <div class="col-xs-6 col-sm-3 col-md-3 thm-padding">
                             <div class="slider-post post-height-3">
-                                <a href="{% url 'post_details' pk=post.pk %}" class="news-image"><img src="assets/images/slider-260x460-3.jpg" alt=""></a>
+                                <a href="{% url 'post_details' pk=post.pk %}" class="news-image"><img src="{{ post.image.url }}" alt=""></a>
                                 <div class="post-text">
                                     <span class="post-category">{{ post.Category.name }}</span>
                                     <h4><a href="{% url 'post_details' pk=post.pk %}">{{ post.title }}</a></h4>
                                     <ul class="authar-info">
                                         <li class="authar hidden-xs hidden-sm"><a href="#">Posté par {{ post.Author.name }}</a></li>
-                                        <li class="hidden-xs">{{post.pub_date}}</li>
+                                        <li class="hidden-xs">{{ post.pub_date }}</li>
                                         <li class="view hidden-xs hidden-sm"><a href="#"> {{ post.numberView }}vues</a></li>
                                     </ul>
                                 </div>
@@ -43,7 +42,6 @@
                         {% endfor %}
                     </div>
                 </div>
-                {% endif %}
             </section>
             <!-- END OF /. POST BLOCK SECTION -->
             <div class="container">

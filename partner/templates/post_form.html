@@ -1,0 +1,28 @@
+
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Liste des News</title>
+</head>
+<body>
+    <h1>Liste des News</h1>
+    <ul>
+        <div class="row row-cols-1 row-cols-md-2 g-4">
+            {% for news in news_list %}
+                <div class="col">
+                    <div class="card">
+                        <img src="{{ news.image.url }}" class="card-img-top" alt="{{ news.title }}">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ news.title }}</h5>
+                            <p class="card-text">{{ news.description|truncatechars(50) }}</p>
+                            <a href="{% url 'partner:news_detail' news.pk %}" class="btn btn-primary">Voir plus</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        
+    </ul>
+</body>
+</html>
