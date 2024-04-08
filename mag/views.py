@@ -23,11 +23,11 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 # Importations Django Forms
-from django.views.generic import FormView
-from ..forms import *
+from django.views.generic import TemplateView, FormView, ListView, DetailView, UpdateView, DeleteView
+from .forms import *
 
 # Importations Django Models
-from ..models import *
+from .models import *
 
 # Importations Django Views
 from django.views import generic, View
@@ -36,8 +36,8 @@ from django.views import generic, View
 from django.contrib import messages
 from django.db import transaction
 from django.urls import reverse_lazy
-
-
+# Importations pour Json
+from django.http import JsonResponse
 class indexView(View):
     def get(self, request, *args, **kwargs):
         categories = Category.objects.all()
@@ -46,7 +46,7 @@ class indexView(View):
         latest_news = News.objects.order_by('-pub_date')[:3]
         popular_news = News.objects.order_by('-likes')[:5]
         popular_posts = Post.objects.order_by('-likes')[:4]
-        featured_posts = Post.objects.filter(featured=True).order_by('-pub_date')[:3]
+        featured_posts = Post.objects.filter(featured=True).order_by('-pub_date')[:4]
 
         context = {
             'categories' : categories,
@@ -57,67 +57,9 @@ class indexView(View):
             'popular_posts': popular_posts,
             'featured_posts': featured_posts,
         }
-        return render(request, 'mag/post_template.html', context)
-        
-# class SignupView(generic.View):
-    def get(self, *args, **kwargs):
-        context = {
-            'user_creation_form': CreateUserForm(),
-            'utilisateurform': UtilisateurForm()
-        }
-        return render(self.request, 'mag/signup.html', context)
+        return render(request, 'mag/index.html', context)
 
-    def post(self, *args, **kwargs):
-        userForm = CreateUserForm(data=self.request.POST)
-        utilisateur_form = UtilisateurForm(data=self.request.POST)
 
-        if userForm.is_valid() and utilisateur_form.is_valid():
-            user = userForm.save(commit=False)
-            # on vérifie si l'email existe déjà
-            verifEmail = User.objects.filter(email=user.email)
-            if verifEmail.count():
-                messages.error(self.request,
-                               'Cette adresse Email existe déjà. Connectez-vous avec cette adresse ou créez-en une autre')
-                return render(self.request, 'signup.html',
-                              {'user_creation_form': userForm, 'utilisateurform': utilisateur_form})
-            else:
-                user.username = user.email
-                name = user.first_name
-                user.first_name = name.split(' ')[0]
-                user.last_name = name.split(' ')[-1]
-                user.save()
-
-                utilisateur = utilisateur_form.save(commit=False)
-                utilisateur.user = user
-                utilisateur.save()
-
-                messages.success(self.request, 'Votre Compte a bien été crée. Connectez-vous et parcourez nos différents articles')
-
-                return redirect('mag:signin')
-        else:
-            messages.error(self.request, 'Un problème est survenue. Réessayez')
-            return render(self.request, 'signup.html', {'user_creation_form': userForm, 'utilisateurform': utilisateur_form})
-
-# class Signinview(generic.View):
-    def get(self, *args, **kwargs):
-        return render(self.request, 'mag/login.html')
-
-    def post(self, *args, **kwargs):
-        email = self.request.POST.get('email')
-        password = self.request.POST.get('password')
-
-        user = authenticate(username=email, password=password)
-
-        if user:
-            if user.is_active:
-                login(self.request, user)
-                return redirect('mag:index')
-            else:
-                messages.error(self.request, 'Votre compte a été désactivé')
-                return redirect('mag:signin')
-        else:
-            messages.error(self.request, "S'il vous plait utilisez un mot de passe ou une adresse email correcte")
-            return redirect('mag:signin')
 
 class SignupView(FormView):
     template_name = 'mag/signup.html'
@@ -137,10 +79,15 @@ class SignupView(FormView):
             utilisateur.user = user
             utilisateur.save()
             messages.success(self.request, 'Votre compte a bien été créé. Connectez-vous et parcourez nos différents articles')
-            return super().form_valid(form)
+            return redirect(reverse_lazy('mag:signin'))
         else:
             messages.error(self.request, 'Un problème est survenu lors de la création de votre compte. Veuillez réessayer.')
             return super().form_invalid(form)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['utilisateur_form'] = UtilisateurForm()  # Ajoutez cette ligne pour passer le formulaire d'utilisateur à votre template
+        return context
 
 
 class SigninView(FormView):
@@ -173,15 +120,22 @@ def signoutview(request):
     auth_logout(request)
     messages.success(request, 'Vous avez été déconnecté avec succès.')
     return redirect('mag:signin')
-
 @login_required
-def profile(request):
-    utilisateur_form = UtilisateurForm(instance=request.user.utilisateur)
-    password_form = PasswordChangeForm()
+class ProfileView(LoginRequiredMixin, TemplateView):
+    template_name = 'profile.html'
+    utilisateur_form_class = UtilisateurForm
+    password_form_class = PasswordChangeForm
+    success_url = reverse_lazy('mag:profile')
 
-    if request.method == 'POST':
-        utilisateur_form = UtilisateurForm(request.POST, instance=request.user.utilisateur)
-        password_form = PasswordChangeForm(request.POST)
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['utilisateur_form'] = self.utilisateur_form_class(instance=self.request.user.utilisateur)
+        context['password_form'] = self.password_form_class()
+        return context
+
+    def post(self, request, *args, **kwargs):
+        utilisateur_form = self.utilisateur_form_class(request.POST, instance=request.user.utilisateur)
+        password_form = self.password_form_class(request.POST)
 
         if utilisateur_form.is_valid():
             utilisateur_form.save()
@@ -193,9 +147,10 @@ def profile(request):
                 user = request.user
                 user.set_password(password)
                 user.save()
-                return redirect('profile')
+                return redirect(self.success_url)
 
-    return render(request, 'profile.html', {'utilisateur_form': utilisateur_form, 'password_form': password_form})
+        return self.render_to_response(self.get_context_data())    
+    
 
 def about_us(request):
     return render(request, 'mag/about_us.html')
@@ -259,7 +214,7 @@ def category_news(request, name):
 
 def post_detail(request, pk):
     post = get_object_or_404(Post, pk=pk)
-    related_posts = Post.objects.filter(category=post.category).exclude(pk=post.pk)
+    related_posts = Post.objects.filter(Category=post.Category).exclude(pk=post.pk)
     comments = Comment.objects.filter(post=post).order_by('-created_at')
     num_comments = post.comments.count()
 
@@ -274,9 +229,21 @@ def post_detail(request, pk):
     else:
         form = CommentForm()
 
-    return render(request, 'post_detail.html', {'post': post, 'comments': comments, 'form': form, 'num_comments': num_comments})
+    return render(request, 'mag/post_details.html', {'post': post, 'comments': comments, 'form': form, 'num_comments': num_comments})
 
+@login_required
+def like_unlike_post(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    user = request.user
 
+    if user in post.likes.all():
+        post.likes.remove(user)
+        liked = False
+    else:
+        post.likes.add(user)
+        liked = True
+
+    return JsonResponse({'liked': liked, 'total_likes': post.likes.count()})
 # @login_required
 # def news_detail(request, pk):
 #     post = get_object_or_404(News, pk=pk)
@@ -313,4 +280,5 @@ def search_feature(request):
     if request.method == 'POST':
         query = request.POST['search_query']
         queryset = queryset.filter(title__contains=query)
-    return render(request, 'mag/search_posts.html', {'query': query, 'posts': queryset})
+    return render(request, 'mag/search_results.html', {'query': query, 'posts': queryset})
+

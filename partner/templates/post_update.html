@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Delete Post</title>
+    <title>Update Post</title>
 </head>
 <body>
-    <h1>Delete Post</h1>
-    <p>Êtes-vous certain de vouloir supprimer cet article : {{ post.title }}"?</p>
+    <h1>Update Post</h1>
     <form method="post">
         {% csrf_token %}
-        <button type="submit">Delete</button>
+        {{ form.as_p }}
+        <button type="submit">Update</button>
     </form>
 </body>
 </html>

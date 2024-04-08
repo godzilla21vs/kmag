@@ -103,7 +103,7 @@
                                                 {% endif %}</a>
                                                 <li><a href="#">Langue</a></li>
                                                 {% if request.user.is_authenticated %}
-                                                <a href="{% url 'profile' %}">Mon Profil</a>
+                                                <a href="{% url 'mag:profile' %}">Mon Profil</a>
                                                 {% else %}
                                                 {% endif %}
                                             </ul>
@@ -124,7 +124,7 @@
                     <div class="row">
                         <div class="col-sm-4">
                             <div class="logo">
-                                <a href="index.html"><img src="{% static 'images/logo.png' %}" class="img-responsive" alt=""></a>
+                                <a href="{% url 'mag:index' %}"><img src="{% static 'images/logo.png' %}" class="img-responsive" alt=""></a>
 
                             </div>
                         </div>
@@ -208,7 +208,7 @@
                                     <li class="dropdown">
                                         <ul class="dropdown-menu">
                                             {% for category in categories %}
-                                            <li><a href="{% url 'category_posts' category.slug %}">{{ category.name }}</a></li>
+                                            <li><a href="{% url 'mag:category_posts' category.slug %}">{{ category.name }}</a></li>
                                             {% endfor %}
                                         </ul>
                                     </li>
@@ -220,7 +220,7 @@
                                     <li class="dropdown">
                                         <ul class="dropdown-menu">
                                             {% for category in categoriesNews %}
-                                            <li><a href="{% url 'category_news' category.slug %}">{{ category.name }}</a></li>
+                                            <li><a href="{% url 'mag:category_news' category.slug %}">{{ category.name }}</a></li>
                                             {% endfor %}
                                         </ul>
                                     </li>

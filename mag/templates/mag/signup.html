@@ -51,36 +51,48 @@
                                         <p class="form-text">Vous avez déjà un compte ? <a href={% url 'mag:signin' %}>Connectez-vous</a></p>
                                         <div class="row">
                                             <div class="col-12">
-                                                Nom : {{ user_creation_form.last_name }}
-                                                {{ user_creation_form.last_name_errors }}
+                                                <div class="col-12 form-group">
+                                                    <input type="text" class="form-control" name="firstname" placeholder="Votre nom ">
+                                                </div>
                                             </div>
                                             <div class="col-12">
-                                                Prénom : {{ user_creation_form.first_name }}
-                                                {{ user_creation_form.first_name_errors }}
+                                                <div class="col-12 form-group">
+                                                    <input type="text" class="form-control" name="lastname" placeholder="Votre prénom ">
+                                                </div>
                                             </div>
                                             <div class="col-12">
-                                                Genre : {{ utilisateurform.genre }}
-                                                {{ utilisateurform.genre.errors }}
+                                                <div class="col-12 form-group">
+                                                    <select class="form-select mb-3"  name="genre"> 
+                                                        <option  value="H">HOMME</option>
+                                                        <option value="F">FEMME</option>
+                                                        <option value="A">AUTRE</option>
+                                                    </select>
+                                                </div>x
                                             </div>
                                             <div class="col-12">
-                                                Email : {{ user_creation_form.email }}
-                                                {{ user_creation_form.email.errors }}
+                                                <div class="col-12 form-group">
+                                                    <input type="email" class="form-control" name="email" placeholder="Votre email ">
+                                                </div>
                                             </div>
                                             <div class="col-12">
-                                                Telephone :{{utilisateurform.mobile}}
-                                                {{utilisateurform.mobile.errors}}
+                                                <div class="col-12 form-group">
+                                                    <input type="phone" class="form-control" name="mobile" placeholder="Votre numèro de téléphone ">
+                                                </div>
                                             </div>
                                             <div class="col-12">
-                                                Mot de passe : {{ user_creation_form.password1 }}
-                                                {{ user_creation_form.password1.errors }}
+                                                <div class="col-12 form-group">
+                                                    <input type="password" class="form-control" name="password1" placeholder="Votre mot de passe">
+                                                </div>
                                             </div>
                                             <div class="col-12">
-                                                Confirmer Mot de passe : {{ user_creation_form.password2 }}
-                                                {{ user_creation_form.password2.errors }}
+                                                <div class="col-12 form-group">
+                                                    <input type="password" class="form-control" name="password2" placeholder="Confirmez Votre mot de passe">
+                                                </div>
                                             </div>
                                             <div class="col-12">
-                                                Ville : {{ utilisateurform.ville }}
-                                                {{ utilisateurform.ville.errors }}
+                                                <div class="col-12 form-group">
+                                                    <input type="text" class="form-control" name="ville" placeholder="Votre ville de résidence">
+                                                </div>
                                             </div>
                                             <div class="col-12">
                                                 <div class="custom-checkbox">

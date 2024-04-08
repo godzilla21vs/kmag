@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'mag/base.html' %}
 {% block content %}
 
         <!-- *** START PAGE MAIN CONTENT *** -->
@@ -9,7 +9,7 @@
                     <div class="row">
                         <div class="col-xs-12 col-sm-6 col-md-6">
                             <ol class="breadcrumb">
-                                <li><a href="{% url 'index' %}">Accueil</a></li>
+                                <li><a href="{% url 'mag:index' %}">Accueil</a></li>
                             </ol>
                         </div>
                     </div>
@@ -35,7 +35,7 @@
                                     </figure>
                                     <h2 class="fw-bold">{{ object.title }}</h2>
                                     <ul class="authar-info">
-                                        <li><a href="#" class="link">posté par {{object.author.name}}</a></li>
+                                        <li><a href="#" class="link">posté par {{object.Author.name}}</a></li>
                                         <li><a href="#" class="link">{{object.likes}} likes </a></li>
                                         <li><a href="#" class="link">{{object.likes}} vues</a></li>
                                     </ul>
@@ -100,3 +100,4 @@
         </main>
         <!-- *** END OF /. PAGE MAIN CONTENT *** -->
         <!-- START FOOTER -->
+{% endblock content %}

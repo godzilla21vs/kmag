@@ -27,10 +27,10 @@
                         {% for post in featured_posts %}
                         <div class="col-xs-6 col-sm-3 col-md-3 thm-padding">
                             <div class="slider-post post-height-3">
-                                <a href="{% url 'post_details' pk=post.pk %}" class="news-image"><img src="{{ post.image.url }}" alt=""></a>
+                                <a href="{% url 'mag:post_detail' pk=post.pk %}" class="news-image"><img src="{{ post.image.url }}" alt=""></a>
                                 <div class="post-text">
                                     <span class="post-category">{{ post.Category.name }}</span>
-                                    <h4><a href="{% url 'post_details' pk=post.pk %}">{{ post.title }}</a></h4>
+                                    <h4><a href="{% url 'mag:post_detail' pk=post.pk %}">{{ post.title }}</a></h4>
                                     <ul class="authar-info">
                                         <li class="authar hidden-xs hidden-sm"><a href="#">Posté par {{ post.Author.name }}</a></li>
                                         <li class="hidden-xs">{{ post.pub_date }}</li>
@@ -63,32 +63,32 @@
                                         <!-- item one -->
                                         <div class="item">
                                             <div class="row">
-                                                {% if popular_posts %}
+                                                {% for post in popular_posts %}
+                                                {% if forloop.first %}
                                                 <div class="col-sm-6 main-post-inner bord-right">
-                                                    {% with popular_posts[0] as post %}
                                                     <article>
                                                         <figure>
-                                                            <a href="{% url 'post_details' pk=post.pk %}"><img src="{{ post.thumbnail }}" height="242" width="345" alt="" class="img-responsive"></a>
+                                                            <a href="{% url 'mag:post_detail' pk=post.pk %}"><img src="{{ post.thumbnail }}" height="242" width="345" alt="" class="img-responsive"></a>
                                                             <span class="post-category">{{ post.Category.name }}</span>
                                                         </figure>
                                                         <div class="post-info">
                                                             <h3><a href="#">{{post.title}}</a></h3>
-                                                            <p>{{post.body|truncatechars(50)}}</p>
+                                                            <p>{{post.body|truncatechars:50}}</p>
                                                             <ul class="authar-info">
                                                                 <li><i class="ti-timer"></i> {{post.pub_date}}</li>
                                                                 <li class="like"><a href="#"><i class="ti-thumb-up"></i>{{ post.likes }} likes</a></li>
                                                             </ul>
                                                         </div>
                                                     </article>
-                                                    {% endwith%}
                                                 </div>
+                                                {% endif %}
+                                                {% endfor %}
                                                 <div class="col-sm-6">
                                                     <div class="news-list">
                                                         {% for post in popular_posts %}
                                                             {% if forloop.first %}
-                                                                {% continue %}
                                                             {% endif %}
-                                                        <div class="news-list-item" <a href="{% url 'post_details' pk=post.pk %}"></a>>
+                                                        <div class="news-list-item" <a href="{% url 'mag:post_detail' pk=post.pk %}"></a>>
                                                             <div class="img-wrapper">
                                                                 <a href="#" class="thumb">
                                                                     <img src="{{ post.thumbnail }}" alt="" class="img-responsive">
@@ -98,7 +98,7 @@
                                                                 </a>
                                                             </div>
                                                             <div class="post-info-2">
-                                                                <h5><a href=""{% url 'post_details' pk=post.pk %}"" class="title">{{post.title}}</a></h5>
+                                                                <h5><a href=""{% url 'mag:post_detail' pk=post.pk %}"" class="title">{{post.title}}</a></h5>
                                                                 <ul class="authar-info">
                                                                     <li><i class="ti-timer"></i> {{post.pub_date}}</li>
                                                                     <li class="like hidden-xs hidden-sm"><a href="#"><i class="ti-thumb-up"></i>{{ post.likes }} likes</a></li>
@@ -139,7 +139,6 @@
                                     </div>
                                 </div>
                             </div>
-                            {% endif %}
                             </div>
                             <!-- END OF /. POST CATEGORY STYLE ONE (Popular news) -->
                             <!-- START ADVERTISEMENT -->
@@ -169,41 +168,41 @@
                                         <!-- item one -->
                                         <div class="item">
                                             <div class="row">
-                                                {% if popular_posts %}
+                                                {% for news in popular_news %}
+                                                {% if forloop.first %}
                                                 <div class="col-sm-6 main-post-inner bord-right">
-                                                    {% with popular_news[0] as news %}
                                                     <article>
                                                         <figure>
-                                                            <a href="{% url 'news_details' pk=news.pk %}"><img src="{{ news.thumbnail }}" height="242" width="345" alt="" class="img-responsive"></a>
+                                                            <a href="{% url 'mag:news_detail' pk=news.pk %}"><img src="{{ news.thumbnail }}" height="242" width="345" alt="" class="img-responsive"></a>
                                                             <span class="post-category">{{ news.Category.name }}</span>
                                                         </figure>
                                                         <div class="post-info">
-                                                            <h3><a href="{% url 'news_details' pk=news.pk %}">{{news.title}}</a></h3>
+                                                            <h3><a href="{% url 'mag:news_detail' pk=news.pk %}">{{news.title}}</a></h3>
                                                             <ul class="authar-info">
                                                                 <li><i class="ti-timer"></i> {{news.pub_date}}</li>
                                                                 <li class="like"><a href="#"><i class="ti-thumb-up"></i>{{ news.likes }} likes</a></li>
                                                             </ul>
-                                                            <p class="p">{{news.body|truncatechars(50)}}</p>
+                                                            <p class="p">{{news.body|truncatechars:50}}</p>
                                                         </div>
                                                     </article>
-                                                    {% endwith%}
                                                 </div>
+                                                {% endif %}
+                                                {% endfor %}
                                                 <div class="col-sm-6">
                                                     <div class="news-grid-2">
                                                         <div class="row row-margin">
-                                                            {% for post in popular_news %}
+                                                            {% for news in popular_news %}
                                                                 {% if forloop.first %}
-                                                                    {% continue %}
                                                                 {% endif %}
                                                             <div class="col-xs-6 col-sm-6 col-md-6 col-padding">
                                                                 <div class="grid-item">
                                                                     <div class="grid-item-img">
-                                                                        <a href="{% url 'news_details' pk=news.pk %}">
+                                                                        <a href="{% url 'mag:news_detail' pk=news.pk %}">
                                                                             <img src="{{ news.thumbnail }}" class="img-responsive" alt="">
                                                                             <div class="link-icon"><i class="fa fa-play"></i></div>
                                                                         </a>
                                                                     </div>
-                                                                    <h5><a href="{% url 'news_details' pk=news.pk %}" class="title">{{news.title}}</a></h5>
+                                                                    <h5><a href="{% url 'mag:news_detail' pk=news.pk %}" class="title">{{news.title}}</a></h5>
                                                                     <ul class="authar-info">
                                                                         <li>{{news.pub_date}}</li>
                                                                         <li class="like hidden-sm"><a href="#">{{ news.likes }} likes</a></li>
@@ -257,10 +256,10 @@
                                     <h4><strong>Postes Récents</strong> </h4>
                                 </div>
                                 <div class="panel_body">
-                                    {% if latest_post %}
                                     <div class="more-post">
-                                        {% with latest_post[0] as posts %}
-                                        <a href="{% url 'post_details' pk=post.pk %}" class="news-image"><img src="{{ post.thumbnail }}" alt="" class="img-responsive"></a>
+                                        {% for  post in latest_post %}
+                                        {% if forloop.first %}
+                                        <a href="{% url 'mag:post_detail' pk=post.pk %}" class="news-image"><img src="{{ post.thumbnail }}" alt="" class="img-responsive"></a>
                                         <div class="reatting">
                                             <i class="fa fa-star"></i>
                                             <i class="fa fa-star"></i>
@@ -276,16 +275,16 @@
                                                 <li class="like"><a href="#"><i class="ti-thumb-up"></i>{{ post.likes }} likes</a></li>
                                             </ul>
                                         </div>
-                                        {%endwith%}
+                                        {% endif %}
+                                        {% endfor %}
                                     </div>
                                     <div class="news-list">
                                         {% for post in latest_posts %}
                                             {% if forloop.first %}
-                                                {% continue %}
                                             {% endif %}
                                         <div class="news-list-item">
                                             <div class="img-wrapper">
-                                        <a href="{% url 'post_details' pk=post.pk %}" class="news-image"><img src="{{ post.thumbnail }}" alt="" class="img-responsive"></a>
+                                        <a href="{% url 'mag:post_detail' pk=post.pk %}" class="news-image"><img src="{{ post.thumbnail }}" alt="" class="img-responsive"></a>
                                         <div class="reatting">
                                             <i class="fa fa-star"></i>
                                             <i class="fa fa-star"></i>
@@ -306,7 +305,7 @@
                                 </div>
                             </div>
                             <!-- END OF /. LATEST REVIEWS -->
-                            {% comment %} <!-- START WEATHER -->
+                            <!-- START WEATHER -->
                             <div class="weather-wrapper-2 weather-bg-2">
                                 <div class="weather-temperature">
                                     <div class="weather-now">
@@ -418,7 +417,7 @@
                                 </div>
                             </div>
                             <!-- END OF /. WEATHER -->
-                            <!-- START NAV TABS --> {% endcomment %}
+                            <!-- START NAV TABS --> 
                             <div class="tabs-wrapper">
                                 <ul class="nav nav-tabs" role="tablist">
                                     <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Most Viewed</a></li>
@@ -529,20 +528,21 @@
                                 <div class="row row-m">
                                     <div class="col-sm-6 col-p">
                                         <div class="posts card-post">
+                                            {% for post in latest_news %}
+                                            {% if forloop.first %}
                                             <div class="post-grid post-grid-item">
-                                                {% with latest_news[0] as posts %}
                                                 <figure class="posts-thumb">
                                                     <span class="post-category">{{post.title}}</span>
                                                     <a href="#"><img src="{% static 'images/378x270-1.jpg' %}" alt=""></a>
                                                 </figure>
                                                 <div class="posts-inner">
                                                     <a href="#" class="posts-link"></a>
-                                                    <h6 class="posts-title"><a href=""{% url 'post_details' pk=post.pk %}"">{{post.title}}</a></h6>
+                                                    <h6 class="posts-title"><a href=""{% url 'mag:post_detail' pk=post.pk %}"">{{post.title}}</a></h6>
                                                     <ul class="authar-info">
                                                         <li><i class="ti-timer"></i> {{post.pub_date}}</li>
                                                         <li class="like"><a href="#"><i class="ti-thumb-up"></i>{{ post.likes }} likes</a></li>
                                                     </ul>
-                                                    <p>{{post.body|truncatechars(100)}}
+                                                    <p>{{post.body|truncatechars:100}}
                                                     </p>
                                                 </div>
                                                 <div class="posts__footer card__footer">
@@ -558,26 +558,26 @@
                                                         <li class="meta-item "><a href="#"><i class="ti-heart"></i> {{ post.likes }}</a></li>
                                                     </ul>
                                                 </div>
-                                                {% endwith %}
                                             </div>
+                                            {% endif %}
+                                            {% endfor %}
                                         </div>
                                     </div>
                                     <div class="col-sm-6 col-p">
                                         <div class="posts">
                                             {% for post in latest_news %}
                                                 {% if forloop.first %}
-                                                    {% continue %}
                                                 {% endif %}
                                             <ul>
                                                 <li class="post-grid">
                                                     <div class="posts-inner">
                                                         <span class="post-category">{{post.Category.name}}</span>
-                                                        <h6 class="posts-title"><a href=""{% url 'post_details' pk=post.pk %}"">{{post.title}}</a></h6>
+                                                        <h6 class="posts-title"><a href=""{% url 'mag:post_detail' pk=post.pk %}"">{{post.title}}</a></h6>
                                                         <ul class="authar-info">
                                                             <li><i class="ti-timer"></i>  {{post.pub_date}}</li>
                                                             <li class="like"><a href="#"><i class="ti-thumb-up"></i>{{ post.likes }} likes</a></li>
                                                         </ul>
-                                                        <p>{{post.body|truncatechars(50)}}</p>
+                                                        <p>{{post.body|truncatechars:50}}</p>
                                                     </div>
                                                 </li>
 
@@ -600,19 +600,19 @@
                                     </div>
                                     <!-- post body -->
                                     <div class="post-body">
-                                        <div class="news-list-item articles-list">
-                                            {% if latest_news %}
-                                            {% for news in latest_news[:5] %}
-                                            <div class="img-wrapper">
-                                                <a href="#" class="thumb"><img src="{% static 'images/218x150-1.jpg' %}" alt="" class="img-responsive"></a>
-                                            </div>
-                                            <div class="post-info-2">
-                                                <h4><a href="#" class="title"> {{ post.title }}</a></h4>
-                                                <ul class="authar-info">
-                                                    <li><i class="ti-timer"></i> {{post.pub_date}}</li>
-                                                    <li class="like"><a href="#"><i class="ti-thumb-up"></i>{{ post.likes }} likes</a></li>
-                                                </ul>
-                                                <p class="hidden-sm"> {{post.body|truncatechars(250)}}</p>
+                                        {% for news in latest_news %}
+                                            <div class="news-list-item articles-list">
+                                                <div class="img-wrapper">
+                                                    <a href="#" class="thumb"><img src="{% static 'images/218x150-1.jpg' %}" alt="" class="img-responsive"></a>
+                                                </div>
+                                                <div class="post-info-2">
+                                                    <h4><a href="#" class="title"> {{ post.title }}</a></h4>
+                                                    <ul class="authar-info">
+                                                        <li><i class="ti-timer"></i> {{post.pub_date}}</li>
+                                                        <li class="like"><a href="#"><i class="ti-thumb-up"></i>{{ post.likes }} likes</a></li>
+                                                    </ul>
+                                                    <p class="hidden-sm"> {{post.body|truncatechars:150}}</p>
+                                                </div>
                                             </div>
                                             {% endfor %}
                                             <!--Post footer-->
@@ -650,7 +650,6 @@
                                                 </div>
                                             </div> <!-- /.Post footer-->
                                         </div>
-                                            {% endif%}
                                     </div> <!-- /. post body -->
                                     <!--Post footer-->
                                     <div class="post-footer"> 

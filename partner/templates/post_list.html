@@ -1,0 +1,30 @@
+<!-- template.html -->
+<table>
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Category</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for post in user.posts.all %}
+      <tr>
+        <td>{{ post.title }}</td>
+        <td>{{ post.Category }}</td>
+        <td>
+          <a href="{% url 'edit_post' post.id %}">Edit</a>
+          <form action="{% url 'delete_post' post.id %}" method="post">
+            {% csrf_token %}
+            <button type="submit">Delete</button>
+          </form>
+        </td>
+      </tr>
+      {% empty %}
+      <tr>
+        <td colspan="3">No posts found.</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  

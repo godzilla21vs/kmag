@@ -72,19 +72,47 @@
                             <!-- End of /. top left menu -->
                         </div>
                         <!-- Start header top right menu -->
+                        <style>
+                            .header-right-menu a:hover {
+                                color: #eb0254;
+                            }
+                            .btn.btn-outline-success {
+                                color: #eb0254;
+                                border-color: #eb0254;
+                            }
+                            
+                            .btn.btn-outline-success:hover {
+                                 background-color: #eb0254;
+                                color: white;
+                            }
+                        </style>
+                        
                         <div class="hidden-xs col-md-6 col-sm-6 col-lg-6">
                             <div class="header-right-menu">
                                 <div class="header-top-links">
-                                    <ul>
-                                        {% if request.user.is_authenticated %}
-                                        <li><a href="{% url 'mag:signout' %}" class="logout-link">Déconnexion</a></li>
-                                        {% else %}
-                                        <li><a href="{% url 'mag:signin' %}" class="login-link">Connexion / Enregistrement</a></li>
-                                        {% endif %}
+                                    <ul class="menu">
+                                        <div class="dropdown">
+                                            <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <i class="fa fa-user-circle"></i>  Compte
+                                            </button>
+                                            <ul class="dropdown-menu">
+                                                {% if request.user.is_authenticated %}
+                                                <li><a href="{% url 'mag:signout'%}">Déconnexion</a></li>
+                                                {% else %}
+                                                <li><a href="{% url 'mag:signin'%}">Connexion / Enregistrement</a></li>
+                                                {% endif %}</a>
+                                                <li><a href="#">Langue</a></li>
+                                                {% if request.user.is_authenticated %}
+                                                <a href="{% url 'mag:profile' %}">Mon Profil</a>
+                                                {% else %}
+                                                {% endif %}
+                                            </ul>
+                                        </div>
                                     </ul>
                                 </div>
                             </div>
                         </div>
+                        
                          <!-- end of /. header top right menu -->
                     </div> <!-- end of /. row -->
                 </div> <!-- end of /. container -->
@@ -96,7 +124,7 @@
                     <div class="row">
                         <div class="col-sm-4">
                             <div class="logo">
-                                <a href={% url 'index' %}><img src="{% static 'images/logo.png' %}" class="img-responsive" alt=""></a>
+                                <a href="{% url 'mag:index' %}"><img src="{% static 'images/logo.png' %}" class="img-responsive" alt=""></a>
 
                             </div>
                         </div>
@@ -112,17 +140,30 @@
                 <!-- Start Top Search -->
                 <div class="top-search">
                     <div class="container">
-                        <form class="d-flex" role="search" method="POST" action="{% url 'search_feature' %}">
+                        <form class="d-flex" role="search" method="POST">
                             {% csrf_token %}
                             <input
                                 {% comment %} class="fa fa-search"
                                 class="form-control me-2" {% endcomment %}
-                                type="text"
+                                type="search"
                                 placeholder="Recherchez un article"
                                 name="search_query"
                                 required aria-label="Search"
                             >
-                            <button class="btn btn-outline-success"type="submit">Recherchez</button>
+                            <style>
+                                .btn.btn-outline-success {
+                                    color: #eb0254;
+                                    border-color: #eb0254;
+                                }
+                            
+                                .btn.btn-outline-success:hover {
+                                    background-color: #eb0254;
+                                    color: white;
+                                }
+                            </style>
+                            
+                            <button class="btn btn-outline-success" type="submit">Recherchez</button>
+                            
                         </form>
                     </div>
                 </div>
@@ -151,7 +192,7 @@
                             </li>
                             <li class="dropdown megamenu-fw">
                                 <a href="" class="dropdown-toggle" data-toggle="dropdown">Nos Partenaires</a>
-                                <ul class="dropdown-menu megamenu-content" role="menu">
+                                <ul class="dropdown-menu" role="menu">
                                     <li><a href="/index_partenaire/">Partenaire 00</a></li>
                                     <li><a href="/index_partenaire01/">Partenaire 01</a></li>
                                     <li><a href="/index_partenaire02/">Partenaire 02</a></li>
@@ -165,9 +206,9 @@
                                 <a href="" class="dropdown-toggle" data-toggle="dropdown" >Catégories articles</a>
                                 <ul class="dropdown-menu">
                                     <li class="dropdown">
-                                        <ul class="dropdown-menu megamenu-content">
+                                        <ul class="dropdown-menu">
                                             {% for category in categories %}
-                                            <li><a href="{% url 'category_posts' category.slug %}">{{ category.name }}</a></li>
+                                            <li><a href="{% url 'mag:category_posts' category.slug %}">{{ category.name }}</a></li>
                                             {% endfor %}
                                         </ul>
                                     </li>
@@ -177,9 +218,9 @@
                                 <a href="" class="dropdown-toggle" data-toggle="dropdown" >Catégories actualitès</a>
                                 <ul class="dropdown-menu">
                                     <li class="dropdown">
-                                        <ul class="dropdown-menu megamenu-content">
+                                        <ul class="dropdown-menu">
                                             {% for category in categoriesNews %}
-                                            <li><a href="{% url 'category_news' category.slug %}">{{ category.name }}</a></li>
+                                            <li><a href="{% url 'mag:category_news' category.slug %}">{{ category.name }}</a></li>
                                             {% endfor %}
                                         </ul>
                                     </li>
@@ -203,7 +244,7 @@
                 <!-- START FOOTER BOX (About) -->
                 <div class="col-sm-3 footer-box">
                     <div class="about-inner">
-                        <img src="{% static 'images/logo-white.png'%}" class="img-responsive" alt=""/>
+                        <img src="{% static 'images/logo.png'%}" class="img-responsive" alt=""/>
                         <p>KIMI Sarl, une entreprise fondée en 2022,
                             aspire à être un leader dans le
                             domaine des services informatiques. </p>
@@ -221,7 +262,7 @@
                         <div class="submitNewsletter">
                             <h4  style="color: white">Newsletter</h4>
                             <div class="Subscribe-box">
-                                <p> Souscrire dès Maintenant et nous nous assurerons que vous ne manquez plus rien </p>
+                                <p> Souscrire Maintenant. Nous nous assurerons que vous ne manquez rien </p>
                                 <form action="#" method="GET">
                                     <input type="text" class="form-contact" name="email" placeholder="Entrez votre Addresse">
                                     <button type="submit" name="submitNewsletter" class="btn btn-color">
@@ -252,13 +293,13 @@
                 <div class="col-xl-4 col-lg-3 col-md-6 col-sm-6">
                     <h3 class="wiget-title">Nos Partenaires</h3>
                     <ul class="menu-services">
-                        <li><a href="/index_partenaire/">partenaire 00</a></li>
-                        <li><a href="/index_partenaire01/">partenaire 01</a></li>
-                        <li><a href="/index_partenaire02/">partenaire 02</a></li>
-                        <li><a href="/index_partenaire03/">partenaire 03</a></li>
-                        <li><a href="/index_partenaire04/">partenaire 04</a></li>
-                        <li><a href="/index_partenaire05/">partenaire 05</a></li>
-                        <li><a href="/index_partenaire06/">partenaire 03</a></li>
+                        <li><a href="#">partenaire 00</a></li>
+                        <li><a href="#">partenaire 01</a></li>
+                        <li><a href="#">partenaire 02</a></li>
+                        <li><a href="#">partenaire 03</a></li>
+                        <li><a href="#">partenaire 04</a></li>
+                        <li><a href="#">partenaire 05</a></li>
+                        <li><a href="#">partenaire 03</a></li>
 
                     </ul>
                 </div>

@@ -1,0 +1,21 @@
+{% extends 'mag/base.html' %}
+
+
+{% block content %}
+    <div class="row">
+        <div class="col-11 col-md-4 mx-auto mt-5">
+                <h1>Se Connecter</h1>
+                <form method="POST">
+                    {% csrf_token %}
+                    {{ form|crispy }}
+                    <div class="form-group">
+                        <button class="btn btn-secondary" type="submit">Log In</button>
+                    </div>
+                </form>
+                <div class="pt-3">
+                    <small class="text-muted">Besoin d'un compte? <a href="{% url 'register' %}" class="ml-2"> S'Inscire</a></small>
+        </div>
+    </div>
+
+
+{% endblock content %}
