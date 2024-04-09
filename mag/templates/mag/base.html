@@ -48,6 +48,7 @@
         <link href="{% static 'plugins/style-selector/style_selector.css'%}" rel="stylesheet">
     </head>
     <body class="home_seven boxed-layout bg-img" data-image-src="{% static 'images/boxed-bg.jpg'%}">
+    {% comment %} <body class="home_six"> {% endcomment %}
         <!-- PAGE LOADER -->
         <div class="se-pre-con"></div>
         <!-- *** START PAGE HEADER SECTION *** -->
@@ -86,16 +87,15 @@
                                 color: white;
                             }
                         </style>
-                        
                         <div class="hidden-xs col-md-6 col-sm-6 col-lg-6">
                             <div class="header-right-menu">
                                 <div class="header-top-links">
                                     <ul class="menu">
-                                        <div class="dropdown">
-                                            <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                <i class="fa fa-user-circle"></i>  Compte
-                                            </button>
-                                            <ul class="dropdown-menu">
+                                        <div class="dropdown ">
+                                            <li class="dropdown megamenu-fw" type="button" data-bs-toggle="dropdown">
+                                                <a href="" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user-circle"></i>  Compte</a>
+                                            </li>
+                                            <ul class="dropdown-menu"  role="menu">
                                                 {% if request.user.is_authenticated %}
                                                 <li><a href="{% url 'mag:signout'%}">Déconnexion</a></li>
                                                 {% else %}
@@ -235,9 +235,9 @@
             </nav>
             <!-- END OF/. NAVIGATION -->
         </header>
-        {%block content %}
+        {% block content %}
 
-        {%endblock content%}
+        {% endblock content%}
     <footer>
         <div class="container">
             <div class="row">
@@ -327,8 +327,6 @@
         </div>
     </div>
        <!-- *** END OF /. PAGE HEADER SECTION *** -->
-
-
     <!-- *** END OF /. SUB FOOTER *** -->
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="{% static 'plugins/jquery/jquery.js'%}"></script>

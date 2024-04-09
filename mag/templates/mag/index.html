@@ -27,7 +27,7 @@
                         {% for post in featured_posts %}
                         <div class="col-xs-6 col-sm-3 col-md-3 thm-padding">
                             <div class="slider-post post-height-3">
-                                <a href="{% url 'mag:post_detail' pk=post.pk %}" class="news-image"><img src="{{ post.image.url }}" alt=""></a>
+                                <a href="{% url 'mag:post_detail' pk=post.pk %}" class="news-image"><img src="{{ post.thumbnail.url }}" alt=""></a>
                                 <div class="post-text">
                                     <span class="post-category">{{ post.Category.name }}</span>
                                     <h4><a href="{% url 'mag:post_detail' pk=post.pk %}">{{ post.title }}</a></h4>
@@ -68,7 +68,7 @@
                                                 <div class="col-sm-6 main-post-inner bord-right">
                                                     <article>
                                                         <figure>
-                                                            <a href="{% url 'mag:post_detail' pk=post.pk %}"><img src="{{ post.thumbnail }}" height="242" width="345" alt="" class="img-responsive"></a>
+                                                            <a href="{% url 'mag:post_detail' pk=post.pk %}"><img src="{{ post.thumbnail.url }}" height="242" width="345" alt="" class="img-responsive"></a>
                                                             <span class="post-category">{{ post.Category.name }}</span>
                                                         </figure>
                                                         <div class="post-info">
@@ -91,7 +91,7 @@
                                                         <div class="news-list-item" <a href="{% url 'mag:post_detail' pk=post.pk %}"></a>>
                                                             <div class="img-wrapper">
                                                                 <a href="#" class="thumb">
-                                                                    <img src="{{ post.thumbnail }}" alt="" class="img-responsive">
+                                                                    <img src="{{ post.thumbnail.url }}" alt="" class="img-responsive">
                                                                     <div class="link-icon">
                                                                         <i class="fa fa-camera"></i>
                                                                     </div>
@@ -158,7 +158,7 @@
                                             <li><a href="#">gadgets</a></li>
                                             <li><a href="#">design</a></li>
                                             <li><a href="#">fashion</a></li>
-                                            <li><a href="#">video</a></li>
+                                            <li><a href="#">video</a></li>  
                                         </ul>
                                     </div> {% endcomment %}
                                 </div>
@@ -173,7 +173,7 @@
                                                 <div class="col-sm-6 main-post-inner bord-right">
                                                     <article>
                                                         <figure>
-                                                            <a href="{% url 'mag:news_detail' pk=news.pk %}"><img src="{{ news.thumbnail }}" height="242" width="345" alt="" class="img-responsive"></a>
+                                                            <a href="{% url 'mag:news_detail' pk=news.pk %}"><img src="{{ news.thumbnail.url }}" height="242" width="345" alt="" class="img-responsive"></a>
                                                             <span class="post-category">{{ news.Category.name }}</span>
                                                         </figure>
                                                         <div class="post-info">
@@ -198,7 +198,7 @@
                                                                 <div class="grid-item">
                                                                     <div class="grid-item-img">
                                                                         <a href="{% url 'mag:news_detail' pk=news.pk %}">
-                                                                            <img src="{{ news.thumbnail }}" class="img-responsive" alt="">
+                                                                            <img src="{{ news.thumbnail.url }}" class="img-responsive" alt="">
                                                                             <div class="link-icon"><i class="fa fa-play"></i></div>
                                                                         </a>
                                                                     </div>
@@ -259,7 +259,7 @@
                                     <div class="more-post">
                                         {% for  post in latest_post %}
                                         {% if forloop.first %}
-                                        <a href="{% url 'mag:post_detail' pk=post.pk %}" class="news-image"><img src="{{ post.thumbnail }}" alt="" class="img-responsive"></a>
+                                        <a href="{% url 'mag:post_detail' pk=post.pk %}" class="news-image"><img src="{{ post.thumbnail.url }}" alt="" class="img-responsive"></a>
                                         <div class="reatting">
                                             <i class="fa fa-star"></i>
                                             <i class="fa fa-star"></i>
@@ -284,7 +284,7 @@
                                             {% endif %}
                                         <div class="news-list-item">
                                             <div class="img-wrapper">
-                                        <a href="{% url 'mag:post_detail' pk=post.pk %}" class="news-image"><img src="{{ post.thumbnail }}" alt="" class="img-responsive"></a>
+                                        <a href="{% url 'mag:post_detail' pk=post.pk %}" class="news-image"><img src="{{ post.thumbnail.url }}" alt="" class="img-responsive"></a>
                                         <div class="reatting">
                                             <i class="fa fa-star"></i>
                                             <i class="fa fa-star"></i>

@@ -9,6 +9,7 @@
                         <div class="col-xs-12 col-sm-6 col-md-6">
                             <ol class="breadcrumb">
                                 <li><a href="{% url 'mag:index' %}">Accueil</a></li>
+                                <li class="active"><a href="">{{post.title}}</a></li>
                             </ol>
                         </div>
                     </div>
@@ -22,8 +23,19 @@
                         <div class="theiaStickySidebar">
                             <div class="post_details_inner">
                                 <div class="post_details_block">
+                                    <div class="post-header">
+                                        <ul class="td-category">
+                                            <li><a class="post-category" href="#">{{post.Category}}</a></li>
+                                        </ul>
+                                        <h2 class="fw-bold">{{ post.title }}</h2>
+                                        <ul class="authar-info">
+                                            <li><a href="#" class="link">posté par {{post.Author.name}}</a></li>
+                                            <li><a href="#" class="link">{{post.likes}} likes </a></li>
+                                            <li><a href="#" class="link">{{post.likes}} vues</a></li>
+                                        </ul>
+                                    </div>
                                     <figure class="social-icon">
-                                        <img src="{{ object.main_image.url }}" class="img-responsive" alt="{{ object.title }}"/>
+                                        <img src="{{ post.main_image.url }}" class="img-responsive" alt="{{ post.title }}"/>
                                         <div>
                                             <a href="#"><i class="fab fa-facebook-f"></i></a>
                                             <a href="#"><i class="fab fa-twitter"></i></a>
@@ -32,20 +44,15 @@
                                             <a href="#" class="hidden-xs"><i class="fab fa-pinterest-p"></i></a>
                                         </div>			
                                     </figure>
-                                    <h2 class="fw-bold">{{ object.title }}</h2>
-                                    <ul class="authar-info">
-                                        <li><a href="#" class="link">posté par {{object.Author.name}}</a></li>
-                                        <li><a href="#" class="link">{{object.likes}} likes </a></li>
-                                        <li><a href="#" class="link">{{object.likes}} vues</a></li>
-                                    </ul>
+                                    
                                     <p></p>
                                     <figure class="align-left">
-                                        <img src="{{ object.thumbnails.url }}" alt="" width="300" height="362">
+                                        <img src="{{ post.thumbnails.url }}" alt="" width="300" height="362">
                                     </figure> 
 
                                     <div>
                                         <p>
-                                        {{ object.content|safe }}
+                                        {{ post.body }}
                                         </p>
                                     </div>
                                     <div class="row my-3">
@@ -78,20 +85,20 @@
                                                     });
                                                 </script>
 
-                                            {% if object.likes.count == 1 %}
-                                                <p>{{ object.likes.count }} personnes ont aimées ce postes</p>
+                                            {% if post.likes.count == 1 %}
+                                                <p>{{ post.likes.count }} personnes ont aimées ce postes</p>
                                             {% else %}
-                                                <p>{{ object.likes.count }} personne a aimé ce poste</p>
+                                                <p>{{ post.likes.count }} personne n'a aimé ce poste</p>
                                             {% endif %}
                                     
                                             {% comment %} {% if request.user.is_authenticated %}
                                                 {% if liked_by_user %}
-                                                    <form method="POST" action="{% url 'like_article' object.id %}">
+                                                    <form method="POST" action="{% url 'like_article' post.id %}">
                                                         {% csrf_token %}
                                                         <button class="btn btn-outline-primary"><ion-icon name="heart-dislike-outline"></ion-icon> Unlike ce poste</button>
                                                     </form>
                                                 {% else %}
-                                                    <form method="POST" action="{% url 'like_article' object.id %}">
+                                                    <form method="POST" action="{% url 'like_article' post.id %}">
                                                         {% csrf_token %}
                                                         <button class="btn btn-outline-primary"><ion-icon name="heart-outline"></ion-icon> Like ce poste</button>
                                                     </form>
@@ -100,106 +107,165 @@
                                     </div>
                                 </div>
                                 <!-- Post footer -->
-                                <div class="post-footer"> 
-                                    <div class="row thm-margin">
-                                        <div class="col-xs-12 col-sm-12 col-md-12 thm-padding">
-                                            <!-- pagination -->
-                                            {% comment %} <ul class="pagination">
-                                                <li class="disabled"><span class="ti-angle-left"></span></li>
-                                                <li class="active"><span>1</span></li>
-                                                <li><a href="#">2</a></li>
-                                                <li><a href="#">3</a></li>
-                                                <li class="disabled"><span class="extend">...</span></li><li>
-                                                </li><li><a href="#">12</a></li>
-                                                <li><a href="#"><i class="ti-angle-right"></i></a></li>
-                                            </ul> <!-- /.pagination --> {% endcomment %}
-                                        </div>
-                                    </div>
-                                </div>
-                            </div></div>
-                        <!-- START RELATED ARTICLES -->
-                        <div class="post-inner post-inner-2">
-                            <!--post header-->
-                            <div class="post-head">
-                                <h2 class="title">Articles <strong>connexes </strong></h2>
+                               
                             </div>
-                            <!-- post body -->
-                            <div class="post-body">
-                                <div class="post-slider owl-carousel owl-theme">
-                                    <!-- item one -->
-                                    <div class="item">
-                                        <div class="news-grid-2">
-                                            <div class="row row-margin">
-                                                {% for related_post in related_posts %}
-                                                <div class="col-xs-6 col-sm-4 col-md-4 col-padding">
-                                                    <div class="grid-item">
-                                                        <div class="grid-item-img">
-                                                            <a href="{% url 'post_detail' pk=related_post.pk %}">
-                                                                <img src="{{ related_post.thumbnail.url }}" class="img-responsive" alt="{{ related_post.title }}">
-                                                                <div class="link-icon"><i class="fa fa-play"></i></div>
-                                                            </a>
+                            <!-- START RELATED ARTICLES -->
+                            <div class="post-inner post-inner-2">
+                                <!--post header-->
+                                <div class="post-head">
+                                    <h2 class="title">Articles <strong>connexes </strong></h2>
+                                </div>
+                                <!-- post body -->
+                                <div class="post-body">
+                                    <div class="post-slider owl-carousel owl-theme">
+                                        <!-- item one -->
+                                        <div class="item">
+                                            <div class="news-grid-2">
+                                                <div class="row row-margin">
+                                                    {% for related_post in related_posts %}
+                                                    <div class="col-xs-6 col-sm-4 col-md-4 col-padding">
+                                                        <div class="grid-item">
+                                                            <div class="grid-item-img">
+                                                                <a href="{% url 'mag:post_detail' pk=related_post.pk %}">
+                                                                    <img src="{{ related_post.thumbnail.url }}" class="img-responsive" alt="{{ related_post.title }}">
+                                                                    <div class="link-icon"><i class="fa fa-play"></i></div>
+                                                                </a>
+                                                            </div>
+                                                            <h5><a href="{% url 'mag:post_detail' pk=related_post.pk %}" class="title">{{ related_post.title }}.</a></h5>
+                                                            <ul class="authar-info">
+                                                                <li>{{ related_post.body|truncatechars:50}}</li>
+                                                                <li>{{ related_post.pub_date }}</li>
+                                                                <li class="hidden-sm"><a href="#" class="link">{{ related_post.likes }} likes</a></li>
+                                                            </ul>
                                                         </div>
-                                                        <h5><a href="{% url 'post_detail' pk=related_post.pk %}" class="title">{{ related_post.title }}.</a></h5>
-                                                        <ul class="authar-info">
-                                                            <li>{{ related_post.body|truncatechars:50}}</li>
-                                                            <li>{{ related_post.pub_date }}</li>
-                                                            <li class="hidden-sm"><a href="#" class="link">{{ related_post.likes }} likes</a></li>
-                                                        </ul>
                                                     </div>
+                                                    {% endfor %}
                                                 </div>
-                                                {% endfor %}
                                             </div>
                                         </div>
                                     </div>
-                                </div>
                             </div>
-                        <!-- END OF /. RELATED ARTICLES -->
-                        <!-- START COMMENT -->
-                        <div class="comments-container">
-                            {% if comments %}
-                            <h3>Commentaires ({{ num_comments }})</h3>
-                            <ul class="comments-list">
-                                {% for comment in comments %}
-                                <li>
-                                    <div class="comment-main-level">
-                                        <!-- Avatar -->
-                                        <div class="comment-avatar"><img src="assets/images/avatar-1.jpg" alt=""></div>
-                                        <div class="comment-box">
-                                            <div class="comment-content">
-                                                <div class="comment-header"> <cite class="comment-author">{{ comment.author }}</cite>
-                                                    <time datetime="2012-10-27" class="comment-datetime">{{ comment.created_at }}</time>
+                            <!-- END OF /. RELATED ARTICLES -->
+                            <!-- START COMMENT -->
+                            <div class="comments-container">
+                                {% if comments %}
+                                <h3>Commentaires ({{ num_comments }})</h3>
+                                <ul class="comments-list">
+                                    {% for comment in comments %}
+                                    <li>
+                                        <div class="comment-main-level">
+                                            <!-- Avatar -->
+                                            <div class="comment-avatar"><img src="assets/images/avatar-1.jpg" alt=""></div>
+                                            <div class="comment-box">
+                                                <div class="comment-content">
+                                                    <div class="comment-header"> <cite class="comment-author">{{ comment.author }}</cite>
+                                                        <time datetime="2012-10-27" class="comment-datetime">{{ comment.created_at }}</time>
+                                                    </div>
+                                                    <p>{{ comment.content }}</p>
+                                                    <a href="#"  class="btn btn-news"> Commentez</a>
                                                 </div>
-                                                <p>{{ comment.content }}</p>
-                                                <a href="#"  class="btn btn-news"> Commentez</a>
                                             </div>
                                         </div>
-                                    </div>
+                                    </li>
+                                    {% endfor %}
+                                    {% else %}
+                                    <li>
+                                    <p>Pas encore de commentaires Disponible.</p>
                                 </li>
-                                {% endfor %}
-                                {% else %}
-                                <li>
-                                <p>Pas encore de commentaires Disponible.</p>
-                            </li>
-                            {% endif %}
-                            </ul>
+                                {% endif %}
+                                </ul>
+                            
+                                <!-- END OF /. COMMENT -->
+                                <!-- START COMMENTS FORMS -->
+                                <h2>Ajouter un commentaire :</h2>
+                                <form method="post" action="{% url 'mag:post_detail' post.pk %}">
+                                {% csrf_token %}
+                                <textarea name="content" rows="4" cols="50"></textarea><br>
+                                <input type="submit" value="Ajouter le commentaire">
+                                </form>
+                                <!-- END OF /. COMMENTS FORMS -->
+                            </div>
                         </div>
-                        <!-- END OF /. COMMENT -->
-                        <!-- START COMMENTS FORMS -->
-                        <h2>Ajouter un commentaire :</h2>
-                        <form method="post" action="{% url 'mag:post_detail' post.pk %}">
-                        {% csrf_token %}
-                        <textarea name="content" rows="4" cols="50"></textarea><br>
-                        <input type="submit" value="Ajouter le commentaire">
-                        </form>
-                        <!-- END OF /. COMMENTS FORMS -->
-                    </div>
                     </div>
                     <!-- END OF /. MAIN CONTENT -->
                     <!-- START SIDE CONTENT -->
+                    <div class="col-sm-4 col-p rightSidebar">
+                        <div class="theiaStickySidebar">
+                            <!-- START ADVERTISEMENT -->
+                            <div class="add-inner">
+                                <img src="assets/images/add320x270-1.jpg" class="img-responsive" alt="">
+                            </div>
+                            <!-- END OF /. ADVERTISEMENT -->
+                            <!-- START SOCIAL ICON -->
+                            <div class="social-media-inner">
+                                <ul class="social-media clearfix">
+                                    <li>
+                                        <a href="#" class="rss">
+                                            <i class="fas fa-rss"></i>
+                                            <p>Subscribers</p>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="fb">
+                                            <i class="fab fa-facebook-f"></i>
+                                            <p>Fans</p>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="insta">
+                                            <i class="fab fa-instagram"></i>
+                                            <p>Followers</p>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="you_tube">
+                                            <i class="fab fa-youtube"></i>
+                                            <p>Subscribers</p>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="twitter">
+                                            <i class="fab fa-twitter"></i>
+                                            <p>Followers</p>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="pint">
+                                            <i class="fab fa-pinterest-p"></i>
+                                            <p>Followers</p>
+                                        </a>
+                                    </li>
+                                </ul> <!-- /.social icon -->     
+                            </div>
+                            <!-- END OF /. SOCIAL ICON -->
+                            <!-- START NAV TABS -->
+                            <div class="tabs-wrapper">
+                                <ul class="nav nav-tabs" role="tablist">
+                                    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Most Viewed</a></li>
+                                    <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Popular news</a></li>
+                                </ul>
+                                <!-- Tab panels one --> 
+                                <div class="tab-content">
+                                    <div role="tabpanel" class="tab-pane fade in active" id="home">
+
+                                        <div class="most-viewed">
+                                            <ul id="most-today" class="content tabs-content">
+                                                <li><span class="count">01</span><span class="text"><a href="#">South Africa bounce back on eventful day</a></span></li>
+                                                <li><span class="count">02</span><span class="text"><a href="#">Steyn ruled out of series with shoulder fracture</a></span></li>
+                                                <li><span class="count">03</span><span class="text"><a href="#">BCCI asks ECB to bear expenses of team's India tour</a></span></li>
+                                                <li><span class="count">04</span><span class="text"><a href="#">Duminy, Elgar tons set Australia huge target</a></span></li>
+                                                <li><span class="count">05</span><span class="text"><a href="#">English spinners are third-class citizens, says Graeme Swann</a></span></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <!-- Tab panels two --> 
+                                
+                                </div>
+                            </div>  
+                        </div>
+                    </div>
                     <!-- END OF /. SIDE CONTENT -->
                 </div>
             </div>
         </main>
-        <!-- *** END OF /. PAGE MAIN CONTENT *** -->
-        <!-- START FOOTER -->
 {% endblock content %}

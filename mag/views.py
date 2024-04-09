@@ -2,7 +2,6 @@
 from django.contrib.auth import logout as auth_logout
 from django.views.generic.edit import FormView
 from django.views.generic import FormView, ListView
-
 from django.utils import timezone
 from django.conf import settings
 from django.core.mail import send_mail
@@ -38,9 +37,11 @@ from django.db import transaction
 from django.urls import reverse_lazy
 # Importations pour Json
 from django.http import JsonResponse
+
 class indexView(View):
     def get(self, request, *args, **kwargs):
         categories = Category.objects.all()
+        # categories = [category.name for category in categorie]
         # categoriesNews = CategoryNews.objects.all()
         latest_post = Post.objects.order_by('-pub_date')[:5]
         latest_news = News.objects.order_by('-pub_date')[:3]
@@ -58,7 +59,6 @@ class indexView(View):
             'featured_posts': featured_posts,
         }
         return render(request, 'mag/index.html', context)
-
 
 
 class SignupView(FormView):
@@ -120,6 +120,7 @@ def signoutview(request):
     auth_logout(request)
     messages.success(request, 'Vous avez été déconnecté avec succès.')
     return redirect('mag:signin')
+
 @login_required
 class ProfileView(LoginRequiredMixin, TemplateView):
     template_name = 'profile.html'
@@ -174,18 +175,20 @@ def post_detail_template2(request):
     return render(request, 'mag/post_detail_template2.html')
 
 @login_required
-def category_post(request, category_slug):
-    category = Category.objects.get(slug=category_slug)
-    posts = Post.objects.filter(Category=category)
+# def category_post(request, category_slug):
+def category_post(request, name):
+    # category = Category.objects.get(slug=category_slug)
+    category_current_one = get_object_or_404(Category, name=name)
+    posts = Post.objects.filter(Category=category_current_one)
     context = {
-        'category': category,
+        'category': Category,
         'posts': posts
     }
     return render(request, 'mag/category_post.html', context)
 
 class CategoryPostListView(ListView):
     model = Post
-    template_name = 'category_post.html'
+    template_name = 'mag/category_post.html'
     context_object_name = 'posts'
     paginate_by = 10
 
@@ -204,7 +207,7 @@ class CategoryPostListView(ListView):
 @login_required
 def category_news(request, name):
     category_current_one = get_object_or_404(Category, name=name)
-    news = News.objects.filter(Category=Category)
+    news = News.objects.filter(Category=category_current_one)
     context = {
         'Category': Category,
         'news': news,
@@ -221,15 +224,22 @@ def post_detail(request, pk):
     if request.method == 'POST':
         form = CommentForm(request.POST)
         if form.is_valid():
-            # Créez une instance de commentaire mais ne l'enregistrez pas encore dans la base de données
             new_comment = form.save(commit=False)
-            new_comment.post = post  # Associez le commentaire à l'article actuel
-            new_comment.save()  # Enregistrez le commentaire dans la base de données
-            return redirect('post_detail', pk=pk)  # Redirigez vers la même page après avoir ajouté le commentaire
+            new_comment.post = post
+            new_comment.save()
+            return redirect('post_detail', pk=pk)
     else:
         form = CommentForm()
 
-    return render(request, 'mag/post_details.html', {'post': post, 'comments': comments, 'form': form, 'num_comments': num_comments})
+    context = {
+        'post': post,
+        'related_posts': related_posts,
+        'comments': comments,
+        'form': form,
+        'num_comments': num_comments,
+    }
+
+    return render(request, 'mag/post_details.html', context)
 
 @login_required
 def like_unlike_post(request, pk):
