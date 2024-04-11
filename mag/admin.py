@@ -10,10 +10,29 @@ class imageInLine(admin.StackedInline):
 class itemAdmin(admin.ModelAdmin):
     inlines = [imageInLine]
 
+class MainImageInline(admin.StackedInline):
+    model = MainImage
+
+class ThumbnailInline(admin.StackedInline):
+    model = Thumbnail
+
+class PostAdmin(admin.ModelAdmin):
+    inlines = [MainImageInline, ThumbnailInline]
+
+class MainImageNewsInline(admin.StackedInline):
+    model = MainImageNews
+
+class ThumbnailNewsInline(admin.StackedInline):
+    model = ThumbnailNews
+
+class NewsAdmin(admin.ModelAdmin):
+    inlines = [MainImageNewsInline, ThumbnailNewsInline]
+
+admin.site.register(News, NewsAdmin)
+
+admin.site.register(Post, PostAdmin)
 admin.site.register(Category,)
 admin.site.register(Utilisateur,)
 admin.site.register(Tags,)
 admin.site.register(Author,)
-admin.site.register(Post,itemAdmin)
-admin.site.register(News,)
 admin.site.register(Subscriber,)

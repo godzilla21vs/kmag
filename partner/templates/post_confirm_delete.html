@@ -14,3 +14,13 @@
     </form>
 </body>
 </html>
+{% extends 'base.html' %}
+{% block content %}
+  <h2>Confirmer la suppression du post</h2>
+  <form method="post">
+    {% csrf_token %}
+    <p>Êtes-vous sûr de vouloir supprimer le post "{{ post.title }}" ? Cette action est irréversible.</p>
+    <button type="submit" class="btn btn-danger">Supprimer</button>
+    <a href="{% url 'partner:post_detail' post.pk %}" class="btn btn-secondary">Annuler</a>
+  </form>
+{% endblock %}

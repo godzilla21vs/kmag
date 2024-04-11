@@ -49,6 +49,8 @@ class indexView(View):
         popular_posts = Post.objects.order_by('-likes')[:4]
         featured_posts = Post.objects.filter(featured=True).order_by('-pub_date')[:4]
 
+        print(popular_posts.first().thumbnail, "\n\n")
+
         context = {
             'categories' : categories,
             #'categoriesNews' : categoriesNews,
@@ -215,30 +217,40 @@ def category_news(request, name):
     return render(request, 'mag/category_news.html', context)
 #je dois finir avec la fonction related_posts dans post_detail et dans news_detail
 
+@login_required
 def post_detail(request, pk):
     post = get_object_or_404(Post, pk=pk)
     related_posts = Post.objects.filter(Category=post.Category).exclude(pk=post.pk)
     comments = Comment.objects.filter(post=post).order_by('-created_at')
     num_comments = post.comments.count()
 
+    # Gérer les vues
+    if not PostSeen.objects.filter(user=request.user, post=post).exists():
+        PostSeen.objects.create(user=request.user, post=post)
+        post.numberView += 1
+        post.save()
+
+    # Gérer les likes
+    is_liked = LikePost.objects.filter(user=request.user, post=post).exists()
     if request.method == 'POST':
-        form = CommentForm(request.POST)
-        if form.is_valid():
-            new_comment = form.save(commit=False)
-            new_comment.post = post
-            new_comment.save()
+        action = request.POST.get('action')
+        if action == 'like':
+            if not is_liked:
+                LikePost.objects.create(user=request.user, post=post)
+                post.likes += 1
+                post.save()
+                messages.success(request, 'Vous avez aimé ce post.')
+            else:
+                messages.warning(request, 'Vous avez déjà aimé ce post.')
             return redirect('post_detail', pk=pk)
-    else:
-        form = CommentForm()
 
     context = {
         'post': post,
         'related_posts': related_posts,
         'comments': comments,
-        'form': form,
         'num_comments': num_comments,
+        'is_liked': is_liked,
     }
-
     return render(request, 'mag/post_details.html', context)
 
 @login_required

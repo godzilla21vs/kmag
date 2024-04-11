@@ -31,12 +31,21 @@ class PasswordChangeForm(forms.Form):
 class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
-        fields = ('content',)
+        fields = ['post', 'author', 'content', ]
+
+class AuthorForm(forms.ModelForm):
+    class Meta:
+        model = Author
+        fields = ['name', 'email']
+#         widgets = {
+#             'name': forms.TextInput(attrs={'class': 'form-control'}),
+#             'email': forms.EmailField(attrs={'class': 'form-control'})
+#         }
 
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ['title', 'slug', 'body', 'Category', 'Author', 'main_image', 'thumbnail']
+        fields = ['title', 'slug', 'body', 'Category', 'Author', 'featured',]
 
         def __init__(self, *args, **kwargs):
             super(PostForm, self).__init__(*args, **kwargs)
@@ -45,7 +54,7 @@ class PostForm(forms.ModelForm):
 class NewsForm(forms.ModelForm):
     class Meta:
         model = News
-        fields = ['title', 'slug', 'body', 'Category', 'main_image', 'thumbnail']
+        fields = ['title', 'slug', 'body', 'Category',]
         
         def __init__(self, *args, **kwargs):
             super(PostForm, self).__init__(*args, **kwargs)
@@ -62,14 +71,6 @@ class CategoryForm(forms.ModelForm):
 
 #         }
 
-class AuthorForm(forms.ModelForm):
-    class Meta:
-        model = Author
-        fields = ['name', 'email']
-#         widgets = {
-#             'name': forms.TextInput(attrs={'class': 'form-control'}),
-#             'email': forms.EmailField(attrs={'class': 'form-control'})
-#         }
 
 class SubscriberForm(forms.ModelForm):
     class Meta:

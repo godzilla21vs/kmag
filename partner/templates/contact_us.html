@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="contact_form_inner">
+    <div class="panel_inner">
+        <div class="panel_header">
+            <h4><strong>Kimi sarl </strong>: "C’est dans la Question que se trouvent les Solutions".</h4>
+        </div>
+        <div class="panel_body">
+            <p>Nous sommes ravis de vous accueillir chez KIMI Sarl, votre partenaire en informatique, offrant des solutions fiables et innovantes. 
+                En cette nouvelle année, nous tenons à vous présenter brièvement notre entreprise, ainsi que les services et produits que nous proposons.
+                Chez KIMI Sarl, notre priorité est de ré- pondre à vos besoins en matière d’informatique en fournissant des solutions hautement performantes
+                 et adaptées à votre entreprise. Forts de notre expertise et de notre expérience, nous mettons tout en œuvre pour vous offrir des services de 
+                 qualité et des produits de pointe. KIMI Sarl, une entreprise fondée en 2022, aspire à être un leader dans le domaine des services informatiques. 
+                 Nous sommes enthousiastes à l’idée de collaborer avec vous, que vous soyez une PME, une PMI, une ONG ou une institution gouvernementale, 
+                 afin de relever ensemble les défis informatiques de l’avenir..</p>
+            <form class="comment-form" action="#" method="post">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="name">Nom complet</label>
+                            <input type="text" class="form-control" id="name" name="name" placeholder="Votre nom*">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <label for="email">Email*</label>
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="email" name="email" placeholder="Votre addresse mail">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="name">website</label>
+                            <input type="phone" class="form-control" id="phone" name="phone" placeholder="votre numèro de téléphone">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <label for="email">l'objet</label>
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="subject" name="subject" placeholder="l'objet de vote message">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="email">message</label>
+                    <textarea class="form-control" id="message" name="message" placeholder="Votre message*" rows="5"></textarea>
+                </div>
+                <a href="#"  class="btn btn-news"> Envoyer</a>
+            </form>
+        </div>
+    </div>
+</div>
+
+{%endblock content%}

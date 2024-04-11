@@ -40,13 +40,16 @@
                                     {% if messages %}
                                     <ul class="message">
                                         {% for message in messages %}
-                                        <li {% if message.tags %} class="{{ message.tags }}" {% endif %} style="list-style-type: none !important; color: red;">
-                                            {{ message }}
-                                        </li>
+                                            <li {% if message.tags %} class="{{ message.tags }}" {% endif %} style="list-style-type: none !important; color: {% if message.tags == 'error' %} red; {% elif message.tags == 'success' %} green; {% else %} black; {% endif %}">
+                                                {{ message }}
+                                            </li>
                                         {% endfor %}
                                     </ul>
                                     {% endif %}
-                                    <div class="content">
+                                    {{ form.as_p }}
+                                    {{ utilisateur_form.as_p }}
+                                    <button type="submit" class="btn btn-primary">Inscription</button>
+                                    {% comment %} <div class="content">
                                         <p class="form-text">Vous avez déjà un compte ? <a href={% url 'mag:signin' %}>Connectez-vous</a></p>
                                         <div class="row">
                                             <div class="col-12">
@@ -103,7 +106,7 @@
                                                 <button type="submit" class="btn btn-primary">Inscription</button>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> {% endcomment %}
                                 </form>
                             </div>
                         </div>
