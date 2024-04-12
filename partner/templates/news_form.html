@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h1>Enregistrement des News</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <label for="title">Titre :</label><br>
+        <input type="text" id="title" name="title"><br><br>
+
+        <label for="body">Contenu :</label><br>
+        <textarea id="body" name="body"></textarea><br><br>
+
+        <label for="category">Catégorie :</label><br>
+        <select id="category" name="category">
+            {% for category in categories %}
+                <option value="{{ category.id }}">{{ category.name }}</option>
+            {% endfor %}
+        </select><br><br>
+
+        <label for="main_image">Image principale :</label><br>
+        <input type="file" id="main_image" name="main_image"><br><br>
+
+        <label for="thumbnail">Miniature :</label><br>
+        <input type="file" id="thumbnail" name="thumbnail"><br><br>
+
+        <button type="submit">Enregistrer</button>
+    </form>
+{%endblock content%}

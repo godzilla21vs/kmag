@@ -193,17 +193,13 @@
                             <li class="dropdown megamenu-fw">
                                 <a href="" class="dropdown-toggle" data-toggle="dropdown">Nos Partenaires</a>
                                 <ul class="dropdown-menu" role="menu">
-                                    <li><a href="/index_partenaire/">Partenaire 00</a></li>
-                                    <li><a href="/index_partenaire01/">Partenaire 01</a></li>
-                                    <li><a href="/index_partenaire02/">Partenaire 02</a></li>
-                                    <li><a href="/index_partenaire03/">Partenaire 03</a></li>
-                                    <li><a href="/index_partenaire04/">Partenaire 04</a></li>
-                                    <li><a href="/index_partenaire05/">Partenaire 05</a></li>
-                                    <li><a href="/index_partenaire06/">Partenaire 06</a></li>
+                                    {% for partner in partners %}
+                                        <li>{{ partner.name }}</li>
+                                    {% endfor %}
                                 </ul>
                             </li>
                             <li class="dropdownmegamenu-fw">
-                                <a href="" class="dropdown-toggle" data-toggle="dropdown" >Catégories articles</a>
+                                <a href="" class="dropdown-toggle" data-toggle="dropdown" >Catégories</a>
                                 <ul class="dropdown-menu">
                                     <li class="dropdown">
                                         <ul class="dropdown-menu">
@@ -214,7 +210,7 @@
                                     </li>
                                 </ul>
                             </li>
-                            <li class="dropdownmegamenu-fw">
+                            {% comment %} <li class="dropdownmegamenu-fw">
                                 <a href="" class="dropdown-toggle" data-toggle="dropdown" >Catégories actualitès</a>
                                 <ul class="dropdown-menu">
                                     <li class="dropdown">
@@ -225,7 +221,7 @@
                                         </ul>
                                     </li>
                                 </ul>
-                            </li>
+                            </li> {% endcomment %}
                             <li><a href="{% url 'mag:about' %}">À propos</a></li>
                             <li><a href="{% url 'mag:contact' %}"> Nous contacter</a></li>
                             <li><a href="{% url 'mag:FAQ' %}">F.A.Q</a></li>

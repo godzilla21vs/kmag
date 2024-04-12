@@ -90,19 +90,6 @@
                                             {% else %}
                                                 <p>{{ post.likes.count }} personne n'a aimé ce poste</p>
                                             {% endif %}
-                                    
-                                            {% comment %} {% if request.user.is_authenticated %}
-                                                {% if liked_by_user %}
-                                                    <form method="POST" action="{% url 'like_article' post.id %}">
-                                                        {% csrf_token %}
-                                                        <button class="btn btn-outline-primary"><ion-icon name="heart-dislike-outline"></ion-icon> Unlike ce poste</button>
-                                                    </form>
-                                                {% else %}
-                                                    <form method="POST" action="{% url 'like_article' post.id %}">
-                                                        {% csrf_token %}
-                                                        <button class="btn btn-outline-primary"><ion-icon name="heart-outline"></ion-icon> Like ce poste</button>
-                                                    </form>
-                                                {% endif %} {% endcomment %}
                                         </div>
                                     </div>
                                 </div>

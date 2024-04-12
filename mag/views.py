@@ -41,8 +41,8 @@ from django.http import JsonResponse
 class indexView(View):
     def get(self, request, *args, **kwargs):
         categories = Category.objects.all()
-        # categories = [category.name for category in categorie]
-        # categoriesNews = CategoryNews.objects.all()
+        partners = Author.objects.exclude(name="kimi team")
+        
         latest_post = Post.objects.order_by('-pub_date')[:5]
         latest_news = News.objects.order_by('-pub_date')[:3]
         popular_news = News.objects.order_by('-likes')[:5]
@@ -173,6 +173,19 @@ def post_detail_template(request):
 def index_partenaire(request):
     return render(request, 'mag/indexpartenaire.html')
 
+def posts_and_news_by_author(request, author_name):
+    author = Author.objects.get(name=author_name)
+    posts = Post.objects.filter(Author=author)
+    news = News.objects.filter(Author=author)
+    categories = Category.objects.all()
+    context = {
+        'author_name': author_name,
+        'posts': posts,
+        'news': news,
+        'categories': categories
+    }
+    return render(request, '.html', context)
+
 def post_detail_template2(request):
     return render(request, 'mag/post_detail_template2.html')
 
@@ -266,13 +279,6 @@ def like_unlike_post(request, pk):
         liked = True
 
     return JsonResponse({'liked': liked, 'total_likes': post.likes.count()})
-# @login_required
-# def news_detail(request, pk):
-#     post = get_object_or_404(News, pk=pk)
-#     related_news = News.objects.filter(category=post.category).exclude(pk=post.pk)
-#     comments = Comment.objects.filter(post=post)
-
-#     return render(request, 'mag/news_details.html', {'post': post, 'related_posts': related_news, 'comments': comments})
 
 def terms_of_use(request):
     return render(request, 'mag/terms_of_use.html',)
