@@ -40,18 +40,17 @@ from django.http import JsonResponse
 
 class indexView(View):
     def get(self, request, *args, **kwargs):
-        categories = Category.objects.all()
-        partners = Author.objects.exclude(name="kimi team")
-        
-        latest_post = Post.objects.order_by('-pub_date')[:5]
-        latest_news = News.objects.order_by('-pub_date')[:3]
-        popular_news = News.objects.order_by('-likes')[:5]
-        popular_posts = Post.objects.order_by('-likes')[:4]
-        featured_posts = Post.objects.filter(featured=True).order_by('-pub_date')[:4]
-
-        print(popular_posts.first().thumbnail, "\n\n")
+        author_kimi_team = Author.objects.filter(name='kimi team').first()
+        categories = Category.objects.values_list('name', flat=True)
+        partners = Author.objects.exclude(name="kimi team").values_list('name', flat=True)
+        latest_post = Post.objects.filter(Author=author_kimi_team).order_by('-pub_date')[:5]
+        latest_news = News.objects.filter(Author=author_kimi_team).order_by('-pub_date')[:3]
+        popular_news = News.objects.filter(Author=author_kimi_team).order_by('-likes')[:5]
+        popular_posts = Post.objects.filter(Author=author_kimi_team).order_by('-likes')[:4]
+        featured_posts = Post.objects.filter(featured=True, Author=author_kimi_team).order_by('-pub_date')[:4]
 
         context = {
+            'partners' : partners,
             'categories' : categories,
             #'categoriesNews' : categoriesNews,
             'latest_post': latest_post,
@@ -91,28 +90,69 @@ class SignupView(FormView):
         context['utilisateur_form'] = UtilisateurForm()  # Ajoutez cette ligne pour passer le formulaire d'utilisateur à votre template
         return context
 
+def indexpartner(request, author_name):
+        author = Author.objects.get(name=author_name)
+        latest_post = Post.objects.filter(Author=author).order_by('-pub_date')[:5]
+        latest_news = News.objects.filter(Author=author).order_by('-pub_date')[:3]
+        popular_news = News.objects.filter(Author=author).order_by('-likes')[:5]
+        popular_posts = Post.objects.filter(Author=author).order_by('-likes')[:4]
+        featured_posts = Post.objects.filter(featured=True, Author=author).order_by('-pub_date')[:4]
+
+        # Récupérer les images associées aux derniers posts
+        for post in latest_post:
+            post.main_image = post.mainimage.image if post.mainimage else None
+            thumbnails = Thumbnail.objects.filter(post=post)
+            post.thumbnails = thumbnails
+
+        # Récupérer les images associées aux dernières news
+        for news in latest_news:
+            news.main_image = news.mainimagenews.image if news.mainimagenews else None
+            thumbnails = ThumbnailNews.objects.filter(News=news)
+            news.thumbnails = thumbnails
+        
+        for post in popular_posts:
+            post.main_image = post.mainimage.image if post.mainimage else None
+            thumbnails = Thumbnail.objects.filter(post=post)
+            post.thumbnails = thumbnails
+
+        for news in popular_news:
+            news.main_image = news.mainimagenews.image if news.mainimagenews else None
+            thumbnails = ThumbnailNews.objects.filter(News=news)
+            news.thumbnails = thumbnails
+
+        for post in featured_posts:
+            post.main_image = post.mainimage.image if post.mainimage else None
+            thumbnails = Thumbnail.objects.filter(post=post)
+            post.thumbnails = thumbnails
+
+        context = {
+            'latest_post': latest_post,
+            'latest_news': latest_news,
+            'popular_news': popular_news,
+            'popular_posts': popular_posts,
+            'featured_posts': featured_posts,
+        }
+        return render(request, 'mag/indexpartner.html', context)
 
 class SigninView(FormView):
     template_name = 'mag/login.html'
     form_class = AuthenticationForm
-    success_url = reverse_lazy('mag:index')
+    success_url = reverse_lazy('mag:index')  # Use reverse_lazy to get the URL
 
     def form_valid(self, form):
         user = form.get_user()
         login(self.request, user)
         messages.success(self.request, 'Vous êtes maintenant connecté.')
-        print("Redirection vers :", self.get_success_url())
-        return HttpResponseRedirect('mag:index')
+        return super().form_valid(form)  # Return the super method
+
     def form_invalid(self, form):
         messages.error(self.request, "Veuillez vérifier vos informations de connexion.")
         return super().form_invalid(form)
 
     def get(self, request, *args, **kwargs):
         if request.user.is_authenticated:
-            print("Vous êtes déjà authentifié. Redirection...")
-            return HttpResponseRedirect('mag:index')
+            return HttpResponseRedirect(reverse_lazy('mag:index'))  # Redirect using reverse_lazy
         return super().get(request, *args, **kwargs)
-
 
 @login_required
 def signoutview(request):
@@ -125,7 +165,7 @@ def signoutview(request):
 
 @login_required
 class ProfileView(LoginRequiredMixin, TemplateView):
-    template_name = 'profile.html'
+    template_name = 'mag/profile.html'
     utilisateur_form_class = UtilisateurForm
     password_form_class = PasswordChangeForm
     success_url = reverse_lazy('mag:profile')
@@ -158,7 +198,18 @@ class ProfileView(LoginRequiredMixin, TemplateView):
 def about_us(request):
     return render(request, 'mag/about_us.html')
 
-def index_partenaire(request):
+def index_partenaire(request, author_name):
+    author = Author.objects.get(name=author_name)
+    # Récupérer tous les posts de cet auteur
+    posts = Post.objects.filter(Author=author)
+    # Récupérer toutes les news de cet auteur
+    news = News.objects.filter(Author=author)
+    # Passez les publications à votre template
+    context = {
+        'author_name': author_name,
+        'posts': posts,
+        'news': news,
+    }
     return render(request, 'mag/index_partenaire.html')
 
 def contact_Us(request):
@@ -169,9 +220,6 @@ def FAQ(request):
 
 def post_detail_template(request):
     return render(request, 'mag/post_detail_template.html')
-
-def index_partenaire(request):
-    return render(request, 'mag/indexpartenaire.html')
 
 def posts_and_news_by_author(request, author_name):
     author = Author.objects.get(name=author_name)
@@ -186,119 +234,128 @@ def posts_and_news_by_author(request, author_name):
     }
     return render(request, '.html', context)
 
-def post_detail_template2(request):
-    return render(request, 'mag/post_detail_template2.html')
-
 @login_required
-# def category_post(request, category_slug):
-def category_post(request, name):
-    # category = Category.objects.get(slug=category_slug)
-    category_current_one = get_object_or_404(Category, name=name)
-    posts = Post.objects.filter(Category=category_current_one)
+def category(request, category_name):
+    category = get_object_or_404(Category, name=category_name)
+
+    # Récupérer tous les posts et news de cette catégorie
+    posts = Post.objects.filter(Category=category)
+    news = News.objects.filter(Category=category)
+
+    # Passer les posts et les news à votre template
     context = {
-        'category': Category,
-        'posts': posts
-    }
-    return render(request, 'mag/category_post.html', context)
-
-class CategoryPostListView(ListView):
-    model = Post
-    template_name = 'mag/category_post.html'
-    context_object_name = 'posts'
-    paginate_by = 10
-
-    def get_queryset(self):
-        category_slug = self.kwargs.get('category_slug')
-        category = get_object_or_404(Category, slug=category_slug)
-        return Post.objects.filter(Category=category)
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        category_slug = self.kwargs.get('category_slug')
-        category = get_object_or_404(Category, slug=category_slug)
-        context['category'] = category
-        return context
-
-@login_required
-def category_news(request, name):
-    category_current_one = get_object_or_404(Category, name=name)
-    news = News.objects.filter(Category=category_current_one)
-    context = {
-        'Category': Category,
+        'category_name': category_name,
+        'posts': posts,
         'news': news,
     }
-    return render(request, 'mag/category_news.html', context)
-#je dois finir avec la fonction related_posts dans post_detail et dans news_detail
-
-@login_required
-def post_detail(request, pk):
+    return render(request, 'mag/category.html', context)
+#je dois finir avec la fonction related_posts dans post_detail et dans news_detail def post_detail(request, pk):
     post = get_object_or_404(Post, pk=pk)
     related_posts = Post.objects.filter(Category=post.Category).exclude(pk=post.pk)
     comments = Comment.objects.filter(post=post).order_by('-created_at')
     num_comments = post.comments.count()
 
-    # Gérer les vues
-    if not PostSeen.objects.filter(user=request.user, post=post).exists():
-        PostSeen.objects.create(user=request.user, post=post)
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            new_comment = form.save(commit=False)
+            new_comment.post = post  # Fixed: Changed 'new_comment.news' to 'new_comment.post'
+            new_comment.save()
+            return redirect('mag:post_detail', pk=pk)
+    else:
+        form = CommentForm()
+
+@login_required
+def post_detail(request, pk):
+    post = Post.objects.get(pk=pk)
+    related_posts = Post.objects.filter(Category=post.Category).exclude(pk=pk)[:3]  # Assuming you want related posts from the same category
+    comments = Comment.objects.filter(post=post).order_by('-created_at')
+    num_comments = comments.count()
+
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            new_comment = form.save(commit=False)
+            new_comment.post = post
+            new_comment.save()
+            return redirect('mag:post_detail', pk=pk)
+    else:
+        form = CommentForm()
+
+    # Handling Post Views
+    if not PostSeen.objects.filter(utilisateur_id=request.user.id, post=post).exists():  # Fixed: Changed 'utilisateur' to 'utilisateur_id'
+        PostSeen.objects.create(utilisateur_id=request.user.id, post=post)  # Fixed: Changed 'utilisateur' to 'utilisateur_id'
         post.numberView += 1
         post.save()
 
-    # Gérer les likes
-    is_liked = LikePost.objects.filter(user=request.user, post=post).exists()
-    if request.method == 'POST':
-        action = request.POST.get('action')
-        if action == 'like':
-            if not is_liked:
-                LikePost.objects.create(user=request.user, post=post)
-                post.likes += 1
-                post.save()
-                messages.success(request, 'Vous avez aimé ce post.')
-            else:
-                messages.warning(request, 'Vous avez déjà aimé ce post.')
-            return redirect('post_detail', pk=pk)
+    # Handling Likes
 
     context = {
         'post': post,
         'related_posts': related_posts,
         'comments': comments,
         'num_comments': num_comments,
-        'is_liked': is_liked,
+        'form': form
     }
     return render(request, 'mag/post_details.html', context)
 
-@login_required
-def like_unlike_post(request, pk):
-    post = get_object_or_404(Post, pk=pk)
-    user = request.user
+@ login_required
+def like(request):
+    if request.POST.get('action') == 'post':
+        result = ''
+        id = int(request.POST.get('postid'))
+        post = get_object_or_404(Post, id=id)
+        if post.likes.filter(id=request.user.id).exists():
+            post.likes.remove(request.user)
+            post.like_count -= 1
+            result = post.like_count
+            post.save()
+        else:
+            post.likes.add(request.user)
+            post.like_count += 1
+            result = post.like_count
+            post.save()
 
-    if user in post.likes.all():
-        post.likes.remove(user)
-        liked = False
-    else:
-        post.likes.add(user)
-        liked = True
-
-    return JsonResponse({'liked': liked, 'total_likes': post.likes.count()})
+        return JsonResponse({'result': result, })
 
 def terms_of_use(request):
     return render(request, 'mag/terms_of_use.html',)
 
+@login_required
 def news_detail(request, pk):
     news = get_object_or_404(News, pk=pk)
-    related_news = News.objects.filter(category=news.category).exclude(pk=news.pk)
-    comments = Comment.objects.filter(news=news).order_by('-created_at')
+    related_news = News.objects.filter(Category=news.Category).exclude(pk=news.pk)
+    comments = CommentNews.objects.filter(news=news).order_by('-created_at')
+    num_comments = news.commentsNews.count()
 
     if request.method == 'POST':
-        form = CommentForm(request.POST)
+        form = CommentNewsForm(request.POST)
         if form.is_valid():
             new_comment = form.save(commit=False)
             new_comment.news = news
             new_comment.save()
             return redirect('mag/news_details.html', pk=pk)
     else:
-        form = CommentForm()
+        form = CommentNewsForm()
+        
+    # Gérer les vues
+    if not newsSeen.objects.filter(utilisateur=request.user, news=news).exists():
+        newsSeen.objects.create(utilisateur=request.user, news=news)
+        news.numberView += 1
+        news.save()
 
-    return render(request, 'mag/news_details.html', {'news': news, 'related_news': related_news, 'comments': comments, 'form': form})
+    # Gérer les likes
+
+    context = {
+        'news': news,
+        'related_news': related_news,
+        'comments': comments,
+        'num_comments': num_comments,
+        # 'is_liked': is_liked,
+        'form': form
+    }
+
+    return render(request, 'mag/news_details.html', context)
 
 
 @login_required

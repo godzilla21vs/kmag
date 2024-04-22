@@ -33,14 +33,23 @@ class CommentForm(forms.ModelForm):
         model = Comment
         fields = ['post', 'author', 'content', ]
 
+class CommentNewsForm(forms.ModelForm):
+    class Meta:
+        model = CommentNews
+        fields = ['news', 'author', 'content', ]
+
 class AuthorForm(forms.ModelForm):
     class Meta:
         model = Author
-        fields = ['name', 'email']
+        fields = ['name', 'email', 'password']
 #         widgets = {
 #             'name': forms.TextInput(attrs={'class': 'form-control'}),
 #             'email': forms.EmailField(attrs={'class': 'form-control'})
 #         }
+        
+class SigninAuthorForm(forms.Form):
+    name = forms.CharField(max_length=100)
+    password = forms.CharField(widget=forms.PasswordInput)
 
 class PostForm(forms.ModelForm):
     class Meta:

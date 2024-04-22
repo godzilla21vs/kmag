@@ -46,6 +46,7 @@
         <link href="{% static 'css/style.css'%}" rel="stylesheet">
         <!--Style selector-->
         <link href="{% static 'plugins/style-selector/style_selector.css'%}" rel="stylesheet">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     </head>
     <body class="home_seven boxed-layout bg-img" data-image-src="{% static 'images/boxed-bg.jpg'%}">
     {% comment %} <body class="home_six"> {% endcomment %}
@@ -70,6 +71,25 @@
                             </div>
                             <!-- End of /. header social -->
                             <!-- Start top left menu -->
+                        </div>
+                        <!-- End of /. header social -->
+                        <!-- Start top left menu -->
+                        <div class="top-left-menu">
+                            <button class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fa fa-user-circle"></i> Compte
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                {% if request.user.is_authenticated %}
+                                    <li><a class="dropdown-item" href="{% url 'mag:signout'%}">Déconnexion</a></li>
+                                {% else %}
+                                    <li><a class="dropdown-item" href="{% url 'mag:signin'%}">Connexion / Enregistrement</a></li>
+                                {% endif %}
+                                <li><a class="dropdown-item" href="#">Langue</a></li>
+                                {% if request.user.is_authenticated %}
+                                    <li><a class="dropdown-item" href="{% url 'mag:profile' %}">Mon Profil</a></li>
+                                {% endif %}
+                            </ul>
+                        </div>
                             <!-- End of /. top left menu -->
                         </div>
                         <!-- Start header top right menu -->
@@ -91,25 +111,25 @@
                             <div class="header-right-menu">
                                 <div class="header-top-links">
                                     <ul class="menu">
-                                        <div class="dropdown ">
-                                            <li class="dropdown megamenu-fw" type="button" data-bs-toggle="dropdown">
-                                                <a href="" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user-circle"></i>  Compte</a>
-                                            </li>
-                                            <ul class="dropdown-menu"  role="menu">
+                                        <div class="dropdown">
+                                            <button class="dropdown-toggle" type="button" >
+                                                <i class="fa fa-user-circle"></i> Compte
+                                            </button>
+                                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                                 {% if request.user.is_authenticated %}
-                                                <li><a href="{% url 'mag:signout'%}">Déconnexion</a></li>
+                                                    <li><a class="dropdown-item" href="{% url 'mag:signout'%}">Déconnexion</a></li>
                                                 {% else %}
-                                                <li><a href="{% url 'mag:signin'%}">Connexion / Enregistrement</a></li>
-                                                {% endif %}</a>
-                                                <li><a href="#">Langue</a></li>
+                                                    <li><a class="dropdown-item" href="{% url 'mag:signin'%}">Connexion / Enregistrement</a></li>
+                                                {% endif %}
+                                                <li><a class="dropdown-item" href="#">Langue</a></li>
                                                 {% if request.user.is_authenticated %}
-                                                <a href="{% url 'mag:profile' %}">Mon Profil</a>
-                                                {% else %}
+                                                    <li><a class="dropdown-item" href="{% url 'mag:profile' %}">Mon Profil</a></li>
                                                 {% endif %}
                                             </ul>
                                         </div>
                                     </ul>
                                 </div>
+                                
                             </div>
                         </div>
                         
@@ -124,7 +144,7 @@
                     <div class="row">
                         <div class="col-sm-4">
                             <div class="logo">
-                                <a href="{% url 'mag:index' %}"><img src="{% static 'images/logo.png' %}"  width="200" height="200" class="img-responsive" alt=""></a>
+                                <a href="{% url 'mag:index' %}"><img src="{% static 'images/logo.png' %}" class="img-responsive" alt=""></a>
 
                             </div>
                         </div>
@@ -181,7 +201,7 @@
                         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu">
                             <i class="fa fa-bars"></i>
                         </button>
-                        <a class="navbar-brand hidden-sm hidden-md hidden-lg" href="#brand"><img src="{% static 'images/logo.png' %}" class="logo" alt=""></a>
+                        {% comment %} <a class="navbar-brand hidden-sm hidden-md hidden-lg" href="#brand"><img src="{% static 'images/logo.png' %}" class="logo" alt=""></a> {% endcomment %}
                     </div>
                     <!-- End Header Navigation -->
                     <!-- Collect the nav links, forms, and other content for toggling -->
@@ -194,34 +214,18 @@
                                 <a href="" class="dropdown-toggle" data-toggle="dropdown">Nos Partenaires</a>
                                 <ul class="dropdown-menu" role="menu">
                                     {% for partner in partners %}
-                                        <li>{{ partner.name }}</li>
+                                        <li><a href="{% url 'mag:indexpartner' author_name=partner %}">{{ partner }}</a></li>
                                     {% endfor %}
                                 </ul>
                             </li>
-                            <li class="dropdownmegamenu-fw">
+                            <li class="dropdown megamenu-fw">
                                 <a href="" class="dropdown-toggle" data-toggle="dropdown" >Catégories</a>
-                                <ul class="dropdown-menu">
-                                    <li class="dropdown">
-                                        <ul class="dropdown-menu">
-                                            {% for category in categories %}
-                                            <li><a href="{% url 'mag:category_posts' category.slug %}">{{ category.name }}</a></li>
-                                            {% endfor %}
-                                        </ul>
-                                    </li>
+                                <ul class="dropdown-menu" role="menu">
+                                    {% for category in categories %}
+                                        <li><a href="{% url 'mag:category' category_name=category %}">{{ category }}</a></li>
+                                    {% endfor %}
                                 </ul>
                             </li>
-                            {% comment %} <li class="dropdownmegamenu-fw">
-                                <a href="" class="dropdown-toggle" data-toggle="dropdown" >Catégories actualitès</a>
-                                <ul class="dropdown-menu">
-                                    <li class="dropdown">
-                                        <ul class="dropdown-menu">
-                                            {% for category in categoriesNews %}
-                                            <li><a href="{% url 'mag:category_news' category.slug %}">{{ category.name }}</a></li>
-                                            {% endfor %}
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </li> {% endcomment %}
                             <li><a href="{% url 'mag:about' %}">À propos</a></li>
                             <li><a href="{% url 'mag:contact' %}"> Nous contacter</a></li>
                             <li><a href="{% url 'mag:FAQ' %}">F.A.Q</a></li>
@@ -345,3 +349,4 @@
     <script src="{% static 'js/custom.js'%}"></script>
     <!--Style selector-->
     <script src="{% static 'plugins/style-selector/style_selector.js'%}"></script>
+    

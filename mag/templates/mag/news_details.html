@@ -50,54 +50,130 @@
                                     <div class="row my-3">
                                         <div class="col-md-6 col-12 mx-md-auto mx-3">
                                             {% if news.likes.count == 1 %}
-                                                <p>{{ news.likes.count }} personnes ont aimées ce postes</p>
+                                                <p>{{ news.likes.count }} likes</p>
                                             {% else %}
-                                                <p>{{ news.likes.count }} personne a aimé ce poste</p>
+                                                <p>{{ news.likes.count }} like</p>
                                             {% endif %}
-                                    
-                                            {% comment %} {% if request.user.is_authenticated %}
-                                                {% if liked_by_user %}
-                                                    <form method="POST" action="{% url 'like_article' news.id %}">
-                                                        {% csrf_token %}
-                                                        <button class="btn btn-outline-primary"><ion-icon name="heart-dislike-outline"></ion-icon> Unlike ce poste</button>
-                                                    </form>
-                                                {% else %}
-                                                    <form method="POST" action="{% url 'like_article' news.id %}">
-                                                        {% csrf_token %}
-                                                        <button class="btn btn-outline-primary"><ion-icon name="heart-outline"></ion-icon> Like ce poste</button>
-                                                    </form>
-                                                {% endif %} {% endcomment %}
-                                            {% else %}
-                                                <button class="btn btn-outline-primary" disabled><ion-icon name="heart-outline"></ion-icon> Se connecter pour liker</button>
-                                            {% endif %}
+                                                                               
                                         </div>
                                     </div>
                                 </div>
-                                <!-- Post footer -->
-                                <div class="post-footer"> 
-                                    <div class="row thm-margin">
-                                        <div class="col-xs-12 col-sm-12 col-md-12 thm-padding">
-                                            <!-- pagination -->
-                                            {% comment %} <ul class="pagination">
-                                                <li class="disabled"><span class="ti-angle-left"></span></li>
-                                                <li class="active"><span>1</span></li>
-                                                <li><a href="#">2</a></li>
-                                                <li><a href="#">3</a></li>
-                                                <li class="disabled"><span class="extend">...</span></li><li>
-                                                </li><li><a href="#">12</a></li>
-                                                <li><a href="#"><i class="ti-angle-right"></i></a></li>
-                                            </ul> <!-- /.pagination --> {% endcomment %}
+                                <!-- Related articles -->
+                                <div class="post-inner post-inner-2">
+                                    <div class="post-head">
+                                        <h2 class="title">Articles <strong>connexes </strong></h2>
+                                    </div>
+                                    <div class="post-body">
+                                        <div class="post-slider owl-carousel owl-theme">
+                                            <!-- Loop through related posts -->
+                                            {% for related_news in related_newss %}
+                                            <div class="item">
+                                                <div class="news-grid-2">
+                                                    <div class="row row-margin">
+                                                        <div class="col-xs-6 col-sm-4 col-md-4 col-padding">
+                                                            <div class="grid-item">
+                                                                <div class="grid-item-img">
+                                                                    <a href="{% url 'mag:news_detail' pk=related_news.pk %}">
+                                                                        <img src="{{ related_news.thumbnail.url }}" class="img-responsive" alt="{{ related_news.title }}">
+                                                                        <div class="link-icon"><i class="fa fa-play"></i></div>
+                                                                    </a>
+                                                                </div>
+                                                                <h5><a href="{% url 'mag:news_detail' pk=related_news.pk %}" class="title">{{ related_news.title }}</a></h5>
+                                                                <ul class="authar-info">
+                                                                    <li>{{ related_news.body|truncatechars:50}}</li>
+                                                                    <li>{{ related_news.pub_date }}</li>
+                                                                    <li class="hidden-sm"><a href="#" class="link">{{ related_news.likes }} likes</a></li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            {% endfor %}
                                         </div>
                                     </div>
                                 </div>
-                            </div></div>
+                                <!-- Comments section -->
+                                <div class="comments-container">
+                                    <h3>Commentaires ({{ num_comments }})</h3>
+                                    <ul class="comments-list">
+                                        <!-- Loop through comments -->
+                                        {% for comment in comments %}
+                                        <li>
+                                            <div class="comment-main-level">
+                                                <!-- Avatar and comment content -->
+                                                <div class="comment-box">
+                                                    <div class="comment-content"> <div class="comment-header"> <cite class="comment-author">{{ comment.author }}</cite>
+                                                            <time datetime="2012-10-27" class="comment-datetime">{{ comment.created_at }}</time>
+                                                            <p>{{ comment.content }}</p>
+                                                        </div> 
+                                                        
+                                                        
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        {% endfor %}
+                                    </ul>
+                                    <!-- Comment form -->
+                                    <h2>Ajouter un commentaire :</h2>
+                                    <form method="POST" action="{% url 'mag:news_detail' news.pk %}">
+                                        {{ CommentForm.as_p}}
+                                        {% csrf_token %}
+                                        <textarea name="content" rows="4" cols="50"></textarea><br>
+                                        <input type="submit" value="Ajouter le commentaire">
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <!-- END OF /. MAIN CONTENT -->
-                    <!-- START SIDE CONTENT -->
-                    <!-- END OF /. SIDE CONTENT -->
                 </div>
             </div>
+            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+            <script>
+                $(document).on('click', '#like-button', function (e) {
+                    e.preventDefault();
+                    $.ajax({
+                      type: 'POST',
+                      url: '{% url "mag:like" %}',
+                      data: {
+                        postid: $('#like-button').val(),
+                        csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
+                        action: 'post'
+                      },
+                      success: function (json) {
+                        document.getElementById("like_count").innerHTML = json['result']
+                      },
+                      error: function (xhr, errmsg, err) {
+                
+                      }
+                    });
+                  })
+                    {% comment %} $(document).ready(function(){
+                        $('#likeButton').click(function(){
+                            var postId = $(this).data('post-id');
+                            $.ajax({
+                                type: "POST",
+                                url: "{% url 'mag:like_news' news_id=news.pk %}",
+                                data: {
+                                    'csrfmiddlewaretoken': '{{ csrf_token }}',
+                                    'action': 'news',
+                                    'newsid': newsId
+                                },
+                                success: function(response){
+                                    if(response.result){
+                                        $('#likeButton').addClass('liked');
+                                        $('#likeButton').text('Unlike');
+                                        $('#like_count').text(response.result);
+                                    } else {
+                                        $('#likeButton').removeClass('liked');
+                                        $('#likeButton').text('Like');
+                                        $('#like_count').text(response.result);
+                                    }
+                                }
+                            });
+                        });
+                    }); {% endcomment %}
+            </script>
         </main>
-        <!-- *** END OF /. PAGE MAIN CONTENT *** -->
-        <!-- START FOOTER -->
 {% endblock content %}

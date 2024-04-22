@@ -1,0 +1,892 @@
+{% extends 'mag/base.html' %} {% load static %}
+{% block content %}
+        <!-- *** START PAGE MAIN CONTENT *** -->
+        <main class="page_main_wrapper">
+            <!-- START NEWSTRICKER -->
+            <div class="container">
+                <div class="newstricker_inner">
+                    <div class="trending"><strong>Trending</strong> Actuellement</div>
+                    <div class="news-ticker owl-carousel owl-theme">
+                        <div class="item">
+                            <a href="#">Kimi Sarl.</a>
+                        </div>
+                        <div class="item">
+                            <a href="#">KImi sarl..</a>
+                        </div>
+                        <div class="item">
+                            <a href="#">KIMI Sarl.</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--  END OF /. NEWSTRICKER -->
+            <!-- START POST BLOCK SECTION -->
+            <section class="slider-inner">
+                <div class="container">
+                    <div class="row slider-right-post thm-margin">
+                        {% for post in featured_posts %}
+                        <div class="col-xs-6 col-sm-3 col-md-3 thm-padding">
+                            <div class="slider-post post-height-3">
+                                <a href="{% url 'mag:post_detail' pk=post.pk %}" class="news-image"><img src="{{ post.thumbnail.url }}" alt=""></a>
+                                <div class="post-text">
+                                    <span class="post-category">{{ post.Category.name }}</span>
+                                    <h4><a href="{% url 'mag:post_detail' pk=post.pk %}">{{ post.title }}</a></h4>
+                                    <ul class="authar-info">
+                                        <li class="authar hidden-xs hidden-sm"><a href="#">Posté par {{ post.Author.name }}</a></li>
+                                        <li class="hidden-xs">{{ post.pub_date }}</li>
+                                        <li class="view hidden-xs hidden-sm"><a href="#"> {{ post.numberView }}vues</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </section>
+            <!-- END OF /. POST BLOCK SECTION -->
+            <div class="container">
+                <div class="row row-m">
+                    <!-- START MAIN CONTENT -->
+                    <div class="col-sm-8 col-p main-content">
+                        <div class="theiaStickySidebar">
+                            <!-- START POST CATEGORY STYLE ONE (Popular news) -->
+                            <div class="post-inner">
+                                <!--post header-->
+                                <div class="post-head">
+                                    <h2 class="title">Postes <strong>Populaires</strong></h2>
+                                    
+                                    </div>
+                                </div>
+                                <!-- post body -->
+                                <div class="post-body">
+                                    <div class="post-slider owl-carousel owl-theme">
+                                        <!-- item one -->
+                                        <div class="item">
+                                            <div class="row">
+                                                {% for post in popular_posts %}
+                                                {% if forloop.first %}
+                                                <div class="col-sm-6 main-post-inner bord-right">
+                                                    <article>
+                                                        <figure>
+                                                            <a href="{% url 'mag:post_detail' pk=post.pk %}"><img src="{{ post.thumbnail.url }}" height="242" width="345" alt="" class="img-responsive"></a>
+                                                            <span class="post-category">{{ post.Category.name }}</span>
+                                                        </figure>
+                                                        <div class="post-info">
+                                                            <h3><a href="#">{{post.title}}</a></h3>
+                                                            <p>{{post.body|truncatechars:50}}</p>
+                                                            <ul class="authar-info">
+                                                                <li><i class="ti-timer"></i> {{post.pub_date}}</li>
+                                                                <li class="like"><a href="#"><i class="ti-thumb-up"></i>{{ post.likes }} likes</a></li>
+                                                            </ul>
+                                                        </div>
+                                                    </article>
+                                                </div>
+                                                {% endif %}
+                                                {% endfor %}
+                                                <div class="col-sm-6">
+                                                    <div class="news-list">
+                                                        {% for post in popular_posts %}
+                                                            {% if forloop.first %}
+                                                            {% endif %}
+                                                        <div class="news-list-item" <a href="{% url 'mag:post_detail' pk=post.pk %}"></a>>
+                                                            <div class="img-wrapper">
+                                                                <a href="#" class="thumb">
+                                                                    <img src="{{ post.thumbnail.url }}" alt="" class="img-responsive">
+                                                                    <div class="link-icon">
+                                                                        <i class="fa fa-camera"></i>
+                                                                    </div>
+                                                                </a>
+                                                            </div>
+                                                            <div class="post-info-2">
+                                                                <h5><a href=""{% url 'mag:post_detail' pk=post.pk %}"" class="title">{{post.title}}</a></h5>
+                                                                <ul class="authar-info">
+                                                                    <li><i class="ti-timer"></i> {{post.pub_date}}</li>
+                                                                    <li class="like hidden-xs hidden-sm"><a href="#"><i class="ti-thumb-up"></i>{{ post.likes }} likes</a></li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                        {% endfor %}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- item two -->
+                                    </div>
+                                </div>
+                                <!-- Post footer -->
+                                <div class="post-footer">
+                                    <div class="row thm-margin">
+                                        <div class="col-xs-12 col-sm-8 col-md-9 thm-padding">
+                                            <a href="#" class="more-btn">plus de postes</a>
+                                        </div>
+                                        <div class="hidden-xs col-sm-4 col-md-3 thm-padding">
+                                            <div class="social">
+                                                <ul>
+                                                    <li>
+                                                        <div class="share transition">
+                                                            <a href="#" target="_blank" class="ico fb"><i class="fab fa-facebook-f"></i></a>
+                                                            <a href="#" target="_blank" class="ico tw"><i class="fab fa-twitter"></i></a>
+                                                            <a href="#" target="_blank" class="ico rs"><i class="fas fa-rss"></i></a>
+                                                            <a href="#" target="_blank" class="ico pin"><i class="fab fa-pinterest-p"></i></a>
+                                                            <i class="ti-share ico-share"></i>
+                                                        </div> 
+                                                    </li>
+                                                    <li><a href="#"><i class="ti-heart"></i></a></li>
+                                                    <li><a href="#"><i class="ti-twitter"></i></a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+                            <!-- END OF /. POST CATEGORY STYLE ONE (Popular news) -->
+                            <!-- START ADVERTISEMENT -->
+                            <div class="add-inner">
+                                <img src="{% static 'images/add728x90-1.jpg' %}" class="img-responsive" alt="">
+                            </div>
+                            <!-- END OF /. ADVERTISEMENT -->
+                            <!-- START POST CATEGORY STYLE TWO (Travel news) -->
+                            <div class="post-inner post-inner-2">
+                                <!--post header-->
+                                <div class="post-head">
+                                    <h2 class="title">Trending <strong>Actualités</strong></h2>
+                                    {% comment %} <div class="filter-nav">
+                                        <ul>
+                                            <li><a href="#" class="active">all</a></li>
+                                            <li><a href="#">business</a></li>
+                                            <li><a href="#">gadgets</a></li>
+                                            <li><a href="#">design</a></li>
+                                            <li><a href="#">fashion</a></li>
+                                            <li><a href="#">video</a></li>  
+                                        </ul>
+                                    </div> {% endcomment %}
+                                </div>
+                                <!-- post body -->
+                                <div class="post-body">
+                                    <div class="post-slider owl-carousel owl-theme">
+                                        <!-- item one -->
+                                        <div class="item">
+                                            <div class="row">
+                                                {% for news in popular_news %}
+                                                {% if forloop.first %}
+                                                <div class="col-sm-6 main-post-inner bord-right">
+                                                    <article>
+                                                        <figure>
+                                                            <a href="{% url 'mag:news_detail' pk=news.pk %}"><img src="{{ news.thumbnail.url }}" height="242" width="345" alt="" class="img-responsive"></a>
+                                                            <span class="post-category">{{ news.Category.name }}</span>
+                                                        </figure>
+                                                        <div class="post-info">
+                                                            <h3><a href="{% url 'mag:news_detail' pk=news.pk %}">{{news.title}}</a></h3>
+                                                            <ul class="authar-info">
+                                                                <li><i class="ti-timer"></i> {{news.pub_date}}</li>
+                                                                <li class="like"><a href="#"><i class="ti-thumb-up"></i>{{ news.likes }} likes</a></li>
+                                                            </ul>
+                                                            <p class="p">{{news.body|truncatechars:50}}</p>
+                                                        </div>
+                                                    </article>
+                                                </div>
+                                                {% endif %}
+                                                {% endfor %}
+                                                <div class="col-sm-6">
+                                                    <div class="news-grid-2">
+                                                        <div class="row row-margin">
+                                                            {% for news in popular_news %}
+                                                                {% if forloop.first %}
+                                                                {% endif %}
+                                                            <div class="col-xs-6 col-sm-6 col-md-6 col-padding">
+                                                                <div class="grid-item">
+                                                                    <div class="grid-item-img">
+                                                                        <a href="{% url 'mag:news_detail' pk=news.pk %}">
+                                                                            <img src="{{ news.thumbnail.url }}" class="img-responsive" alt="">
+                                                                            <div class="link-icon"><i class="fa fa-play"></i></div>
+                                                                        </a>
+                                                                    </div>
+                                                                    <h5><a href="{% url 'mag:news_detail' pk=news.pk %}" class="title">{{news.title}}</a></h5>
+                                                                    <ul class="authar-info">
+                                                                        <li>{{news.pub_date}}</li>
+                                                                        <li class="like hidden-sm"><a href="#">{{ news.likes }} likes</a></li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                            {% endfor %}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- item two -->
+                                    </div>
+                                </div>
+                                <!-- footer post -->
+                                <div class="post-footer">
+                                    <div class="row thm-margin">
+                                        <div class="col-xs-12 col-sm-8 col-md-9 thm-padding">
+                                            <a href="#" class="more-btn">Plus d'actuaités</a>
+                                        </div>
+                                        <div class="hidden-xs col-sm-4 col-md-3 thm-padding">
+                                            <div class="social">
+                                                <ul>
+                                                    <li>
+                                                        <div class="share transition">
+                                                            <a href="#" target="_blank" class="ico fb"><i class="fab fa-facebook-f"></i></a>
+                                                            <a href="#" target="_blank" class="ico tw"><i class="fab fa-twitter"></i></a>
+                                                            <a href="#" target="_blank" class="ico rs"><i class="fas fa-rss"></i></a>
+                                                            <a href="#" target="_blank" class="ico pin"><i class="fab fa-pinterest-p"></i></a>
+                                                            <i class="ti-share ico-share"></i>
+                                                        </div> 
+                                                    </li>
+                                                    <li><a href="#"><i class="ti-heart"></i></a></li>
+                                                    <li><a href="#"><i class="ti-twitter"></i></a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--  END OF /. POST CATEGORY STYLE TWO (Travel news) -->
+                        </div>
+                    </div>
+                    <!-- END OF /. MAIN CONTENT -->
+                    <!-- START SIDE CONTENT -->
+                    <div class="col-sm-4 col-p rightSidebar">
+                        <div class="theiaStickySidebar">
+                            <!-- START LATEST REVIEWS -->
+                            <div class="panel_inner review-inner">
+                                <div class="panel_header">
+                                    <h4><strong>Postes Récents</strong> </h4>
+                                </div>
+                                <div class="panel_body">
+                                    <div class="more-post">
+                                        {% for  post in latest_post %}
+                                        {% if forloop.first %}
+                                        <a href="{% url 'mag:post_detail' pk=post.pk %}" class="news-image"><img src="{{ post.thumbnail.url }}" alt="" class="img-responsive"></a>
+                                        <div class="reatting">
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star-half-o"></i>
+                                            <i class="fa fa-star-o"></i>
+                                        </div>
+                                        <div class="post-text">
+                                            <span class="post-category">{{ post.Category.name }}</span>
+                                            <h4>{{post.title}} </h4>
+                                            <ul class="authar-info">
+                                                <li><i class="ti-timer"></i> {{post.pub_date}}</li>
+                                                <li class="like"><a href="#"><i class="ti-thumb-up"></i>{{ post.likes }} likes</a></li>
+                                            </ul>
+                                        </div>
+                                        {% endif %}
+                                        {% endfor %}
+                                    </div>
+                                    <div class="news-list">
+                                        {% for post in latest_posts %}
+                                            {% if forloop.first %}
+                                            {% endif %}
+                                        <div class="news-list-item">
+                                            <div class="img-wrapper">
+                                        <a href="{% url 'mag:post_detail' pk=post.pk %}" class="news-image"><img src="{{ post.thumbnail.url }}" alt="" class="img-responsive"></a>
+                                        <div class="reatting">
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star"></i>
+                                            <i class="fa fa-star-half-o"></i>
+                                            <i class="fa fa-star-o"></i>
+                                        </div>
+                                        <div class="post-text">
+                                            <span class="post-category">{{ post.Category.name }}</span>
+                                            <h4>{{post.title}} </h4>
+                                            <ul class="authar-info">
+                                                <li><i class="ti-timer"></i> {{post.pub_date}}</li>
+                                                <li class="like"><a href="#"><i class="ti-thumb-up"></i>{{ post.likes }} likes</a></li>
+                                            </ul>
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- END OF /. LATEST REVIEWS -->
+                            <!-- START WEATHER -->
+                            <div class="weather-wrapper-2 weather-bg-2">
+                                <div class="weather-temperature">
+                                    <div class="weather-now">
+                                        <span class="big-degrees">39</span>
+                                        <span class="circle">°</span>
+                                        <span class="weather-unit">C</span>
+                                    </div>
+                                    <div class="weather-icon-2">
+                                        <!-- *** Start All animated skycons canvas *** -->
+                                        <!--<canvas id="clear-day" width="70" height="70"></canvas>-->
+                                        <!--<canvas id="clear-night" width="70" height="70"></canvas>-->
+                                        <canvas id="partly-cloudy-day" width="70" height="70"></canvas>
+                                        <!--<canvas id="partly-cloudy-night" width="70" height="70"></canvas>-->
+                                        <!--<canvas id="cloudy" width="70" height="70"></canvas>-->
+                                        <!--<canvas id="rain" width="70" height="70"></canvas>-->
+                                        <!--<canvas id="sleet" width="70" height="70"></canvas>-->
+                                        <!--<canvas id="snow" width="70" height="70"></canvas>-->
+                                        <!--<canvas id="wind" width="64" height="70"></canvas>-->
+                                        <!--<canvas id="fog" width="70" height="70"></canvas>-->
+                                        <!-- *** End All animated skycons canvas *** -->
+                                        <!-- Normal weather icon -->
+                                        <!--<i class="wi wi-day-lightning"></i>-->
+                                    </div>
+                                </div>
+                                <div class="weather-info">
+                                    <div class="weather-name">Partly Sunny</div>
+                                    <span>Real Fell: 67 <sup>°</sup></span>
+                                    <span>Change of Rain</span>
+                                </div>
+                                <div class="weather-week-2">
+                                    <div class="weather-days">
+                                        <div class="day-0">Sun</div>
+                                        <div class="day-icon">
+                                            <i class="wi wi-day-sunny"></i>
+                                        </div>
+                                        <div class="day-degrees">
+                                            <span class="degrees-0">45</span>
+                                            <span class="td-circle">°</span>
+                                        </div>
+                                    </div>
+                                    <div class="weather-days">
+                                        <div class="day-1">Mon</div>
+                                        <div class="day-icon">
+                                            <i class="wi wi-day-cloudy-high"></i>
+                                        </div>
+                                        <div class="day-degrees">
+                                            <span class="degrees-1">21</span>
+                                            <span class="circle">°</span>
+                                        </div>
+                                    </div>
+                                    <div class="weather-days">
+                                        <div class="day-2">Tue</div>
+                                        <div class="day-icon">
+                                            <i class="wi wi-day-sleet"></i>
+                                        </div>
+                                        <div class="day-degrees">
+                                            <span class="degrees-2">29</span>
+                                            <span class="circle">°</span>
+                                        </div>
+                                    </div>
+                                    <div class="weather-days">
+                                        <div class="day-3">Wed</div>
+                                        <div class="day-icon">
+                                            <i class="wi wi-day-lightning"></i>
+                                        </div>
+                                        <div class="day-degrees">
+                                            <span class="degrees-3">19</span>
+                                            <span class="circle">°</span>
+                                        </div>
+                                    </div>
+                                    <div class="weather-days">
+                                        <div class="day-4">Thu</div>
+                                        <div class="day-icon">
+                                            <i class="wi wi-sleet"></i>
+                                        </div>
+                                        <div class="day-degrees">
+                                            <span class="degrees-4">54</span>
+                                            <span class="circle">°</span>
+                                        </div>
+                                    </div>
+                                    <div class="weather-days">
+                                        <div class="day-4">Fri</div>
+                                        <div class="day-icon">
+                                            <i class="wi wi-smog"></i>
+                                        </div>
+                                        <div class="day-degrees">
+                                            <span class="degrees-5">68</span>
+                                            <span class="circle">°</span>
+                                        </div>
+                                    </div>
+                                    <div class="weather-days">
+                                        <div class="day-4">Sat</div>
+                                        <div class="day-icon">
+                                            <i class="wi wi-lightning"></i>
+                                        </div>
+                                        <div class="day-degrees">
+                                            <span class="degrees-6">28</span>
+                                            <span class="circle">°</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="weather-footer">
+                                    <div class="weather-date">
+                                        Saturday, March 26th
+                                    </div>
+                                    <div class="weather-city">
+                                        San Francisco, CA
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- END OF /. WEATHER -->
+                            <!-- START NAV TABS --> 
+                            <div class="tabs-wrapper">
+                                <ul class="nav nav-tabs" role="tablist">
+                                    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Most Viewed</a></li>
+                                    <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Popular news</a></li>
+                                </ul>
+                                <!-- Tab panels one --> 
+                                <div class="tab-content">
+                                    <div role="tabpanel" class="tab-pane fade in active" id="home">
+                                        <div class="most-viewed">
+                                            <ul id="most-today" class="content tabs-content">
+                                                <li><span class="count">01</span><span class="text"><a href="#">Kimi Hot News</a></span></li>
+                                                <li><span class="count">02</span><span class="text"><a href="#">Kimi Hot News</a></span></li>
+                                                <li><span class="count">03</span><span class="text"><a href="#">Kimi Hot News</a></span></li>
+                                                <li><span class="count">04</span><span class="text"><a href="#">Kimi Hot News</a></span></li>
+                                                <li><span class="count">05</span><span class="text"><a href="#">Kimi Hot News</a></span></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <!-- Tab panels two --> 
+                                    <div role="tabpanel" class="tab-pane fade" id="profile">
+                                        <div class="popular-news">
+                                            <div class="p-post">
+                                                <h4><a href="#">Kimi title 5  </a></h4>
+                                                <ul class="authar-info">
+                                                    <li class="date"><a href="#"><i class="ti-timer"></i> 01/02/2024</a></li>
+                                                    <li class="like"><a href="#"><i class="ti-thumb-up"></i>0 likes</a></li>
+                                                </ul>
+                                                <div class="reatting-2">
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star-half-alt"></i>
+                                                    <i class="far fa-star"></i>
+                                                </div>
+                                            </div>
+                                            <div class="p-post">
+                                                <h4><a href="#">Kimi title 5  </a></h4>
+                                                <ul class="authar-info">
+                                                    <li class="date"><a href="#"><i class="ti-timer"></i> 01/02/2024</a></li>
+                                                    <li class="like"><a href="#"><i class="ti-thumb-up"></i>0 likes</a></li>
+                                                </ul>
+                                                <div class="reatting-2">
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star-half-alt"></i>
+                                                    <i class="far fa-star"></i>
+                                                </div>
+                                            </div>
+                                            <div class="p-post">
+                                                <h4><a href="#">Kimi title 5  </a></h4>
+                                                <ul class="authar-info">
+                                                    <li class="date"><a href="#"><i class="ti-timer"></i> 01/02/2024</a></li>
+                                                    <li class="like"><a href="#"><i class="ti-thumb-up"></i>0 likes</a></li>
+                                                </ul>
+                                                <div class="reatting-2">
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star-half-alt"></i>
+                                                    <i class="far fa-star"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- END OF /. NAV TABS -->
+                        </div>
+                    </div>
+                    <!-- END OF /. SIDE CONTENT -->
+                </div>
+            </div>
+
+            <!-- START YOUTUBE VIDEO -->
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="youtube-wrapper">
+                            <div class="playlist-title">
+                                <h4>Latest Video News</h4>
+                            </div>
+                            <div id="rypp-demo-1" class="RYPP r16-9"  data-ids="cIyVNoY3_L4,PQEX8QQ1fWg,3WWlhPmqXQI,kssD4L2NBw0,YcwrRA2BIlw,HMpmI2F2cMs,intentionally_erroneus">
+                                <div class="RYPP-video">
+                                    <div class="RYPP-video-player">
+                                        <!-- Will be replaced -->
+                                    </div>
+                                </div>
+                                <div class="RYPP-playlist">
+                                    <header>
+                                        <h2 class="_h1 RYPP-title">Playlist title</h2>
+                                        <p class="RYPP-desc">Playlist subtitle <a href="#" target="_blank">#hashtag</a></p>
+                                    </header>
+                                    <div class="RYPP-items"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- END OF /. YOUTUBE VIDEO -->
+            <section class="articles-wrapper">
+                <div class="container">
+                    <div class="row row-m">
+                        <div class="col-sm-8 main-content col-p">
+                            <div class="theiaStickySidebar">
+                                <!-- START CARD POST -->
+                                <div class="row row-m">
+                                    <div class="col-sm-6 col-p">
+                                        <div class="posts card-post">
+                                            {% for post in latest_news %}
+                                            {% if forloop.first %}
+                                            <div class="post-grid post-grid-item">
+                                                <figure class="posts-thumb">
+                                                    <span class="post-category">{{post.title}}</span>
+                                                    <a href="#"><img src="{% static 'images/378x270-1.jpg' %}" alt=""></a>
+                                                </figure>
+                                                <div class="posts-inner">
+                                                    <a href="#" class="posts-link"></a>
+                                                    <h6 class="posts-title"><a href=""{% url 'mag:post_detail' pk=post.pk %}"">{{post.title}}</a></h6>
+                                                    <ul class="authar-info">
+                                                        <li><i class="ti-timer"></i> {{post.pub_date}}</li>
+                                                        <li class="like"><a href="#"><i class="ti-thumb-up"></i>{{ post.likes }} likes</a></li>
+                                                    </ul>
+                                                    <p>{{post.body|truncatechars:100}}
+                                                    </p>
+                                                </div>
+                                                <div class="posts__footer card__footer">
+                                                    <div class="post-author">
+                                                        <figure class="post-author-avatar hidden-xs">
+                                                            <img src="{% static 'images/avatar-1.jpg' %}" alt="Post Author Avatar">
+                                                        </figure>
+                                                        <div class="post-author-info ">
+                                                            <h4 class="post-author-name">Posté par {{ post.Author.name }}</h4>
+                                                        </div>
+                                                    </div>
+                                                    <ul class="post-meta">
+                                                        <li class="meta-item "><a href="#"><i class="ti-heart"></i> {{ post.likes }}</a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            {% endif %}
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 col-p">
+                                        <div class="posts">
+                                            {% for post in latest_news %}
+                                                {% if forloop.first %}
+                                                {% endif %}
+                                            <ul>
+                                                <li class="post-grid">
+                                                    <div class="posts-inner">
+                                                        <span class="post-category">{{post.Category.name}}</span>
+                                                        <h6 class="posts-title"><a href=""{% url 'mag:post_detail' pk=post.pk %}"">{{post.title}}</a></h6>
+                                                        <ul class="authar-info">
+                                                            <li><i class="ti-timer"></i>  {{post.pub_date}}</li>
+                                                            <li class="like"><a href="#"><i class="ti-thumb-up"></i>{{ post.likes }} likes</a></li>
+                                                        </ul>
+                                                        <p>{{post.body|truncatechars:50}}</p>
+                                                    </div>
+                                                </li>
+
+                                            </ul>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- END OF /. CARD POST -->
+                                <!-- START ADVERTISEMENT -->
+                                <div class="add-inner">
+                                    <img src="{% static 'images/add728x90-1.jpg' %}" class="img-responsive" alt="">
+                                </div>
+                                <!-- END OF /. ADVERTISEMENT -->
+                                <!-- START POST CATEGORY STYLE FOUR (Latest articles ) -->
+                                <div class="post-inner">
+                                    <!--post header-->
+                                    <div class="post-head">
+                                        <h2 class="title"><strong>Derniéres</strong> articles</h2>
+                                    </div>
+                                    <!-- post body -->
+                                    <div class="post-body">
+                                        {% for news in latest_news %}
+                                            <div class="news-list-item articles-list">
+                                                <div class="img-wrapper">
+                                                    <a href="#" class="thumb"><img src="{% static 'images/218x150-1.jpg' %}" alt="" class="img-responsive"></a>
+                                                </div>
+                                                <div class="post-info-2">
+                                                    <h4><a href="#" class="title"> {{ post.title }}</a></h4>
+                                                    <ul class="authar-info">
+                                                        <li><i class="ti-timer"></i> {{post.pub_date}}</li>
+                                                        <li class="like"><a href="#"><i class="ti-thumb-up"></i>{{ post.likes }} likes</a></li>
+                                                    </ul>
+                                                    <p class="hidden-sm"> {{post.body|truncatechars:150}}</p>
+                                                </div>
+                                            </div>
+                                            {% endfor %}
+                                            <!--Post footer-->
+                                            <div class="post-footer"> 
+                                                <div class="row thm-margin">
+                                                    <div class="col-xs-12 col-sm-8 col-md-9 thm-padding">
+                                                        <!-- pagination -->
+                                                        <ul class="pagination">
+                                                            <li class="disabled"><span class="ti-angle-left"></span></li>
+                                                            <li class="active"><span>1</span></li>
+                                                            <li><a href="#">2</a></li>
+                                                            <li><a href="#">3</a></li>
+                                                            <li class="disabled"><span class="extend">...</span></li><li>
+                                                            <li><a href="#">12</a></li>
+                                                            <li><a href="#"><i class="ti-angle-right"></i></a></li>
+                                                        </ul> <!-- /.pagination -->
+                                                    </div>
+                                                    <div class="hidden-xs col-sm-4 col-md-3 thm-padding">
+                                                        <div class="social">
+                                                            <ul>
+                                                                <li>
+                                                                    <div class="share transition">
+                                                                        <a href="#" target="_blank" class="ico fb"><i class="fab fa-facebook-f"></i></a>
+                                                                        <a href="#" target="_blank" class="ico tw"><i class="fab fa-twitter"></i></a>
+                                                                        <a href="#" target="_blank" class="ico rs"><i class="fas fa-rss"></i></a>
+                                                                        <a href="#" target="_blank" class="ico pin"><i class="fab fa-pinterest-p"></i></a>
+                                                                        <i class="ti-share ico-share"></i>
+                                                                    </div>
+                                                                </li>
+                                                                <li><a href="#"><i class="ti-heart"></i></a></li>
+                                                                <li><a href="#"><i class="ti-twitter"></i></a></li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div> <!-- /.Post footer-->
+                                        </div>
+                                    </div> <!-- /. post body -->
+                                    <!--Post footer-->
+                                    <div class="post-footer"> 
+                                        <div class="row thm-margin">
+                                            <div class="col-xs-12 col-sm-8 col-md-9 thm-padding">
+                                                <!-- pagination -->
+                                                <ul class="pagination">
+                                                    <li class="disabled"><span class="ti-angle-left"></span></li>
+                                                    <li class="active"><span>1</span></li>
+                                                    <li><a href="#">2</a></li>
+                                                    <li><a href="#">3</a></li>
+                                                    <li class="disabled"><span class="extend">...</span></li><li>
+                                                    <li><a href="#">5</a></li>
+                                                    <li><a href="#"><i class="ti-angle-right"></i></a></li>
+                                                </ul> <!-- /.pagination -->
+                                            </div>
+                                            <div class="hidden-xs col-sm-4 col-md-3 thm-padding">
+                                                <div class="social">
+                                                    <ul>
+                                                        <li>
+                                                            <div class="share transition">
+                                                                <a href="#" target="_blank" class="ico fb"><i class="fab fa-facebook-f"></i></a>
+                                                                <a href="#" target="_blank" class="ico tw"><i class="fab fa-twitter"></i></a>
+                                                                <a href="#" target="_blank" class="ico rs"><i class="fas fa-rss"></i></a>
+                                                                <a href="#" target="_blank" class="ico pin"><i class="fab fa-pinterest-p"></i></a>
+                                                                <i class="ti-share ico-share"></i>
+                                                            </div> 
+                                                        </li>
+                                                        <li><a href="#"><i class="ti-heart"></i></a></li>
+                                                        <li><a href="#"><i class="ti-twitter"></i></a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div> <!-- /.Post footer-->
+                                </div>
+                                <!-- END OF /. POST CATEGORY STYLE FOUR (Latest articles ) -->
+                            </div>
+                        </div>
+                        <div class="col-sm-4 rightSidebar col-p">
+                            <div class="theiaStickySidebar">
+                                <!-- START SOCIAL ICON -->
+                                <div class="social-media-inner">
+                                    <ul class="social-media clearfix">
+                                        <li>
+                                            <a href="#" class="rss">
+                                                <i class="fas fa-rss"></i>
+                                                <p>Subscribers</p>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#" class="fb">
+                                                <i class="fab fa-facebook-f"></i>
+                                                <p>Fans</p>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#" class="insta">
+                                                <i class="fab fa-instagram"></i>
+                                                <p>Followers</p>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#" class="you_tube">
+                                                <i class="fab fa-youtube"></i>
+                                                <p>Subscribers</p>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#" class="twitter">
+                                                <i class="fab fa-twitter"></i>
+                                                <p>Followers</p>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#" class="pint">
+                                                <i class="fab fa-pinterest-p"></i>
+                                                <p>Followers</p>
+                                            </a>
+                                        </li>
+                                    </ul> <!-- /.social icon -->     
+                                </div>
+                                <!-- END OF /. SOCIAL ICON -->
+                                <!-- START GAMES RESULT POST -->
+                                <div class="panel_inner games-news">
+                                    <div class="panel_header">
+                                        <h4><strong>Last</strong> Game Results</h4>
+                                    </div>
+                                    <div class="panel_body">
+                                        <div class="games-result-header">
+                                            <h3 class="games-result-title"> Kimi Championship Finals</h3>
+                                            <time class="games-result-date" datetime="2016-03-24">Saturday, March 24th, 2017</time>
+                                        </div>
+                                        <div class="games-result-main">
+                                            <!-- 1st Team -->
+                                            <div class="games-result-team">
+                                                <div class="games-result-team-logo">
+                                                    <a href="#"><img src="{% static 'images/game_results_logo_1.png' %}" class="img-responsive" alt=""></a>
+                                                </div>
+                                                <div class="games-result-team-info">
+                                                    <h5 class="games-result-team-name">Alchemists</h5>
+                                                    <div class="games-result-team-desc">Elric School</div>
+                                                </div>
+                                            </div>
+                                            <!-- 1st Team / End -->
+                                            <div class="games-result-score-inner">
+                                                <div class="games-result-score">
+                                                    <span class="games-result-score-result winner">107</span> 
+                                                    <span>-</span>
+                                                    <span class="games-result-score-result loser">102</span>
+                                                </div>
+                                                <div class="games-result-score-label">Final Score</div>
+                                            </div>
+                                            <!-- 2nd Team -->
+                                            <div class="games-result-team">
+                                                <div class="games-result-team-logo">
+                                                    <a href="#"><img src="{% static 'images/game_results_logo_2.png'%}" class="img-responsive" alt=""></a>
+                                                </div>
+                                                <div class="games-result-team-info">
+                                                    <h5 class="games-result-team-name">Sharks</h5>
+                                                    <div class="games-result-team-desc">Marine College</div>
+                                                </div>
+                                            </div>
+                                            <!-- 2nd Team / End -->
+                                        </div>
+                                    </div>
+                                    <div class="table-responsive">
+                                        <table class="table text-center">
+                                            <thead>
+                                                <tr>
+                                                    <th>Scoreboard</th>
+                                                    <th>1</th>
+                                                    <th>2</th>
+                                                    <th>3</th>
+                                                    <th>4</th>
+                                                    <th>T</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <th>Alchemists</th>
+                                                    <td>30</td>
+                                                    <td>31</td>
+                                                    <td>22</td>
+                                                    <td>24</td>
+                                                    <td>107</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Sharks</th>
+                                                    <td>22</td>
+                                                    <td>34</td>
+                                                    <td>20</td>
+                                                    <td>26</td>
+                                                    <td>102</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <!-- END OF /. GAMES RESULT POST -->
+                                <!-- START CATEGORIES WIDGET -->
+                                <div class="panel_inner categories-widget">
+                                    <div class="panel_header">
+                                        <h4><strong>Trending</strong> Catégories</h4>
+                                    </div>
+                                    <div class="panel_body">
+                                        <ul class="category-list">
+                                            <li><a href="#">Business <span>count_posts_in_category(Business)</span></a></li>
+                                            <li><a href="#">Sport <span>count_posts_in_category(Sport)</span></a></li>
+                                            <li><a href="#">LifeStyle <span>count_posts_in_category(LifeStyle)</span></a></li>
+                                            <li><a href="#">Fashion <span>count_posts_in_category(Fashion)</span></a></li>
+                                            <li><a href="#">Technologie <span>count_posts_in_category(Technologie)</span></a></li>
+                                            <li><a href="#">Musique <span>count_posts_in_category(Musique)</span></a></li>
+                                            <li><a href="#">Culture <span>count_posts_in_category()</span></a></li>
+                                            <li><a href="#">Design <span>count_posts_in_category(Design)</span></a></li>
+                                            <li><a href="#">Divertissement <span>count_posts_in_category(Divertissement)</span></a></li>
+                                            <li><a href="#">video <span>count_posts_in_category(video)</span></a></li>
+                                            <li><a href="#">Voyage <span>count_posts_in_category(Voyage)</span></a></li>
+                                            <li><a href="#">Food <span>count_posts_in_category(Food)</span></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <!-- END OF /. CATEGORIES WIDGET -->
+                                <!-- START ADVERTISEMENT -->
+                                <div class="add-inner">
+                                    <img src="{% static 'images/add320x270-1.jpg' %}" class="img-responsive" alt="">
+                                </div>
+                                <!-- END OF /. ADVERTISEMENT -->
+                                <!-- START ARCHIVE -->
+                                <div class="archive-wrapper">
+                                    <div id="datepicker"></div>
+                                </div>
+                                <!-- END OF /. ARCHIVE -->
+                                <!-- START POLL WIDGET -->
+                                <div class="panel_inner poll-widget">
+                                    <div class="panel_header">
+                                        <h4><strong>Sondage</strong></h4>
+                                    </div>
+                                    <div class="panel_body poll-content">
+                                        <form method="get" id="home_poll">
+                                            <h6>Avez vous des suggestions</h6>
+                                            <ul>
+                                                <li><input id="poll_5444" value="5444" name="poll" type="radio"><label for="poll_5444"> Oui.</label></li>
+                                                <li><input id="poll_5445" value="5445" name="poll" type="radio"><label for="poll_5445">Non.</label></li>
+                                            </ul>
+                                            <a href="#" class="btn btn-news">Envoyer</a>
+                                        </form>
+                                    </div>
+                                </div>
+                                <!-- END OF /. POLL WIDGET -->
+                                <!-- START TAGS -->
+                                <div class="panel_inner">
+                                    <div class="panel_header">
+                                        <h4><strong>Tags </strong></h4>
+                                    </div>
+                                    <div class="panel_body">
+                                        <div class="tags-inner">
+                                            <a class="ui tag">Nature</a>
+                                            <a class="ui tag">Fashion</a>
+                                            <a class="ui tag">Actualités</a>
+                                            <a class="ui tag">Photo</a>
+                                            <a class="ui tag">Voyage</a>
+                                            <a class="ui tag">Hotel</a>
+                                            <a class="ui tag">Business</a>
+                                            <a class="ui tag">Culture</a>
+                                            <a class="ui tag">Sports</a>
+                                            <a class="ui tag">Design</a>
+                                            <a class="ui tag">Divertissement </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- END OF /. TAGS -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </body>
+    {% endblock content%}

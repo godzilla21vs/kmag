@@ -92,24 +92,24 @@
                                 <div class="header-top-links">
                                     <ul class="menu">
                                         <div class="dropdown">
-                                            <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                <i class="fa fa-user-circle"></i>  Compte
+                                            <button class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <i class="fa fa-user-circle"></i> Compte
                                             </button>
-                                            <ul class="dropdown-menu">
+                                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                                 {% if request.user.is_authenticated %}
-                                                <li><a href="{% url 'mag:signout'%}">Déconnexion</a></li>
+                                                    <li><a class="dropdown-item" href="{% url 'mag:signout'%}">Déconnexion</a></li>
                                                 {% else %}
-                                                <li><a href="{% url 'mag:signin'%}">Connexion / Enregistrement</a></li>
-                                                {% endif %}</a>
-                                                <li><a href="#">Langue</a></li>
+                                                    <li><a class="dropdown-item" href="{% url 'mag:signin'%}">Connexion / Enregistrement</a></li>
+                                                {% endif %}
+                                                <li><a class="dropdown-item" href="#">Langue</a></li>
                                                 {% if request.user.is_authenticated %}
-                                                <a href="{% url 'mag:profile' %}">Mon Profil</a>
-                                                {% else %}
+                                                    <li><a class="dropdown-item" href="{% url 'mag:profile' %}">Mon Profil</a></li>
                                                 {% endif %}
                                             </ul>
                                         </div>
                                     </ul>
                                 </div>
+                                
                             </div>
                         </div>
                         

@@ -66,6 +66,23 @@
                                     <li class="hidden-xs"><a href="#"><i class="fab fa-youtube"></i></a></li>
                                     <li class="hidden-xs"><a href="#"><i class="fab fa-vimeo-v"></i></a></li>
                                 </ul>
+                                <div class="top-left-menu">
+                                    <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="fa fa-user-circle"></i>  Compte
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        {% if request.user.is_authenticated %}
+                                        <li><a href="{% url 'mag:signout'%}">Déconnexion</a></li>
+                                        {% else %}
+                                        <li><a href="{% url 'mag:signin'%}">Connexion / Enregistrement</a></li>
+                                        {% endif %}</a>
+                                        <li><a href="#">Langue</a></li>
+                                        {% if request.user.is_authenticated %}
+                                        <a href="{% url 'mag:profile' %}">Mon Profil</a>
+                                        {% else %}
+                                        {% endif %}
+                                    </ul>
+                                </div>
                             </div>
                             <!-- End of /. header social -->
                             <!-- Start top left menu -->

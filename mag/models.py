@@ -5,7 +5,7 @@ from django.conf import settings
 from django.db.models import Q
 from django.urls import reverse
 from django.utils.text import slugify
-
+from django.contrib.auth.hashers import make_password
 # Création des modèles
 
 class Utilisateur(models.Model):
@@ -25,7 +25,7 @@ class Utilisateur(models.Model):
 
 class ProfilePicture(models.Model):
     utilisateur = models.OneToOneField(Utilisateur, on_delete=models.CASCADE)
-    image = models.ImageField(upload_to='media/profile_pictures/')
+    image = models.ImageField(upload_to='profile_pictures/')
 
 class Post(models.Model): 
     title = models.CharField(max_length=100, unique=True) 
@@ -34,7 +34,9 @@ class Post(models.Model):
     pub_date = models.DateTimeField('date published', auto_now=True, )
     Category = models.ForeignKey('Category', on_delete=models.CASCADE) 
     Author = models.ForeignKey('Author', on_delete=models.CASCADE)
-    likes = models.IntegerField(default=0)
+    likes = models.ManyToManyField(
+        Utilisateur, related_name='liked_posts', default=None, blank=True)
+    like_count = models.BigIntegerField(default='0')
     featured = models.BooleanField(default=False)
     numberView = models.IntegerField(null=True,)
 
@@ -42,10 +44,10 @@ class Post(models.Model):
         return self.title
 
     def was_seen_by_user(self, user):
-        return Post.objects.filter(utilisateur__user=user, post=self).exists()
+        return Post.objects.filter(utilisateur=user, post=self).exists()
 
     def count_views(self):
-         return self.postseen_set.count()
+         return self.postseen.count()
     
     def search_posts(self, query):
         return Post.objects.filter(
@@ -57,11 +59,11 @@ class Post(models.Model):
     
 class MainImage(models.Model):
     post = models.OneToOneField(Post, on_delete=models.CASCADE)
-    image = models.ImageField(upload_to='media/main_images/')
+    image = models.ImageField(upload_to='main_images/')
 
 class Thumbnail(models.Model):
     post = models.OneToOneField(Post, on_delete=models.CASCADE)
-    image = models.ImageField(upload_to='media/thumbnails/', null=True, blank=True)
+    image = models.ImageField(upload_to='thumbnails/', null=True, blank=True)
 
 class Category(models.Model):
     name = models.CharField(max_length=255, blank=True)
@@ -78,13 +80,14 @@ class Tags(models.Model):
         return self.name
 
 class Author(models.Model):
-    name = models.CharField(max_length=255, blank=True)
+    name = models.CharField(max_length=255, blank=True, unique=True)
     email = models.EmailField(max_length=255, unique=True)
-    phone = models.CharField(max_length=15)
+    phone = models.CharField(max_length=16)
+    password = models.CharField(max_length=255,)  # Define a default password
     date_joined = models.DateTimeField(('date joined'), auto_now=True)
 
     class Meta:
-        unique_together = ('email',)
+        unique_together = ('email','name')
     
     def __str__(self):
         return self.name
@@ -96,22 +99,29 @@ class Comment(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"Commenté par {self.author.username} on {self.post.title} at {self.created_at}"
+        return f"Commenté par {self.author.username} sur {self.post.title} a {self.created_at}"
 
 class PostSeen(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    utilisateur = models.ForeignKey(User, on_delete=models.CASCADE)
     post = models.ForeignKey('Post', on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        unique_together = ['user', 'post']
+        unique_together = ['utilisateur', 'post']
     
 class LikePost(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    utilisateur = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f"{self.user.username} likes {self.post.title}"
+        return f"{self.utilisateur.username} likes {self.post.title}"
+
+def get_default_author_id():
+    # Get the default author object from the database
+    default_author = Author.objects.filter(name='kimi team').first()
+    if default_author:
+        return default_author.pk  # Return the ID of the default author
+    return None  # Return None if the default author does not exist
 
 
 class News(models.Model):
@@ -119,15 +129,18 @@ class News(models.Model):
     slug = models.SlugField(unique=True) 
     body = models.TextField(max_length=2955)
     pub_date = models.DateTimeField('date published', auto_now=True,)
+    Author = models.ForeignKey(Author, on_delete=models.CASCADE, null=True, blank=True, default=get_default_author_id)
     Category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    likes = models.IntegerField(default=0)
+    likes = models.ManyToManyField(
+        Utilisateur, related_name='liked_news', default=None, blank=True)
+    like_count = models.BigIntegerField(default='0')
     numberView = models.IntegerField(null=True,)
 
     def __str__(self):
         return self.title
 
-    def was_seen_by_user(self, user):
-        return News.objects.filter(user=user, news=self).exists()
+    def was_seen_by_user(self, utilisateur):
+        return News.objects.filter(utilisateur=utilisateur, news=self).exists()
 
     def count_views(self):
         return News.objects.filter(news=self).count()
@@ -150,19 +163,19 @@ class CommentNews(models.Model):
         return f"Commenté par {self.author.username} on {self.news.title} at {self.created_at}"
 
 class LikeNews(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    post = models.ForeignKey(News, on_delete=models.CASCADE)
+    utilisateur = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    news = models.ForeignKey(News, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f"{self.user.username} likes {self.post.title}"
+        return f"{self.utilisateur.username} likes {self.news.title}"
 
 class newsSeen(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    utilisateur = models.ForeignKey(User, on_delete=models.CASCADE)
     news = models.ForeignKey('News', on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        unique_together = ['user', 'news']
+        unique_together = ['utilisateur', 'news']
 
 class Subscriber(models.Model):
     email= models.EmailField(unique=True)
@@ -171,11 +184,11 @@ class Subscriber(models.Model):
         return self.email
 class MainImageNews(models.Model):
     News = models.OneToOneField(News, on_delete=models.CASCADE)
-    image = models.ImageField(upload_to='media/main_images_news/')
+    image = models.ImageField(upload_to='main_images_news/')
 
 class ThumbnailNews(models.Model):
     News = models.OneToOneField(News, on_delete=models.CASCADE)
-    image = models.ImageField(upload_to='media/thumbnails_news/', null=True, blank=True)
+    image = models.ImageField(upload_to='thumbnails_news/', null=True, blank=True)
 
 class post_image(models.Model):
     image=models.ImageField()

@@ -5,16 +5,16 @@
             <!-- START NEWSTRICKER -->
             <div class="container">
                 <div class="newstricker_inner">
-                    <div class="trending"><strong>Trending</strong> Actuellement</div>
+                    <div class="trending"><strong>Trending</strong> Now</div>
                     <div class="news-ticker owl-carousel owl-theme">
                         <div class="item">
-                            <a href="#">Kimi Sarl.</a>
+                            <a href="#">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</a>
                         </div>
                         <div class="item">
-                            <a href="#">KImi sarl..</a>
+                            <a href="#">It is a long established fact that a reader will be distracted by the readable.</a>
                         </div>
                         <div class="item">
-                            <a href="#">KIMI Sarl.</a>
+                            <a href="#">Contrary to popular belief, Lorem Ipsum is not simply random text.</a>
                         </div>
                     </div>
                 </div>
@@ -27,7 +27,11 @@
                         {% for post in featured_posts %}
                         <div class="col-xs-6 col-sm-3 col-md-3 thm-padding">
                             <div class="slider-post post-height-3">
+                                {% for image in post.thumbnail_set.all %}
+                                    {% if forloop.count == 1 %}
                                 <a href="{% url 'mag:post_detail' pk=post.pk %}" class="news-image"><img src="{{ post.thumbnail.url }}" alt=""></a>
+                                    {% endif%}
+                                {% endfor%}
                                 <div class="post-text">
                                     <span class="post-category">{{ post.Category.name }}</span>
                                     <h4><a href="{% url 'mag:post_detail' pk=post.pk %}">{{ post.title }}</a></h4>
@@ -68,8 +72,10 @@
                                                 <div class="col-sm-6 main-post-inner bord-right">
                                                     <article>
                                                         <figure>
-                                                            <a href="{% url 'mag:post_detail' pk=post.pk %}"><img src="{{ post.thumbnail.url }}" height="242" width="345" alt="" class="img-responsive"></a>
+                                                            {% for image in post.mainimage_set.all %}
+                                                            <a href="{% url 'mag:post_detail' pk=post.pk %}"><img src="{{ image.image.url }}" height="242" width="345" alt="" class="img-responsive"></a>
                                                             <span class="post-category">{{ post.Category.name }}</span>
+                                                            {% endfor%}
                                                         </figure>
                                                         <div class="post-info">
                                                             <h3><a href="#">{{post.title}}</a></h3>
